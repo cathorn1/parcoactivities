@@ -21,6 +21,9 @@ using std::chrono::system_clock;
 
 int func, points, intensity;
 float lower, upper;
+float x;
+int i;
+float itgr_output;
 
 int main (int argc, char* argv[]) {
 
@@ -35,34 +38,36 @@ int main (int argc, char* argv[]) {
   sscanf(argv[4], "%d", &points);
   sscanf(argv[5], "%d", &intensity); 
 
-  float result = 0.0;
-  float x = ((upper-lower)/points);
-  float itgr_output = 0.0;
+  float result = 0.0;  
   
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
   if (func == 1) {
-    for (int i=0; i < (points-1); i++) {
+    for (i=0; i < (points-1); i++) {
+      x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f1(x, intensity);
     }
   }
   else if (func == 2) {
     for (int i=0; i < (points-1); i++) {
+      x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f2(x, intensity);
     }
   }
   else if (func == 3) {
     for (int i=0; i < (points-1); i++) {
+      x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f3(x, intensity);
     }
   }
   else if (func == 4) {
     for (int i=0; i < (points-1); i++) {
+      x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f4(x, intensity);
     }
   }
 
-  result = x * itgr_output;
+  result = ((upper-lower)/points) * itgr_output;
 
   std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::ratio<1>> duration = end - start;
