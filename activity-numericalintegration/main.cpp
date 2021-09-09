@@ -39,7 +39,7 @@ int main (int argc, char* argv[]) {
   sscanf(argv[4], "%d", &points);
   sscanf(argv[5], "%d", &intensity); 
 
-  float result = 0.0;  
+  float result;
   
   //get time in seconds before intensive code begins
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
