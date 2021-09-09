@@ -45,25 +45,25 @@ int main (int argc, char* argv[]) {
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
   if (func == 1) {
-    for (i=0; i < (points-1); i++) {
+    for (i=0; i <= (points-1); i++) {
       x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f1(x, intensity);
     }
   }
   else if (func == 2) {
-    for (int i=0; i < (points-1); i++) {
+    for (int i=0; i <= (points-1); i++) {
       x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f2(x, intensity);
     }
   }
   else if (func == 3) {
-    for (int i=0; i < (points-1); i++) {
+    for (int i=0; i <= (points-1); i++) {
       x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f3(x, intensity);
     }
   }
   else if (func == 4) {
-    for (int i=0; i < (points-1); i++) {
+    for (int i=0; i <= (points-1); i++) {
       x = ((lower + (i+.5)) * ((upper-lower)/points));
       itgr_output += f4(x, intensity);
     }
