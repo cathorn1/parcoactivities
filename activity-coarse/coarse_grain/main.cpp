@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <thread>
 
 #include "Dictionary.cpp"
 #include "MyHashtable.cpp"
@@ -45,7 +46,15 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
   return ret;
 }
 
-
+ void countWords(auto &filecontent, std::mutex& mut){
+    for (auto & w : filecontent) {
+        int count = dict.get(w);
+        mut.lock();
+        ++count;
+        mut.unlock();
+        dict.set(w, count);
+      }
+}
 
 int main(int argc, char **argv)
 {
@@ -77,13 +86,57 @@ int main(int argc, char **argv)
 
   // write code here
 
+// Start Timer
+  auto start =std::chrono::steady_clock::now();
 
 
+  // Populate Hash Table
+  // for (auto & filecontent: wordmap) {
+  //   for (auto & w : filecontent) {
+  //     int count = dict.get(w);
+  //     ++count;
+  //     dict.set(w, count);
+  //   }
+  // }
+
+  //  vector<thread> mythreads;
+  
+
+  // for (int i = 0; i < numMinion; i++){
+  //     thread mythread (minion, i);
+      
+  //     mythreads.push_back(move(mythread));
+  // }
+  
+  
+  // for (auto & t : mythreads) {
+  //     if (t.joinable())
+  //       t.join();
+  //     else
+  //       cout << "t is not joinable" << endl;
+  // }
+
+  std::vector<std::thread> countedThreads;
+  std::mutex mu;
+
+  for (auto &filecontent : wordmap) {
+      
+      std::thread hashThread (countWords, &filecontent, std::ref(mu));      
+      countedThreads.push_back(move(hashThread));      
+    }
 
 
+  for (auto & t : countedThreads) {
+    if (t.joinable())
+      t.join();
+    else
+      std::cout << "t is not joinable" << std::endl;
+  }
+  
 
-
-
+  // Stop Timer
+  auto stop = std::chrono::steady_clock::now();
+  std::chrono::duration<double> time_elapsed = stop-start;
 
 
   // Check Hash Table Values 
@@ -96,6 +149,6 @@ int main(int argc, char **argv)
 
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
-
+  std::cerr << time_elapsed.count()<<"\n";
   return 0;
 }
