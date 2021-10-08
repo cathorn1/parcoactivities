@@ -50,12 +50,12 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict, std::mutex& mut){
     for (auto &w : filecontent) {
-        
+        //mut.lock();
+        std::lock_guard<std::mutex> lg(mut);
         int count = dict.get(w);
-        mut.lock();
         ++count;
-        mut.unlock();
         dict.set(w, count);
+        //mut.unlock();
       }
 }
 
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
   for (std::vector<std::string> & filecontent : wordmap) {
       //auto content = filecontent;
       std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict), std::ref(mu));
-
+      
       countedThreads.push_back(move(hashThread));      
     }
 
@@ -134,8 +134,9 @@ int main(int argc, char **argv)
   }
   */
 
+  std::cerr << time_elapsed.count()<<"\n";
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
-  std::cerr << time_elapsed.count()<<"\n";
+  
   return 0;
 }
