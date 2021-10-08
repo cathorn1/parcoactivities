@@ -50,12 +50,12 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict, std::mutex& mut){
     for (auto &w : filecontent) {
-        //mut.lock();
+        
         std::lock_guard<std::mutex> lg(mut);
         int count = dict.get(w);
         ++count;
         dict.set(w, count);
-        //mut.unlock();
+        
       }
 }
 
@@ -89,29 +89,18 @@ int main(int argc, char **argv)
 
   // write code here
 
-// Start Timer
+  //Start Timer
   auto start = std::chrono::steady_clock::now();
-
-
-  // Populate Hash Table
-  // for (auto & filecontent: wordmap) {
-  //   for (auto & w : filecontent) {
-  //     int count = dict.get(w);
-  //     ++count;
-  //     dict.set(w, count);
-  //   }
-  // }
 
   std::vector<std::thread> countedThreads;
   std::mutex mu;
 
   for (std::vector<std::string> & filecontent : wordmap) {
-      //auto content = filecontent;
+      
       std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict), std::ref(mu));
       
       countedThreads.push_back(move(hashThread));      
     }
-
 
   for (auto & t : countedThreads) {
     if (t.joinable())
