@@ -51,11 +51,11 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
  void countWords(std::string filecontent, Dictionary<std::string, int> &dict, std::mutex& mut){
     for (auto &w : filecontent) {
         
-        int count = dict.get(&w);
+        int count = dict.get(w);
         mut.lock();
         ++count;
         mut.unlock();
-        dict.set(&w, count);
+        dict.set(w, count);
       }
 }
 
