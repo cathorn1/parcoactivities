@@ -159,7 +159,7 @@ public:
   /** New function to increment bucket val
    * @param key key of node to be counted
    */
-   virtual void incWordVal (const K& key) const {
+   virtual void incWordVal (const K& key) {
      V word = get(key);
      //auto wordVal = word.value;
      sMut.lock_shared();
