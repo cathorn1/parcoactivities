@@ -158,11 +158,11 @@ public:
 
   //New function to increment bucket val
    virtual void incWordVal (const K& key) {
-     auto word = get(key);
-     int wordVal = word->value;
-     wordVal++;
+     V word = get(key);
+     //auto wordVal = word.value;
+     word++;
      sMut.lock_shared();
-     set(key, wordVal);
+     set(key, word);
      sMut.unlock();
    }
 
