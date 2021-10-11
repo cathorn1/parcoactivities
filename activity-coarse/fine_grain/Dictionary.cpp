@@ -58,6 +58,9 @@ public:
    */
   virtual void set(const K& key, const V& value) = 0;
 
+
+   virtual void incWordVal(const K& key) const = 0;
+
   /**
    * deletes the node at given key
    * @param key key of node to be deleted

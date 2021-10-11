@@ -5,6 +5,8 @@
 #include <functional>
 #include <iostream>
 #include <vector>
+#include <mutex>
+#include <shared_mutex>
 
 template<class K, class V>
 struct Node {
@@ -83,22 +85,31 @@ protected:
     //and stealing its data at the end. This causes more memory
     //allocation than are really necessary as we could reuse all the
     //node objects without having a create a single new one.
-    auto temp_table = MyHashtable(capacity, this->loadFactor);
 
-    for (auto node : this->table) {
-      while (node != nullptr) {
-	      temp_table.set(node->key, node->value);
-	        if (node->next == nullptr) break;
-          node = node->next;
-      }
-    }
+
+    // auto temp_table = MyHashtable(capacity, this->loadFactor);
+
+    // for (auto node : this->table) {
+    //   while (node != nullptr) {
+	  //     temp_table.set(node->key, node->value);
+	  //       if (node->next == nullptr) break;
+    //       node = node->next;
+    //   }
+    // }
+
+
     //It is important to swap because we want the nodes in this and in
     //temp_table to be swapped so as to free the memory appropriately.
-    std::swap(this->capacity, temp_table.capacity);
-    std::swap(this->table, temp_table.table); 
+
+
+    // std::swap(this->capacity, temp_table.capacity);
+    // std::swap(this->table, temp_table.table); 
   }
 
 public:
+
+  std::shared_mutex sMut;
+
   /**
    * Returns the node at key
    * @param key key of node to get
@@ -144,6 +155,16 @@ public:
       this->resize(this->capacity * 2);
     }
   }
+
+  //New function to increment bucket val
+   virtual void incWordVal (const K& key) {
+     auto word = get(key);
+     int wordVal = word->value;
+     wordVal++;
+     sMut.lock_shared();
+     set(key, wordVal);
+     sMut.unlock();
+   }
 
   /**
    * deletes the node at given key

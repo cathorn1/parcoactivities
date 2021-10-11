@@ -2,6 +2,10 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <functional>
+#include <thread>
+#include <mutex>
+#include <shared_mutex>
 
 #include "Dictionary.cpp"
 #include "MyHashtable.cpp"
@@ -46,6 +50,19 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 }
 
 
+ void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict, std::mutex& mut){
+    for (auto &w : filecontent) {
+        
+        // std::lock_guard<std::mutex> lg(mut);
+        // int count = dict.get(w);
+        // ++count;
+        // dict.set(w, count);
+        
+        dict.incWordVal(w);
+
+      }
+}
+
 
 int main(int argc, char **argv)
 {
@@ -75,15 +92,32 @@ int main(int argc, char **argv)
 
 
 
-  // write code here
+// write code here
 
+  //Start Timer
+  auto start = std::chrono::steady_clock::now();
 
+  std::vector<std::thread> countedThreads;
+  std::mutex mu;
 
+  for (std::vector<std::string> & filecontent : wordmap) {
+      
+      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict), std::ref(mu));
+      
+      countedThreads.push_back(move(hashThread));      
+    }
 
+  for (auto & t : countedThreads) {
+    if (t.joinable())
+      t.join();
+    else
+      std::cout << "t is not joinable" << std::endl;
+  }
+  
 
-
-
-
+  // Stop Timer
+  auto stop = std::chrono::steady_clock::now();
+  std::chrono::duration<double> time_elapsed = stop-start;
 
 
   // Check Hash Table Values 
@@ -94,6 +128,7 @@ int main(int argc, char **argv)
   }
   */
 
+  std::cerr << time_elapsed.count()<<"\n";
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
 
