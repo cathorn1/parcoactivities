@@ -156,13 +156,15 @@ public:
     }
   }
 
-  //New function to increment bucket val
-   virtual void incWordVal (const K& key) {
-     auto word = get(key);
-     int wordVal = word->value;
-     wordVal++;
+  /** New function to increment bucket val
+   * @param key key of node to be counted
+   */
+   virtual void incWordVal (const K& key) const {
+     V word = get(key);
+     //auto wordVal = word.value;
      sMut.lock_shared();
-     set(key, wordVal);
+     word++;
+     set(key, word);
      sMut.unlock();
    }
 
