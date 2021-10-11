@@ -160,12 +160,13 @@ public:
    * @param key key of node to be counted
    */
    virtual void incWordVal (const K& key) {
+     std::lock_guard<std::shared_mutex> lg(sMut);
      V word = get(key);
-     //auto wordVal = word.value;
-     sMut.lock_shared();
+     //sMut.lock_shared();
+     
      word++;
      set(key, word);
-     sMut.unlock();
+     //sMut.unlock_shared();
    }
 
   /**

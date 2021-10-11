@@ -121,12 +121,12 @@ int main(int argc, char **argv)
 
 
   // Check Hash Table Values 
-  /* (you can uncomment, but this must be commented out for tests)
-  for (auto it : dict) {
-    if (it.second > thresholdCount)
-      std::cout << it.first << " " << it.second << std::endl;
-  }
-  */
+  //(you can uncomment, but this must be commented out for tests)
+  // for (auto it : dict) {
+  //   if (it.second > thresholdCount)
+  //     std::cout << it.first << " " << it.second << std::endl;
+  // }
+  
 
   std::cerr << time_elapsed.count()<<"\n";
   // Do not touch this, need for test cases
