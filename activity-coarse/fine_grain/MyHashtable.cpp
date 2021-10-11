@@ -167,7 +167,7 @@ public:
          
      word++;
      set(key, word);
-     //sMut.unlock_shared();
+     sMut.unlock_shared();
    }
 
   /**
