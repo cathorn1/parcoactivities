@@ -197,29 +197,29 @@ public:
     Spinlock sp;
     int val;
     
-    // while (node != nullptr) {
+    while (node != nullptr) {
       
-    //   //mut.lock();
-    //   if (node->key == key) {
+      //mut.lock();
+      if (node->key == key) {
                         
-    //     val = node->value;        
-    //     val++;        
-    //     node->value = val; 
+        val = node->value;        
+        val++;        
+        node->value = val; 
         
-    //     return;
+        return;
         
-    //   }     
+      }     
        
-    //   node = node->next;
-    //   //mut.unlock();
-    // } 
+      node = node->next;
+      //mut.unlock();
+    } 
     
     
-    V word = get(key);
-    mut.lock_shared();
-    word++;
-    mut.unlock_shared();
-    set(key, word);
+    // V word = get(key);
+    // mut.lock_shared();
+    // word++;
+    // mut.unlock_shared();
+    // set(key, word);
 
 
   //   //if we get here, then the key has not been found
