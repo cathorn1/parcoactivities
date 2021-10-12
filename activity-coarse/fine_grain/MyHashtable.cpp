@@ -197,9 +197,9 @@ public:
     Spinlock sp;
     int val;
 
+    mut.lock();
     while (node != nullptr) {
       
-      mut.lock();
 
       if (node->key == key) {
         //std::lock_guard<std::mutex> lg(mut);
@@ -215,9 +215,9 @@ public:
         return;
         
       }
-      mut.unlock();
       node = node->next;
     } 
+    mut.unlock();
     
     // V word = get(key);
     // mut.lock_shared();
