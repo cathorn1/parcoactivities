@@ -200,15 +200,18 @@ public:
     while (node != nullptr) {
       if (node->key == key) {
         //std::lock_guard<std::mutex> lg(mut);
-        //mut.lock();
+        
         
         val = node->value;
-        sp.lock();
+        //sp.lock();
+        mut.lock();
         val++;
-        sp.unlock();
+        //sp.unlock();
+        mut.unlock();
         node->value = val;
+        
         return;
-        //mut.unlock();
+        
       }
       node = node->next;
     } 
