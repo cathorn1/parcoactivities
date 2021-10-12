@@ -203,11 +203,11 @@ public:
       
       if (node->key == key) {
         
-        mut[node].lock();        
+        mut.lock();        
         val = node->value;        
         val++;        
         node->value = val; 
-        mut[node].unlock();
+        mut.unlock();
 
         return;
         
