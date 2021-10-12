@@ -193,47 +193,44 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];     
     
-    std::shared_mutex mut;
+    std::mutex mut;
     Spinlock sp;
     int val;
     
     while (node != nullptr) {
       
-      //mut.lock();
       if (node->key == key) {
                         
+        mut.lock();
         val = node->value;        
         val++;        
         node->value = val; 
         
+        mut.unlock();
         return;
         
       }     
        
       node = node->next;
-      //mut.unlock();
     } 
-    
-    
-    // V word = get(key);
-    // mut.lock_shared();
-    // word++;
-    // mut.unlock_shared();
-    // set(key, word);
-
+   
+  /*  
+     V word = get(key);
+     mut.lock();
+     word++;
+     mut.unlock();
+     set(key, word);
+*/
 
   //   //if we get here, then the key has not been found
     val = 0;
     node = new Node<K,V>(key, val);
     node->next = this->table[index];
     this->table[index] = node;
-    int cnt = this->count;
-    cnt++;
-    this->count = cnt++;
-
+    this->count++;
+        
     if (((double)this->count)/this->capacity > this->loadFactor) {
-      //this->resize(this->capacity * 2);
-
+    this->resize(this->capacity * 2);
    }
   }
 
