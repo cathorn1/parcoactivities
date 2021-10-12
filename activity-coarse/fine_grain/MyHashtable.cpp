@@ -169,12 +169,13 @@ public:
     int val = 0;
 
     while (node != nullptr) {
-      if (node->key == key)
+      if (node->key == key) {
+        mut.lock();
         val = node->value;
-        mut.lock_shared();
         val++;
-        mut.unlock_shared();
         node->value = val;
+        mut.unlock();
+      }
       node = node->next;
     } 
     
