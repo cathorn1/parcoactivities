@@ -166,16 +166,16 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];     
     
+    std::mutex mut;
     int val = 0;
 
     while (node != nullptr) {
       if (node->key == key) {
-        std::shared_mutex mut;
-        mut.lock_shared();
+        mut.lock();
         val = node->value;
         val++;
         node->value = val;
-        mut.unlock_shared();
+        mut.unlock();
       }
       node = node->next;
     } 
