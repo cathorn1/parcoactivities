@@ -61,7 +61,7 @@ protected:
 
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
-    int bucket;
+    int bucket = 0;
     Node<K,V>* cur;
 
     hashtable_iter() = default;
@@ -188,52 +188,50 @@ public:
    * @param value new val
    */
   
-   virtual void incWordVal (const K& key) {
+   virtual void incWordVal (const K& key) const {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];     
     
-    std::mutex mut;
+    std::shared_mutex mut;
     Spinlock sp;
     int val;
     
-        
-    while (node != nullptr) {
+    // while (node != nullptr) {
       
-      
-      if (node->key == key) {
+    //   //mut.lock();
+    //   if (node->key == key) {
+                        
+    //     val = node->value;        
+    //     val++;        
+    //     node->value = val; 
         
-        mut.lock();        
-        val = node->value;        
-        val++;        
-        node->value = val; 
-        mut.unlock();
-
-        return;
+    //     return;
         
-      }      
-      node = node->next;
-      
-    } 
+    //   }     
+       
+    //   node = node->next;
+    //   //mut.unlock();
+    // } 
     
     
-  //   // V word = get(key);
-  //   // mut.lock_shared();
-  //   // word++;
-  //   // mut.unlock_shared();
-  //   // set(key, word);
+    V word = get(key);
+    mut.lock_shared();
+    word++;
+    mut.unlock_shared();
+    set(key, word);
 
 
   //   //if we get here, then the key has not been found
-  //   val = 0;
-  //   node = new Node<K,V>(key, val);
-  //   node->next = this->table[index];
-  //   this->table[index] = node;
-  //   this->count++;
-  //   if (((double)this->count)/this->capacity > this->loadFactor) {
-  //   //this->resize(this->capacity * 2);
+    val = 0;
+    node = new Node<K,V>(key, val);
+    node->next = this->table[index];
+    this->table[index] = node;
+    this->count++;
+    if (((double)this->count)/this->capacity > this->loadFactor) {
+      //this->resize(this->capacity * 2);
 
-   // }
+   }
   }
 
 
