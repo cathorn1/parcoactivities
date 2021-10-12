@@ -171,11 +171,12 @@ public:
 
     while (node != nullptr) {
       if (node->key == key) {
-        mut.lock();
+        std::lock_guard<std::mutex> lg(mut);
+        //mut.lock();
         val = node->value;
         val++;
         node->value = val;
-        mut.unlock();
+        //mut.unlock();
       }
       node = node->next;
     } 
