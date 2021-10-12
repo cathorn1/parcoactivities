@@ -188,7 +188,7 @@ public:
    * @param value new val
    */
   
-   virtual void incWordVal (const K& key) const {
+   virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];     
