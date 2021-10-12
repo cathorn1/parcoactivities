@@ -195,11 +195,13 @@ public:
       if (node->key == key) {
         //std::lock_guard<std::mutex> lg(mut);
         //mut.lock();
-        sp.lock();
+        
         val = node->value;
+        sp.lock();
         val++;
-        node->value = val;
         sp.unlock();
+        node->value = val;
+        
         //mut.unlock();
       }
       node = node->next;
