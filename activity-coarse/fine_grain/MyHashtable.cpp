@@ -32,15 +32,10 @@ private:
 public:
     void lock()
     {
-        for (;;)
+       while (atomic_flag.test_and_set(std::memory_order_acquire))
         {
-            if (!atomic_flag.test_and_set(std::memory_order_acquire))
-            {
-                break;
-            }
-            while (atomic_flag.test(std::memory_order_relaxed))
-                ;
         }
+     
     }
     void unlock()
     {
