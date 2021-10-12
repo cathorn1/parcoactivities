@@ -195,7 +195,7 @@ public:
     
     std::mutex mut;
     Spinlock sp;
-    int val = 0;
+    int val;
 
     while (node != nullptr) {
       if (node->key == key) {
@@ -224,6 +224,7 @@ public:
 
 
     //if we get here, then the key has not been found
+    val = 0;
     node = new Node<K,V>(key, val);
     node->next = this->table[index];
     this->table[index] = node;
