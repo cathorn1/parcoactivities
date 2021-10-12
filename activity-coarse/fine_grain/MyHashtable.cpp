@@ -7,6 +7,8 @@
 #include <vector>
 #include <mutex>
 #include <shared_mutex>
+#include <atomic>
+
 
 template<class K, class V>
 struct Node {
@@ -20,6 +22,30 @@ struct Node {
 
   Node() = default;
   ~Node() = default;
+};
+
+class Spinlock
+{
+private:
+    std::atomic_flag atomic_flag = ATOMIC_FLAG_INIT;
+
+public:
+    void lock()
+    {
+        for (;;)
+        {
+            if (!atomic_flag.test_and_set(std::memory_order_acquire))
+            {
+                break;
+            }
+            while (atomic_flag.test(std::memory_order_relaxed))
+                ;
+        }
+    }
+    void unlock()
+    {
+        atomic_flag.clear(std::memory_order_release);
+    }
 };
 
 template<class K, class V>
@@ -167,15 +193,18 @@ public:
     Node<K,V>* node = this->table[index];     
     
     std::mutex mut;
+    Spinlock sp;
     int val = 0;
 
     while (node != nullptr) {
       if (node->key == key) {
-        std::lock_guard<std::mutex> lg(mut);
+        //std::lock_guard<std::mutex> lg(mut);
         //mut.lock();
+        sp.lock();
         val = node->value;
         val++;
         node->value = val;
+        sp.unlock();
         //mut.unlock();
       }
       node = node->next;
