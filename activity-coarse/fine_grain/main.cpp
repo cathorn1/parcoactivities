@@ -90,8 +90,6 @@ int main(int argc, char **argv)
   MyHashtable<std::string, int> ht;
   Dictionary<std::string, int>& dict = ht;
 
-
-
 // write code here
 
   //Start Timer

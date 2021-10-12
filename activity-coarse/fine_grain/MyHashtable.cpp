@@ -188,39 +188,33 @@ public:
    * @param value new val
    */
   
-  //  virtual void incWordVal (const K& key) {
-  //   std::size_t index = std::hash<K>{}(key) % this->capacity;
-  //   index = index < 0 ? index + this->capacity : index;
-  //   Node<K,V>* node = this->table[index];     
+   virtual void incWordVal (const K& key) {
+    std::size_t index = std::hash<K>{}(key) % this->capacity;
+    index = index < 0 ? index + this->capacity : index;
+    Node<K,V>* node = this->table[index];     
     
-  //   std::shared_mutex mut;
-  //   Spinlock sp;
-  //   int val;
+    std::mutex mut;
+    Spinlock sp;
+    int val;
     
         
-  //   // while (node != nullptr) {
+    while (node != nullptr) {
       
-  //   //   //mut.lock_shared();
-  //   //   //sp.lock();
-  //   //   if (node->key == key) {
-  //   //     //std::lock_guard<std::mutex> lg(mut);
-  //   //     //std::unique_lock<std::mutex> lock(mut);
-  //   //     mut[node].lock();
+      
+      if (node->key == key) {
         
-  //   //     //val = node->value;        
-  //   //     //val++;        
-  //   //     node->value = (node->value)++; 
-  //   //     //mut[node].unlock();
+        mut[node].lock();        
+        val = node->value;        
+        val++;        
+        node->value = val; 
+        mut[node].unlock();
 
-  //   //     return;
+        return;
         
-  //   //   }
-  //   //   //sp.unlock();
-  //   //   //mut.unlock_shared();
+      }      
+      node = node->next;
       
-  //   //   node = node->next;
-      
-  //   // } 
+    } 
     
     
   //   // V word = get(key);
@@ -239,8 +233,8 @@ public:
   //   if (((double)this->count)/this->capacity > this->loadFactor) {
   //   //this->resize(this->capacity * 2);
 
-  //   }
-  // }
+   // }
+  }
 
 
 
