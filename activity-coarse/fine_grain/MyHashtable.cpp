@@ -198,21 +198,24 @@ public:
     int val;
 
     while (node != nullptr) {
+      
+      mut.lock();
+
       if (node->key == key) {
         //std::lock_guard<std::mutex> lg(mut);
         
-        
         val = node->value;
         //sp.lock();
-        mut.lock();
+        
         val++;
         //sp.unlock();
-        mut.unlock();
+        
         node->value = val;
         
         return;
         
       }
+      mut.unlock();
       node = node->next;
     } 
     
