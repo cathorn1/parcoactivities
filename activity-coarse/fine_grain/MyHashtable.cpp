@@ -32,16 +32,22 @@ private:
 public:
     void lock()
     {
-       while (atomic_flag.test_and_set(std::memory_order_acquire))
+        for (;;)
         {
+            if (!atomic_flag.test_and_set(std::memory_order_acquire))
+            {
+                break;
+            }
+            while (atomic_flag.test_and_set(std::memory_order_relaxed))
+                ;
         }
-     
     }
     void unlock()
     {
         atomic_flag.clear(std::memory_order_release);
     }
 };
+
 
 template<class K, class V>
 class MyHashtable : public Dictionary<K, V> {
