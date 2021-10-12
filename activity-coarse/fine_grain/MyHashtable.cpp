@@ -161,13 +161,12 @@ public:
    */
    virtual void incWordVal (const K& key) {
      // std::lock_guard<std::shared_mutex> lg(sMut);
-     
+     std::shared_mutex mut;
+     mut.lock_shared();
      V word = get(key);
-     sMut.lock_shared();
-         
      word++;
      set(key, word);
-     sMut.unlock_shared();
+     mut.unlock_shared();
    }
 
   /**
