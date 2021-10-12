@@ -165,10 +165,10 @@ public:
     
      V word = get(key);
      mut.lock_shared();
-    
      word++;
-     set(key, word);
      mut.unlock_shared();
+     set(key, word);
+     
    }
 
   /**
