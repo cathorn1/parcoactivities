@@ -227,7 +227,10 @@ public:
     node = new Node<K,V>(key, val);
     node->next = this->table[index];
     this->table[index] = node;
-    this->count++;
+    int cnt = this->count;
+    cnt++;
+    this->count = cnt++;
+
     if (((double)this->count)/this->capacity > this->loadFactor) {
       //this->resize(this->capacity * 2);
 
