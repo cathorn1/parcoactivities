@@ -196,28 +196,31 @@ public:
     std::mutex mut;
     Spinlock sp;
     int val;
-
-    mut.lock();
+    
+    
+    
     while (node != nullptr) {
-      
-
+      mut[node].lock();
+      //mut.lock_shared();
+      //sp.lock();
       if (node->key == key) {
         //std::lock_guard<std::mutex> lg(mut);
         
         val = node->value;
-        //sp.lock();
-        
+        //std::unique_lock<std::mutex> lock(mut);
         val++;
-        //sp.unlock();
-        
-        node->value = val;
-        
+        node->value = val; 
+               
         return;
         
       }
+      //sp.unlock();
+      //mut.unlock_shared();
+      mut[node].unlock();
       node = node->next;
+      
     } 
-    mut.unlock();
+    
     
     // V word = get(key);
     // mut.lock_shared();
