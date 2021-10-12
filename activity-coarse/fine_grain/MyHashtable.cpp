@@ -188,60 +188,59 @@ public:
    * @param value new val
    */
   
-   virtual void incWordVal (const K& key) {
-    std::size_t index = std::hash<K>{}(key) % this->capacity;
-    index = index < 0 ? index + this->capacity : index;
-    Node<K,V>* node = this->table[index];     
+  //  virtual void incWordVal (const K& key) {
+  //   std::size_t index = std::hash<K>{}(key) % this->capacity;
+  //   index = index < 0 ? index + this->capacity : index;
+  //   Node<K,V>* node = this->table[index];     
     
-    std::shared_mutex mut;
-    Spinlock sp;
-    int val;
+  //   std::shared_mutex mut;
+  //   Spinlock sp;
+  //   int val;
     
-    
-    
-    while (node != nullptr) {
-      
-      //mut.lock_shared();
-      //sp.lock();
-      if (node->key == key) {
-        //std::lock_guard<std::mutex> lg(mut);
-        //std::unique_lock<std::mutex> lock(mut);
-        mut[node].lock();
         
-        //val = node->value;        
-        //val++;        
-        node->value = (node->value)++; 
-        mut[node].unlock_shared();
-
-        return;
+  //   // while (node != nullptr) {
+      
+  //   //   //mut.lock_shared();
+  //   //   //sp.lock();
+  //   //   if (node->key == key) {
+  //   //     //std::lock_guard<std::mutex> lg(mut);
+  //   //     //std::unique_lock<std::mutex> lock(mut);
+  //   //     mut[node].lock();
         
-      }
-      //sp.unlock();
-      //mut.unlock_shared();
+  //   //     //val = node->value;        
+  //   //     //val++;        
+  //   //     node->value = (node->value)++; 
+  //   //     //mut[node].unlock();
+
+  //   //     return;
+        
+  //   //   }
+  //   //   //sp.unlock();
+  //   //   //mut.unlock_shared();
       
-      node = node->next;
+  //   //   node = node->next;
       
-    } 
+  //   // } 
     
     
-    // V word = get(key);
-    // mut.lock_shared();
-    // word++;
-    // mut.unlock_shared();
-    // set(key, word);
+  //   // V word = get(key);
+  //   // mut.lock_shared();
+  //   // word++;
+  //   // mut.unlock_shared();
+  //   // set(key, word);
 
 
-    //if we get here, then the key has not been found
-    // val = 0;
-    // node = new Node<K,V>(key, val);
-    // node->next = this->table[index];
-    // this->table[index] = node;
-    // this->count++;
-    // if (((double)this->count)/this->capacity > this->loadFactor) {
-    // //this->resize(this->capacity * 2);
+  //   //if we get here, then the key has not been found
+  //   val = 0;
+  //   node = new Node<K,V>(key, val);
+  //   node->next = this->table[index];
+  //   this->table[index] = node;
+  //   this->count++;
+  //   if (((double)this->count)/this->capacity > this->loadFactor) {
+  //   //this->resize(this->capacity * 2);
 
-    // }
-  }
+  //   }
+  // }
 
 
 
