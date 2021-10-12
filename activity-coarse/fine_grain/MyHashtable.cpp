@@ -165,16 +165,17 @@ public:
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];     
-    std::shared_mutex mut;
+    
     int val = 0;
 
     while (node != nullptr) {
       if (node->key == key) {
-        mut.lock();
+        std::shared_mutex mut;
+        mut.lock_shared();
         val = node->value;
         val++;
         node->value = val;
-        mut.unlock();
+        mut.unlock_shared();
       }
       node = node->next;
     } 
