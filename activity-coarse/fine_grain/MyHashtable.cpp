@@ -166,7 +166,7 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
-    std::mutex mut;
+    //std::mutex mut;
     std::shared_mutex sMut;
     int val;
 
@@ -176,13 +176,14 @@ public:
       //mut.lock();
       
       if (node->key == key) {
-                        
+        std::mutex mut;
+        mut.lock();
         val = node->value;       
-        std::lock_guard<std::mutex> lg(mut); 
+        
         val++;        
         node->value = val; 
+        mut.unlock();
         
-        return;
         
       }
       //mut.unlock();
