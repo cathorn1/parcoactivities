@@ -12,8 +12,8 @@
 
 //Tokenize a string into individual word, removing punctuation at the
 //end of words
-std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::string> files) {
-  std::vector<std::vector<std::string>> ret;
+std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::string> files) {
+  std::vector<std::vector<std::string> > ret;
 
   for(auto filename : files) {
     //std::cout<<"reading "<<filename<<"\n";
@@ -51,13 +51,11 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
-    //for (std::string &w : filecontent) 
-        
+           
       for (int i = 0; i < filecontent.size(); i++){
         std::string &w = filecontent[i];
         dict.incWordVal(w);
         }
- 
 }
 
 
@@ -95,15 +93,24 @@ int main(int argc, char **argv)
   std::vector<std::thread> countedThreads;
   std::mutex mu;
 
-  for (std::vector<std::string> & filecontent : wordmap) {
+for (int i=0; i < wordmap.size(); i++){
+
+    std::vector<std::string> &filecontent = wordmap[i];
+
+    std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
+     
+    countedThreads.push_back(move(hashThread));
+}
+
+  // for (std::vector<std::string> & filecontent : wordmap) {
       
-      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
+  //     std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
       
-      countedThreads.push_back(move(hashThread));      
-    }
+  //     countedThreads.push_back(move(hashThread));      
+  //   }
 
   for (int i =0; i < countedThreads.size(); i++){
-  //(std::thread &t : countedThreads) 
+  
     if (countedThreads[i].joinable())
       countedThreads[i].join();
     else

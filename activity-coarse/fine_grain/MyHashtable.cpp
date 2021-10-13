@@ -33,6 +33,8 @@ protected:
   int count;
   double loadFactor;
   std::vector<Node<K,V>*> table;
+  
+  std::vector<std::mutex> mut_vec;
 
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
@@ -166,39 +168,22 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
-    //std::mutex mut;
-    std::shared_mutex sMut;
     int val;
 
-    //sMut.lock_shared();
-    //std::lock_guard<std::mutex> lg(mut);
     while (node != nullptr) {
-      //mut.lock();
-      
+      mut_vec[index].lock();
       if (node->key == key) {
-        std::mutex mut;
-        mut.lock();
-        val = node->value;       
-        
+                
+        val = node->value;  
         val++;        
-        node->value = val; 
-        mut.unlock();
+        node->value = val;  
         return; 
         
       }
-      //mut.unlock();
-            
+      mut_vec[index].unlock();            
       node = node->next;
       
     } 
-   
-  
-    //  V word = get(key);
-    //  mut.lock();
-    //  word++;
-    //  mut.unlock();
-    //  set(key, word);
-
 
   //   //if we get here, then the key has not been found
   //   val = 0;
