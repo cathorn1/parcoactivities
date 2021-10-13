@@ -53,7 +53,7 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
     //for (std::string &w : filecontent) 
         
-        for (int i = 0; i < filecontent.size(); i++){
+      for (int i = 0; i < filecontent.size(); i++){
         std::string &w = filecontent[i];
 
         // std::lock_guard<std::mutex> lg(mut);

@@ -24,31 +24,6 @@ struct Node {
   ~Node() = default;
 };
 
-class Spinlock
-{
-private:
-    std::atomic_flag atomic_flag = ATOMIC_FLAG_INIT;
-
-public:
-    void lock()
-    {
-        for (;;)
-        {
-            if (!atomic_flag.test_and_set(std::memory_order_acquire))
-            {
-                break;
-            }
-            while (atomic_flag.test_and_set(std::memory_order_relaxed))
-                ;
-        }
-    }
-    void unlock()
-    {
-        atomic_flag.clear(std::memory_order_release);
-    }
-};
-
-
 template<class K, class V>
 class MyHashtable : public Dictionary<K, V> {
 protected:
@@ -193,16 +168,17 @@ public:
 
     std::mutex mut;
     std::shared_mutex sMut;
-    Spinlock sp;
     int val;
 
     //sMut.lock_shared();
     //std::lock_guard<std::mutex> lg(mut);
     while (node != nullptr) {
       //mut.lock();
+      
       if (node->key == key) {
                         
-        val = node->value;        
+        val = node->value;       
+        std::lock_guard<std::mutex> lg(mut); 
         val++;        
         node->value = val; 
         
@@ -210,22 +186,18 @@ public:
         
       }
       //mut.unlock();
-      //  ++index;
-      //  if (index == this->capacity)
-      //     index = 0;     
-       
+            
       node = node->next;
       
-      //return nullptr;
     } 
    
-  /*  
-     V word = get(key);
-     mut.lock();
-     word++;
-     mut.unlock();
-     set(key, word);
-*/
+  
+    //  V word = get(key);
+    //  mut.lock();
+    //  word++;
+    //  mut.unlock();
+    //  set(key, word);
+
 
   //   //if we get here, then the key has not been found
   //   val = 0;
