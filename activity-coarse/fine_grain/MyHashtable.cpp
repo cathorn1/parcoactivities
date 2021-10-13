@@ -8,6 +8,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include <atomic>
+#include <array>
 
 
 template<class K, class V>
@@ -34,7 +35,7 @@ protected:
   double loadFactor;
   std::vector<Node<K,V>*> table;
   
-  //std::vector<std::mutex> mut_vec;
+  std::mutex mut_vec[256];
 
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
@@ -168,28 +169,30 @@ public:
    */
   
    virtual void incWordVal (const K& key) {
-    std::size_t index = std::hash<K>{}(key) % this->capacity;
-    index = index < 0 ? index + this->capacity : index;
+    std::size_t index = std::hash<K>{}(key) % 256;
+    //index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
-    std::mutex mut;
     int val;
 
-    // while (node != nullptr) {
-    //   //mut_vec[index].lock();
-    //   std::cout << node << key << std::endl;
-    //   if (node->key == key) {
-                
-    //     val = node->value;
-    //     val++;        
-    //     node->value = val;  
-    //     return; 
-        
-    //   }
-    //   //mut_vec[index].unlock();            
-    //   node = node->next;
+    while (node != nullptr) {
       
-    // } 
+      
+            
+      if (node->key == key) {
+
+        mut_vec[index].lock();        
+        val = node->value;
+        val++;        
+        node->value = val;  
+        mut_vec[index].unlock();            
+
+        return; 
+      }
+
+      node = node->next;
+      
+    } 
   
     
     // V count = node->value;    
