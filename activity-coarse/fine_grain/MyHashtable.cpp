@@ -183,7 +183,7 @@ public:
         val++;        
         node->value = val; 
         mut.unlock();
-        
+        return; 
         
       }
       //mut.unlock();

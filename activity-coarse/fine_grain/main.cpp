@@ -55,12 +55,6 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
         
       for (int i = 0; i < filecontent.size(); i++){
         std::string &w = filecontent[i];
-
-        // std::lock_guard<std::mutex> lg(mut);
-        // int count = dict.get(w);
-        // ++count;
-        // dict.set(w, count);
-        
         dict.incWordVal(w);
         }
  
