@@ -179,31 +179,33 @@ public:
                 
       if (node->key == key) {
           
-//        mut_vec[index].lock();        
+        mut_vec[index].lock();        
         val = node->value;
         val++;
         node->val = val; 
-  //      mut_vec[index].unlock();            
+        mut_vec[index].unlock();            
 
         return; 
       }
 
       node = node->next;
       
-    } 
+    }
 
-
-  //   //if we get here, then the key has not been found
-    V new_val = 0;
-    node = new Node<K,V>(key, new_val);
-     node->next = this->table[index];
-     this->table[index] = node;
-     this->count++;
+  //  if we get here, then the key has not been found
+     if(node == nullptr){
+     	val = 0;
+     	node = new Node<K,V>(key, val);
+     	node->next = this->table[index];
+     	this->table[index] = node;
+     	this->count++;
 
      if (((double)this->count)/this->capacity > this->loadFactor) {
      //this->resize(this->capacity * 2);
     }
   }
+}
+   
 
   /**
    * deletes the node at given key
