@@ -135,8 +135,6 @@ protected:
 
 public:
 
-  std::shared_mutex sMut;
-
   /**
    * Returns the node at key
    * @param key key of node to get
@@ -191,27 +189,29 @@ public:
    virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
-    Node<K,V>* node = this->table[index];     
-    
+    Node<K,V>* node = this->table[index];
+
     std::mutex mut;
+    std::shared_mutex sMut;
     Spinlock sp;
     int val;
-    
+
+    //sMut.lock_shared();
     while (node != nullptr) {
-      
+      mut.lock();
       if (node->key == key) {
                         
-        mut.lock();
+        
         val = node->value;        
         val++;        
         node->value = val; 
         
-        mut.unlock();
-        return;
+        //return;
         
       }     
        
       node = node->next;
+      mut.unlock();
     } 
    
   /*  
@@ -228,13 +228,11 @@ public:
     node->next = this->table[index];
     this->table[index] = node;
     this->count++;
-        
+
     if (((double)this->count)/this->capacity > this->loadFactor) {
-    this->resize(this->capacity * 2);
+    //this->resize(this->capacity * 2);
    }
   }
-
-
 
   /**
    * deletes the node at given key
