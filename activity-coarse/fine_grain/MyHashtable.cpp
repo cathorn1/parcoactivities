@@ -173,16 +173,17 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
-    int val;
-    V 
+    V val;
+
     while (node != nullptr) {
                 
       if (node->key == key) {
-
-//        mut_vec[index].lock();        
-
-          node->value++; 
-//        mut_vec[index].unlock();            
+          
+        mut_vec[index].lock();        
+        val = node->value;
+        val++;
+        node->val = val; 
+        mut_vec[index].unlock();            
 
        return; 
       }
