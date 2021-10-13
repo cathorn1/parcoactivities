@@ -189,7 +189,7 @@ public:
    virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
-    const Node<K,V>* node = this->table[index];
+    Node<K,V>* node = this->table[index];
 
     std::mutex mut;
     std::shared_mutex sMut;
