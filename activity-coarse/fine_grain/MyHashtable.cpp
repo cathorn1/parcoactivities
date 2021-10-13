@@ -189,7 +189,7 @@ public:
    virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
-    Node<K,V>* node = this->table[index];
+    const Node<K,V>* node = this->table[index];
 
     std::mutex mut;
     std::shared_mutex sMut;
@@ -197,22 +197,26 @@ public:
     int val;
 
     //sMut.lock_shared();
-    std::unique_lock<std::mutex> lock(mut);
+    //std::lock_guard<std::mutex> lg(mut);
     while (node != nullptr) {
+      //mut.lock();
       if (node->key == key) {
                         
-     //mut.lock();
-        
         val = node->value;        
         val++;        
         node->value = val; 
         
-     //mut.unlock();
-       return;
+        return;
         
-      }     
+      }
+      //mut.unlock();
+      //  ++index;
+      //  if (index == this->capacity)
+      //     index = 0;     
        
       node = node->next;
+      
+      //return nullptr;
     } 
    
   /*  
@@ -224,15 +228,15 @@ public:
 */
 
   //   //if we get here, then the key has not been found
-    val = 0;
-    node = new Node<K,V>(key, val);
-    node->next = this->table[index];
-    this->table[index] = node;
-    this->count++;
+  //   val = 0;
+  //   node = new Node<K,V>(key, val);
+  //   node->next = this->table[index];
+  //   this->table[index] = node;
+  //   this->count++;
 
-    if (((double)this->count)/this->capacity > this->loadFactor) {
-    //this->resize(this->capacity * 2);
-   }
+  //   if (((double)this->count)/this->capacity > this->loadFactor) {
+  //   //this->resize(this->capacity * 2);
+  //  }
   }
 
   /**

@@ -51,16 +51,19 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
-    for (auto &w : filecontent) {
+    //for (std::string &w : filecontent) 
         
+        for (int i = 0; i < filecontent.size(); i++){
+        std::string &w = filecontent[i];
+
         // std::lock_guard<std::mutex> lg(mut);
         // int count = dict.get(w);
         // ++count;
         // dict.set(w, count);
         
         dict.incWordVal(w);
-
-      }
+        }
+ 
 }
 
 
@@ -105,9 +108,10 @@ int main(int argc, char **argv)
       countedThreads.push_back(move(hashThread));      
     }
 
-  for (auto & t : countedThreads) {
-    if (t.joinable())
-      t.join();
+  for (int i =0; i < countedThreads.size(); i++){
+  //(std::thread &t : countedThreads) 
+    if (countedThreads[i].joinable())
+      countedThreads[i].join();
     else
       std::cout << "t is not joinable" << std::endl;
   }
