@@ -170,7 +170,7 @@ public:
   
    virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % 256;
-    //index = index < 0 ? index + this->capacity : index;
+    index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
     int val;
@@ -193,11 +193,7 @@ public:
       node = node->next;
       
     } 
-  
-    
-    // V count = node->value;    
-    // count++;
-    // set(key, count);
+
 
   //   //if we get here, then the key has not been found
   //   val = 0;
