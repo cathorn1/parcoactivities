@@ -185,7 +185,7 @@ public:
         node->val = val; 
         mut_vec[index].unlock();            
 
-       return; 
+        return; 
       }
 
       node = node->next;
@@ -194,8 +194,8 @@ public:
 
 
   //   //if we get here, then the key has not been found
-    val = 0;
-    node = new Node<K,V>(key, val);
+    V new_val = 0;
+    node = new Node<K,V>(key, new_val);
      node->next = this->table[index];
      this->table[index] = node;
      this->count++;
