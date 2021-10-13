@@ -56,7 +56,7 @@ std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::str
 */
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
-      //std::cout << "WHO ME?\n";
+      
       for (auto &w : filecontent) {
 
         dict.incWordVal(w);
@@ -102,21 +102,10 @@ int main(int argc, char **argv)
   auto start = std::chrono::steady_clock::now();
 
   std::vector<std::thread> countedThreads;
-  
-// for (int i=0; i < wordmap.size(); i++){
-
-//     //std::cout<< "HEY OVER HERE\n";
-//     std::vector<std::string> &filecontent = wordmap[i];
-
-//     std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
-     
-//     countedThreads.push_back(move(hashThread));
-// }
 
 for (std::vector<std::string> & filecontent : wordmap) {
-      //std::cout<< "HEY OVER HERE\n";
-      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
       
+      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));      
       countedThreads.push_back(move(hashThread));      
     }
 
@@ -125,8 +114,7 @@ for (std::vector<std::string> & filecontent : wordmap) {
       t.join();
     else
       std::cout << "t is not joinable" << std::endl;
-  }
-  
+  }  
 
   // Stop Timer
   auto stop = std::chrono::steady_clock::now();

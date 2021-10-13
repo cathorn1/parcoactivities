@@ -34,7 +34,7 @@ protected:
   double loadFactor;
   std::vector<Node<K,V>*> table;
   
-  std::vector<std::mutex> mut_vec;
+  //std::vector<std::mutex> mut_vec;
 
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
@@ -158,6 +158,10 @@ public:
     }
   }
 
+////////
+// trying to make this funcion increment the value and set it
+////////
+
   /** New function to increment bucket val
    * @param key key of node to be counted
    * @param value new val
@@ -168,27 +172,29 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
+    std::mutex mut;
     int val;
 
-    while (node != nullptr) {
-      //mut_vec[index].lock();
-      std::cout << node << key << std::endl;
-      if (node->key == key) {
+    // while (node != nullptr) {
+    //   //mut_vec[index].lock();
+    //   std::cout << node << key << std::endl;
+    //   if (node->key == key) {
                 
-        val = node->value;
-        val++;        
-        node->value = val;  
-        return; 
+    //     val = node->value;
+    //     val++;        
+    //     node->value = val;  
+    //     return; 
         
-      }
-      //mut_vec[index].unlock();            
-      node = node->next;
+    //   }
+    //   //mut_vec[index].unlock();            
+    //   node = node->next;
       
-    } 
-
-    V count = get(key);
-    count++;
-    set(key, count);
+    // } 
+  
+    
+    // V count = node->value;    
+    // count++;
+    // set(key, count);
 
   //   //if we get here, then the key has not been found
   //   val = 0;
