@@ -174,16 +174,17 @@ public:
     Node<K,V>* node = this->table[index];
 
     int val;
-
+    V 
     while (node != nullptr) {
                 
       if (node->key == key) {
 
-        mut_vec[index].lock();        
-        node->value++; 
-        mut_vec[index].unlock();            
+//        mut_vec[index].lock();        
 
-        //return; 
+          node->value++; 
+//        mut_vec[index].unlock();            
+
+       return; 
       }
 
       node = node->next;
@@ -192,15 +193,15 @@ public:
 
 
   //   //if we get here, then the key has not been found
-  //   val = 0;
-  //   node = new Node<K,V>(key, val);
-  //   node->next = this->table[index];
-  //   this->table[index] = node;
-  //   this->count++;
+    val = 0;
+    node = new Node<K,V>(key, val);
+     node->next = this->table[index];
+     this->table[index] = node;
+     this->count++;
 
-  //   if (((double)this->count)/this->capacity > this->loadFactor) {
-  //   //this->resize(this->capacity * 2);
-  //  }
+     if (((double)this->count)/this->capacity > this->loadFactor) {
+     //this->resize(this->capacity * 2);
+    }
   }
 
   /**
