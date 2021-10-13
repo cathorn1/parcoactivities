@@ -171,19 +171,24 @@ public:
     int val;
 
     while (node != nullptr) {
-      mut_vec[index].lock();
+      //mut_vec[index].lock();
+      std::cout << node << key << std::endl;
       if (node->key == key) {
                 
-        val = node->value;  
+        val = node->value;
         val++;        
         node->value = val;  
         return; 
         
       }
-      mut_vec[index].unlock();            
+      //mut_vec[index].unlock();            
       node = node->next;
       
     } 
+
+    V count = get(key);
+    count++;
+    set(key, count);
 
   //   //if we get here, then the key has not been found
   //   val = 0;

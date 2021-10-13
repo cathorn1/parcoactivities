@@ -49,13 +49,19 @@ std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::str
   return ret;
 }
 
+/*
+*
+
+**countWords is my function**
+*/
 
  void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
-           
-      for (int i = 0; i < filecontent.size(); i++){
-        std::string &w = filecontent[i];
+      //std::cout << "WHO ME?\n";
+      for (auto &w : filecontent) {
+
         dict.incWordVal(w);
-        }
+
+      }
 }
 
 
@@ -85,34 +91,38 @@ int main(int argc, char **argv)
   MyHashtable<std::string, int> ht;
   Dictionary<std::string, int>& dict = ht;
 
-// write code here
 
-  //Start Timer
+
+// *** my code below **** 
+//
+//
+//
+
+//Start Timer
   auto start = std::chrono::steady_clock::now();
 
   std::vector<std::thread> countedThreads;
-  std::mutex mu;
-
-for (int i=0; i < wordmap.size(); i++){
-
-    std::vector<std::string> &filecontent = wordmap[i];
-
-    std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
-     
-    countedThreads.push_back(move(hashThread));
-}
-
-  // for (std::vector<std::string> & filecontent : wordmap) {
-      
-  //     std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
-      
-  //     countedThreads.push_back(move(hashThread));      
-  //   }
-
-  for (int i =0; i < countedThreads.size(); i++){
   
-    if (countedThreads[i].joinable())
-      countedThreads[i].join();
+// for (int i=0; i < wordmap.size(); i++){
+
+//     //std::cout<< "HEY OVER HERE\n";
+//     std::vector<std::string> &filecontent = wordmap[i];
+
+//     std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
+     
+//     countedThreads.push_back(move(hashThread));
+// }
+
+for (std::vector<std::string> & filecontent : wordmap) {
+      //std::cout<< "HEY OVER HERE\n";
+      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));
+      
+      countedThreads.push_back(move(hashThread));      
+    }
+
+   for (auto & t : countedThreads) {
+    if (t.joinable())
+      t.join();
     else
       std::cout << "t is not joinable" << std::endl;
   }
@@ -125,12 +135,13 @@ for (int i=0; i < wordmap.size(); i++){
 
   // Check Hash Table Values 
   //(you can uncomment, but this must be commented out for tests)
-//   for (auto it : dict) {
-//     if (it.second > thresholdCount)
-//       std::cout << it.first << " " << it.second << std::endl;
-//   }
-//
+  // for (auto it : dict) {
+  //   if (it.second > thresholdCount)
+  //     std::cout << it.first << " " << it.second << std::endl;
+  // }
 
+
+  //this is for tracking the run time of threads
   std::cerr << time_elapsed.count()<<"\n";
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
