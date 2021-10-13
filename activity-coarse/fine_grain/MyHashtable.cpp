@@ -169,22 +169,18 @@ public:
    */
   
    virtual void incWordVal (const K& key) {
-    std::size_t index = std::hash<K>{}(key) % 256;
+    std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
     int val;
 
     while (node != nullptr) {
-      
-      
-            
+                
       if (node->key == key) {
 
         mut_vec[index].lock();        
-        val = node->value;
-        val++;        
-        node->value = val;  
+        node->value++; 
         mut_vec[index].unlock();            
 
         //return; 
