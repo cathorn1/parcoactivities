@@ -187,7 +187,7 @@ public:
         node->value = val;  
         mut_vec[index].unlock();            
 
-        return; 
+        //return; 
       }
 
       node = node->next;
