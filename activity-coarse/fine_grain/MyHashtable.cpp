@@ -197,21 +197,22 @@ public:
     int val;
 
     //sMut.lock_shared();
+    std::unique_lock<std::mutex> lock(mut);
     while (node != nullptr) {
-      mut.lock();
       if (node->key == key) {
                         
+     //mut.lock();
         
         val = node->value;        
         val++;        
         node->value = val; 
         
-        //return;
+     //mut.unlock();
+       return;
         
       }     
        
       node = node->next;
-      mut.unlock();
     } 
    
   /*  
