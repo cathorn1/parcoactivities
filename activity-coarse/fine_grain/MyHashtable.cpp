@@ -176,51 +176,28 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
     
+
+    mut_arr[index].lock();
+    
     if (node == nullptr) {
         Node<K,V>* newnode = new Node<K,V>(key, 1);
         this->table.push_back(newnode);
     }
-
-    V val = 0;
-
-    // for (int i = 0; i < 256; i++){
-    //   std::mutex mut;
-    //   mut_arr[i] = mut; 
-    // }
-
+    
+    V val;
+    
     while (node != nullptr) {
               
       if (node->key == key) {
                           
-        val = node->value;
-        //mut_arr[index].lock();
+        val = node->value;        
         val++;
         node->value = val; 
-        //mut_arr[index].unlock();            
-
         return; 
       }
       node = node->next;
     } 
-
-      // if (){
-      //   val = 0;
-      //   node = new Node<K,V>(key, val);
-      //   table.push_back(node);
-
-      // }
-  
-      // if (node == nullptr) {
-      //   val = 0;
-      //   node = new Node<K,V>(key, val);
-      //   node->next = this->table[index];
-      //   this->table[index] = node;
-      //   this->count++;
-
-      //   if (((double)this->count)/this->capacity > this->loadFactor) {
-      //   //this->resize(this->capacity * 2);
-      // }
-    //}
+    mut_arr[index].unlock();  
 }
 
   /**
