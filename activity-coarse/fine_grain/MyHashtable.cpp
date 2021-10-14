@@ -176,13 +176,13 @@ public:
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
     
-
-    mut_arr[index].lock();
+    std::size_t arr_index = std::hash<K>{}(key) % 256;
+    mut_arr[arr_index].lock();
     
-    if (node == nullptr) {
-        Node<K,V>* newnode = new Node<K,V>(key, 1);
-        this->table.push_back(newnode);
-    }
+    // if (node == nullptr) {
+    //     Node<K,V>* newnode = new Node<K,V>(key, 1);
+    //     this->table.push_back(newnode);
+    // }
     
     V val;
     
@@ -197,7 +197,7 @@ public:
       }
       node = node->next;
     } 
-    mut_arr[index].unlock();  
+    mut_arr[arr_index].unlock();  
 }
 
   /**
