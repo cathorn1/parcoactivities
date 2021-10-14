@@ -104,7 +104,7 @@ int main(int argc, char **argv)
   std::vector<std::thread> countedThreads;
 
 for (std::vector<std::string> & filecontent : wordmap) {
-      
+      printf("%s\n", "SEG main for");
       std::thread hashThread (countWords, std::ref(filecontent), std::ref(ht));      
       countedThreads.push_back(move(hashThread));      
     }
