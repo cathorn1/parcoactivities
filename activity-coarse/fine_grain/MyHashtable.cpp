@@ -172,41 +172,34 @@ public:
   
   
    virtual void incWordVal (const K& key) {
-    //printf("%s\n", "SEG top");
+    
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
-    
-    printf("%s\n", "SEG mid");
-    
+        
     std::size_t arr_index = std::hash<K>{}(key) % 256;
     
-    mut_arr[arr_index].lock();
-    
-    printf("%s\n", "SEG mid mid");
-    
+    //mut_arr[arr_index].lock();
+       
     if (node == nullptr) {
         Node<K,V>* node = new Node<K,V>(key, 1);
         //this->table.push_back(newnode);
     }
-    
-    std::printf("%s\n", "SEG 1");
-
+ 
     V val = 0;
     
     while (node != nullptr) {
-              std::printf("%s\n", "SEG 2");
+         
       if (node->key == key) {
-                   std::printf("%s\n", "SEG 3");       
+           
         val = node->value;        
         val++;
         node->value = val; 
         break; 
       }
-      std::printf("%s\n", "SEG 4");
-      node = node->next;
+        node = node->next;
     } 
-    mut_arr[arr_index].unlock();  
+    //mut_arr[arr_index].unlock();  
 }
 
   /**
