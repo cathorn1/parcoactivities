@@ -1,0 +1,4 @@
+running on gal-c7.uncc.edu
+THREAD=2: before starting time is Wed Oct 13 21:16:11 EDT 2021
+/var/spool/slurm/slurmd/job3710140/slurm_script: line 17: 1901916 Segmentation fault      (core dumped) ./main benchmark_sources.txt the 1000000 2> ${RESULTDIR}/fine_${THREAD} > /dev/null
+THREAD=2: after ending time is Wed Oct 13 21:17:39 EDT 2021
