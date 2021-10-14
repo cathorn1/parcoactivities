@@ -49,12 +49,6 @@ std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::str
   return ret;
 }
 
-/*
-*
-
-**countWords is my function**
-*/
-
  void countWords(std::vector<std::string> &filecontent, MyHashtable<std::string, int> &ht){
       
       for (auto &w : filecontent) {
