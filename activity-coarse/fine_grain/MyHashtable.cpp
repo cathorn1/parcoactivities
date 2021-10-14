@@ -184,10 +184,10 @@ public:
     // }
 
     while (node != nullptr) {
-                
+      mut_arr[index].lock();        
       if (node->key == key) {
           
-        mut_arr[index].lock();        
+                
         val = node->value;
         val++;
         node->value = val; 
@@ -196,7 +196,7 @@ public:
         return; 
       }
       node = node->next;
-      } 
+    } 
 
       // if (){
       //   val = 0;
