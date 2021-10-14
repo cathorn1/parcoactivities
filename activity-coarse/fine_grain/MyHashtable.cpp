@@ -27,6 +27,7 @@ struct Node {
 
 template<class K, class V>
 class MyHashtable : public Dictionary<K, V> {
+  
 protected:
   typedef typename Dictionary<K, V>::dict_iter dict_iter;
 
@@ -34,16 +35,15 @@ protected:
   int count;
   double loadFactor;
   std::vector<Node<K,V>*> table;
+  mutable std::mutex mut_arr[256];
   
-  std::mutex mut_arr[1000];
-
-  
+    
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
     int bucket;
     Node<K,V>* cur;
-
-
+    
+    
     hashtable_iter() = default;
     virtual ~hashtable_iter() = default;
 
@@ -183,20 +183,20 @@ public:
 
     V val = 0;
 
-    for (int i = 0; i < 256; i++){
-      std::mutex mut;
-      mut_arr[i] = mut; 
-    }
+    // for (int i = 0; i < 256; i++){
+    //   std::mutex mut;
+    //   mut_arr[i] = mut; 
+    // }
 
     while (node != nullptr) {
               
       if (node->key == key) {
                           
         val = node->value;
-        mut_arr[index].lock();
+        //mut_arr[index].lock();
         val++;
         node->value = val; 
-        mut_arr[index].unlock();            
+        //mut_arr[index].unlock();            
 
         return; 
       }
