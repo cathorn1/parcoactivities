@@ -175,8 +175,13 @@ public:
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
+    
+    if (node == nullptr) {
+        Node<K,V>* newnode = new Node<K,V>(key, 1);
+        this->table.push_back(newnode);
+    }
 
-    V val;
+    V val = 0;
 
     // for (int i = 0; i < 256; i++){
     //   std::mutex mut;
@@ -184,11 +189,12 @@ public:
     // }
 
     while (node != nullptr) {
-      mut_arr[index].lock();        
+              
       if (node->key == key) {
           
                 
         val = node->value;
+        mut_arr[index].lock();
         val++;
         node->value = val; 
         mut_arr[index].unlock();            
@@ -205,17 +211,17 @@ public:
 
       // }
   
-      if (node == nullptr) {
-        val = 0;
-        node = new Node<K,V>(key, val);
-        node->next = this->table[index];
-        this->table[index] = node;
-        this->count++;
+      // if (node == nullptr) {
+      //   val = 0;
+      //   node = new Node<K,V>(key, val);
+      //   node->next = this->table[index];
+      //   this->table[index] = node;
+      //   this->count++;
 
-        if (((double)this->count)/this->capacity > this->loadFactor) {
-        //this->resize(this->capacity * 2);
-      }
-    }
+      //   if (((double)this->count)/this->capacity > this->loadFactor) {
+      //   //this->resize(this->capacity * 2);
+      // }
+    //}
 }
 
   /**
