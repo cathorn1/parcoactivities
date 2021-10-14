@@ -37,10 +37,12 @@ protected:
   
   std::mutex mut_arr[256];
 
+  
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
     int bucket = 0;
     Node<K,V>* cur;
+
 
     hashtable_iter() = default;
     virtual ~hashtable_iter() = default;
@@ -168,12 +170,18 @@ public:
    * @param value new val
    */
   
+  
    virtual void incWordVal (const K& key) {
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
 
     V val;
+
+    for (int i = 0; i < 256; i++){
+      std::mutex mut;
+      mut_arr[i] = mut; 
+   }
 
     while (node != nullptr) {
                 
