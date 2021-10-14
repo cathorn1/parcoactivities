@@ -161,22 +161,17 @@ public:
     }
   }
 
-////////
-// trying to make this funcion increment the value and set it
-////////
-
   /** New function to increment bucket val
    * @param key key of node to be counted
    * @param value new val
    */
-  
-  
+    
    virtual void incWordVal (const K& key) {
     
     std::size_t index = std::hash<K>{}(key) % this->capacity;
     index = index < 0 ? index + this->capacity : index;
     Node<K,V>* node = this->table[index];
-            
+
     std::size_t arr_index = std::hash<K>{}(key) % 256;
     
     V val = 0;
@@ -196,11 +191,14 @@ public:
         node = node->next;
     } 
       
-      node = new Node<K,V>(key, 1);
-      node->next = this->table[index];
-      this->table[index] = node;
-      this->count++;
-      mut_arr[arr_index].unlock();
+      //If code is here, it means no node was found.
+      if (node == nullptr){
+        node = new Node<K,V>(key, 1);
+        node->next = this->table[index];
+        this->table[index] = node;
+        this->count++;
+        mut_arr[arr_index].unlock();
+        }
     
 }
 

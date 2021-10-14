@@ -51,7 +51,7 @@ std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::str
 
  void countWords(std::vector<std::string> &filecontent, MyHashtable<std::string, int> &ht){
       
-      for (auto &w : filecontent) {
+      for (auto & w: filecontent) {
 
         ht.incWordVal(w);
 
@@ -86,21 +86,14 @@ int main(int argc, char **argv)
   Dictionary<std::string, int>& dict = ht;
 
 
-
-// *** my code below **** 
-//
-//
-//
-
 //Start Timer
   auto start = std::chrono::steady_clock::now();
 
   std::vector<std::thread> countedThreads;
 
 for (std::vector<std::string> & filecontent : wordmap) {
-      
-      std::thread hashThread (countWords, std::ref(filecontent), std::ref(ht));      
-      countedThreads.push_back(move(hashThread));      
+          
+      countedThreads.push_back(std::thread(countWords, std::ref(filecontent), std::ref(ht)));      
     }
 
    for (auto & t : countedThreads) {
