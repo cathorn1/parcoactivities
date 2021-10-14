@@ -40,7 +40,7 @@ protected:
   
   struct hashtable_iter : public dict_iter {
     MyHashtable& mt;
-    int bucket = 0;
+    int bucket;
     Node<K,V>* cur;
 
 
@@ -178,10 +178,10 @@ public:
 
     V val;
 
-    for (int i = 0; i < 256; i++){
-      std::mutex mut;
-      mut_arr[i] = mut; 
-   }
+    // for (int i = 0; i < 256; i++){
+    //   std::mutex mut;
+    //   mut_arr[i] = mut; 
+    // }
 
     while (node != nullptr) {
                 
@@ -198,19 +198,24 @@ public:
       node = node->next;
       } 
 
+      // if (){
+      //   val = 0;
+      //   node = new Node<K,V>(key, val);
+      //   table.push_back(node);
 
-  //   //if we get here, then the key has not been found
-    if (node == nullptr) {
-     val = 0;
-     node = new Node<K,V>(key, val);
-     node->next = this->table[index];
-     this->table[index] = node;
-     this->count++;
+      // }
+  
+      if (node == nullptr) {
+        val = 0;
+        node = new Node<K,V>(key, val);
+        node->next = this->table[index];
+        this->table[index] = node;
+        this->count++;
 
-     if (((double)this->count)/this->capacity > this->loadFactor) {
-     //this->resize(this->capacity * 2);
+        if (((double)this->count)/this->capacity > this->loadFactor) {
+        //this->resize(this->capacity * 2);
+      }
     }
-  }
 }
 
   /**
