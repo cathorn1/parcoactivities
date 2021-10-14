@@ -182,7 +182,7 @@ public:
         mut_arr[index].lock();        
         val = node->value;
         val++;
-        node->val = val; 
+        node->value = val; 
         mut_arr[index].unlock();            
 
         return; 
