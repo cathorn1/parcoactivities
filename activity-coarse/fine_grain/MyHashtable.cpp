@@ -179,22 +179,24 @@ public:
     std::size_t arr_index = std::hash<K>{}(key) % 256;
     mut_arr[arr_index].lock();
     
-    // if (node == nullptr) {
-    //     Node<K,V>* newnode = new Node<K,V>(key, 1);
-    //     this->table.push_back(newnode);
-    // }
-    
+    if (node == nullptr) {
+        Node<K,V>* node = new Node<K,V>(key, 1);
+        //this->table.push_back(newnode);
+    }
+    std::printf("%s\n", "SEG??");
+
     V val;
     
     while (node != nullptr) {
-              
+              std::printf("%s\n", "SEG??");
       if (node->key == key) {
-                          
+                   std::printf("%s\n", "SEG??");       
         val = node->value;        
         val++;
         node->value = val; 
-        return; 
+        break; 
       }
+      std::printf("%s\n", "SEG??");
       node = node->next;
     } 
     mut_arr[arr_index].unlock();  
