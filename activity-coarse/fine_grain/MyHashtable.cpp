@@ -35,7 +35,7 @@ protected:
   double loadFactor;
   std::vector<Node<K,V>*> table;
   
-  std::mutex mut_arr[256];
+  std::mutex mut_arr[1000];
 
   
   struct hashtable_iter : public dict_iter {
@@ -183,16 +183,15 @@ public:
 
     V val = 0;
 
-    // for (int i = 0; i < 256; i++){
-    //   std::mutex mut;
-    //   mut_arr[i] = mut; 
-    // }
+    for (int i = 0; i < 256; i++){
+      std::mutex mut;
+      mut_arr[i] = mut; 
+    }
 
     while (node != nullptr) {
               
       if (node->key == key) {
-          
-                
+                          
         val = node->value;
         mut_arr[index].lock();
         val++;
