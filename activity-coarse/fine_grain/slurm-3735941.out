@@ -1,0 +1,3 @@
+running on gal-c11.uncc.edu
+THREAD=15: before starting time is Wed Oct 13 23:10:05 EDT 2021
+slurmstepd: error: *** JOB 3735941 ON gal-c11 CANCELLED AT 2021-10-13T23:11:07 ***
