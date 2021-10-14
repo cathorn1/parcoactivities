@@ -55,11 +55,11 @@ std::vector<std::vector<std::string> > tokenizeLyrics(const std::vector<std::str
 **countWords is my function**
 */
 
- void countWords(std::vector<std::string> &filecontent, Dictionary<std::string, int> &dict){
+ void countWords(std::vector<std::string> &filecontent, MyHashtable<std::string, int> &ht){
       
       for (auto &w : filecontent) {
 
-        dict.incWordVal(w);
+        ht.incWordVal(w);
 
       }
 }
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 
 for (std::vector<std::string> & filecontent : wordmap) {
       
-      std::thread hashThread (countWords, std::ref(filecontent), std::ref(dict));      
+      std::thread hashThread (countWords, std::ref(filecontent), std::ref(ht));      
       countedThreads.push_back(move(hashThread));      
     }
 
