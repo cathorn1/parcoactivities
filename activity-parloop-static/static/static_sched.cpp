@@ -6,7 +6,7 @@
 #include <cmath>
 #include <thread>
 #include <vector>
-#include "seq_loop.hpp"
+#include "../sequential/seq_loop.hpp"
 
 
 //#ifdef __cplusplus
@@ -27,7 +27,7 @@ float x;
 int i;
 float itgr_output, result;
 
-double integrateNum(int func, float lower, float upper, int points, int intensity) {
+int integrateNum(int func, float lower, float upper, int points, int intensity) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
