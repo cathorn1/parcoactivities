@@ -74,13 +74,11 @@ int main (int argc, char* argv[]) {
   auto start = std::chrono::steady_clock::now();
 
   //integrateNum(func, lower, upper, points, intensity);
-
+  sl.parfor1(0, 5, 1, integrateNum(func, lower, upper, points, intensity));
 
 
   auto stop = std::chrono::steady_clock::now();
   std::chrono::duration<double> time_elapsed = stop - start;
-
-  sl.parfor(0, 5, 1, integrateNum(func, lower, upper, points, intensity));
 
   std::cerr << time_elapsed.count()<< "\n";
   std::cout << result << std::endl;
