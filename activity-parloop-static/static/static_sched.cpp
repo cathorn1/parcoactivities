@@ -74,7 +74,10 @@ int main (int argc, char* argv[]) {
   auto start = std::chrono::steady_clock::now();
 
   //integrateNum(func, lower, upper, points, intensity);
-  sl.parfor1(0, 5, 1, integrateNum(func, lower, upper, points, intensity));
+  sl.parfor(0, 5, 1,
+             [&](int i) -> void {
+      integrateNum(func, lower, upper, points, intensity);
+  });
 
 
   auto stop = std::chrono::steady_clock::now();

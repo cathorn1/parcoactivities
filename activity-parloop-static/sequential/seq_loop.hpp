@@ -12,19 +12,19 @@ public:
   /// beg, no greater than end, in inc increment. These execution may
   /// be in parallel
 
-//  void parfor (size_t beg, size_t end, size_t inc,
-//	       std::function<void(int)> f) {
-//    for (size_t i=beg; i<end; i+= inc) {
-//      f(i);
-//    }
-//  }
-
-    void parfor1 (size_t beg, size_t end, size_t inc,
-                 std::function<double(int, float, float, int, int)> f) {
-        for (size_t i=beg; i<end; i+= inc) {
-            f(i);
-        }
+  void parfor (size_t beg, size_t end, size_t inc,
+	       std::function<void(int)> f) {
+    for (size_t i=beg; i<end; i+= inc) {
+      f(i);
     }
+  }
+
+//    void parfor1 (size_t beg, size_t end, size_t inc,
+//                 std::function<double(int, float, float, int, int)> f) {
+//        for (size_t i=beg; i<end; i+= inc) {
+//            f();
+//        }
+//    }
 
   /// @brief execute the function f multiple times with different
   /// parameters possibly in parallel
