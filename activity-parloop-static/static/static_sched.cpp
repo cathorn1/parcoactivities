@@ -9,15 +9,18 @@
 #include "../sequential/seq_loop.hpp"
 
 
-//#ifdef __cplusplus
-//extern "C" {
-//#endif
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 float f1(float x, int intensity);
 float f2(float x, int intensity);
 float f3(float x, int intensity);
 float f4(float x, int intensity);
 
+#ifdef __cplusplus
+}
+#endif
 
 //using std::chrono::system_clock;
 
