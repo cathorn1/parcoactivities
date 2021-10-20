@@ -27,7 +27,7 @@ float x;
 int i;
 float itgr_output, result;
 
-int integrateNum(int func, float lower, float upper, int points, int intensity) {
+double integrateNum(int func, float lower, float upper, int points, int intensity) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
