@@ -124,7 +124,7 @@ int main (int argc, char* argv[]) {
                        if (i > up && up < numItr){
                            up = numItr;
                        }
-                        tls += integrateNum(func, low, up, (points/itrSection), intensity);
+                        tls += integrateNum(func, low, up, points, intensity);
 //			}
                   },
                    [&](double tls) -> void{
