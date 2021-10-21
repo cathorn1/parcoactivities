@@ -37,7 +37,7 @@ SeqLoop sl;
 std::vector<std::thread> parThreads;
 
 
-double integrateNum(int &func, float &lower, float &upper, int &points, int &intensity, std::vector<float> &tls) {
+void integrateNum(int &func, float &lower, float &upper, int &points, int &intensity, std::vector<float> &tls) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -62,7 +62,7 @@ double integrateNum(int &func, float &lower, float &upper, int &points, int &int
 
     result = ((upper - lower) / points) * itgr_output;
     tls[i] = result;
-    return result;
+    //return result;
 }
 
 int gcd(int a, int b){
@@ -129,7 +129,7 @@ int main (int argc, char* argv[]) {
                        if ((upper - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       parThreads.emplace_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls));
+                       parThreads.push_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls));
                    },
                    [&](std::vector<float>& tls) -> void{
 
