@@ -87,17 +87,6 @@ int main (int argc, char* argv[]) {
   int itrSection;
 
   nbthreads = round(nbthreads);
-
-//  if (numItr%nbthreads == 0){
-//      itrSection = numItr/nbthreads;
-//    }
-//  else{
-     // nbthreads = round(nbthreads);
-//      int gd = gcd(numItr, nbthreads);
-  //    nbthreads = gd;
-    //  itrSection = numItr/nbthreads;
-//  }
-
   while (numItr%nbthreads != 0){
       nbthreads++;
   }
@@ -121,7 +110,7 @@ int main (int argc, char* argv[]) {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
-    sl.parfor<double>(0, numItr, itrSection,
+    sl.parfor<double>(0, upper, itrSection,
                    [&](double& tls) -> void{
                     tls = 0.0;
 
