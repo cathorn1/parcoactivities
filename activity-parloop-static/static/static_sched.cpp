@@ -111,22 +111,16 @@ int main (int argc, char* argv[]) {
 //  });
 
   
-    sl.parfor<float>(lower, lower+numItr-1, itrSection,
+    sl.parfor<float>(lower, numItr, itrSection,
                    [&](float& tls) -> void{
                     tls = 0;
-
                    },
                    [&](int i, float& tls) -> void{
                         
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
-
-                       if (up > numItr){
-                           up = numItr;
-                       }
-                        tls += integrateNum(func, low, up, (points/itrSection), intensity);
-
+                       tls += integrateNum(func, low, up, (points/itrSection), intensity);
 //			}
                   },
                    [&](float tls) -> void{
