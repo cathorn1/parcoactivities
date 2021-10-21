@@ -111,7 +111,7 @@ int main (int argc, char* argv[]) {
 //  });
 
   
-    sl.parfor<float>(lower, numItr, itrSection,
+    sl.parfor<float>(0, numItr, itrSection,
                    [&](float& tls) -> void{
                     tls = 0;
                    },
