@@ -86,15 +86,20 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection;
 
-  if (numItr%nbthreads == 0){
-      itrSection = numItr/nbthreads;
-    }
-  else{
-     // nbthreads = round(nbthreads);
-      int gd = gcd(numItr, nbthreads);
-      nbthreads = gd;
-      itrSection = numItr/nbthreads;
+  while (numItr%nbthreads != 0){
+      nbthreads++;
   }
+  itrSection = numItr/nbthreads;
+
+//  if (numItr%nbthreads == 0){
+//      itrSection = numItr/nbthreads;
+//    }
+//  else{
+//     // nbthreads = round(nbthreads);
+//      int gd = gcd(numItr, nbthreads);
+//      nbthreads = gd;
+//      itrSection = numItr/nbthreads;
+//  }
 
   auto start = std::chrono::steady_clock::now();
 
@@ -107,16 +112,16 @@ int main (int argc, char* argv[]) {
     sl.parfor<int>(0, numItr, itrSection,
                    [&](int& tls) -> void{
                     tls = 0.0;
-                    double val = 0.0;
+
                    },
                    [&](int i, int& tls) -> void{
                         int low = i;
                         int up = (i + itrSection) - 1;
-                        val += integrateNum(func, low, up, points, intensity);
+                        tls += integrateNum(func, low, up, points, intensity);
 
                    },
                    [&](int tls) -> void{
-                       sum += val;
+                       sum += tls;
                    }
     );
 
