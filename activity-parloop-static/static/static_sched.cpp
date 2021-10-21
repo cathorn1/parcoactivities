@@ -86,7 +86,7 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection;
 
-<<<<<<< HEAD
+
   if (numItr%nbthreads == 0){
       itrSection = numItr/nbthreads;
     }
@@ -95,10 +95,10 @@ int main (int argc, char* argv[]) {
 //      int gd = gcd(numItr, nbthreads);
   //    nbthreads = gd;
     //  itrSection = numItr/nbthreads;
-=======
+  }
+
   while (numItr%nbthreads != 0){
       nbthreads++;
->>>>>>> 3efd56bf024bdabd6090b04c690896200c2e65d9
   }
   itrSection = numItr/nbthreads;
 
