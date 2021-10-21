@@ -111,9 +111,9 @@ int main (int argc, char* argv[]) {
 
                    },
                    [&](int i, int& tls) -> void{
-                        lower = i;
-                        upper = i + (itrSection - 1);
-                        tls += integrateNum(func, lower, upper, points, intensity);
+                        int low = i;
+                        int up = i + (itrSection);
+                        tls += integrateNum(func, low, up, points, intensity);
 
                    },
                    [&](int tls) -> void{
