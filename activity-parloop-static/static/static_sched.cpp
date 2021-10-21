@@ -120,7 +120,7 @@ int main (int argc, char* argv[]) {
                        if ((numItr - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       tls += integrateNum(func, low, up, (points/itrSection), intensity);
+                       tls += integrateNum(func, low, up, points, intensity);
 //			}
                   },
                    [&](float tls) -> void{
