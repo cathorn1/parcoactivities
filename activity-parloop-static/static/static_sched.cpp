@@ -106,7 +106,7 @@ int main (int argc, char* argv[]) {
 
     sl.parfor<int>(0, numItr, itrSection,
                    [&](int& tls) -> void{
-                    tls = 0;
+                    tls = 0.0;
 
                    },
                    [&](int i, int& tls) -> void{
