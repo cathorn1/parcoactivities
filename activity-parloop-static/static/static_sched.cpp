@@ -90,7 +90,7 @@ int main (int argc, char* argv[]) {
 //  while (numItr%nbthreads != 0){
 //      nbthreads++;
 //  }
-  itrSection = ceil(numItr/nbthreads);
+  itrSection = numItr/nbthreads;
 
 //  if (numItr%nbthreads == 0){
 //      itrSection = numItr/nbthreads;
