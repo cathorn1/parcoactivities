@@ -35,7 +35,8 @@ int sum;
 SeqLoop sl;
 std::vector<std::thread> parThreads;
 
-double integrateNum(int func, float lower, float upper, int points, int intensity, float& tls) {
+
+double integrateNum(int &func, float &lower, float &upper, int &points, int &intensity, std::vector<float> &tls) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -59,7 +60,7 @@ double integrateNum(int func, float lower, float upper, int points, int intensit
     }
 
     result = ((upper - lower) / points) * itgr_output;
-    tls = result;
+    tls[i] = result;
     return result;
 }
 
@@ -84,12 +85,14 @@ int main (int argc, char* argv[]) {
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
 
-  const size_t numThreads = nbthreads;
+
   int numItr = upper - lower;
   int itrSection, itrRemain;
 
   itrSection = numItr/nbthreads;
   itrRemain = numItr%nbthreads;
+
+
 
 //  if (numItr%nbthreads == 0){
 //      itrSection = numItr/nbthreads;
@@ -125,8 +128,8 @@ int main (int argc, char* argv[]) {
                        if ((upper - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       std::thread parloopThread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls[i]));
-                       parThreads.push_back(std::move(parloopThread));
+                       parThreads.push_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls[i])));
+
                    },
                    [&](std::vector<float>& tls) -> void{
 
