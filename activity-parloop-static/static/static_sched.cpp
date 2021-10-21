@@ -84,13 +84,10 @@ int main (int argc, char* argv[]) {
 
 
   int numItr = upper - lower;
-  int itrSection;
+  int itrSection, itrRemain;
 
-//  nbthreads = round(nbthreads);
-//  while (numItr%nbthreads != 0){
-//      nbthreads++;
-//  }
   itrSection = numItr/nbthreads;
+  itrRemain = numItr%nbthreads;
 
 //  if (numItr%nbthreads == 0){
 //      itrSection = numItr/nbthreads;
@@ -120,6 +117,8 @@ int main (int argc, char* argv[]) {
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
+                       if ((numItr - up) == itrRemain)
+                           up += itrRemain;
                        tls += integrateNum(func, low, up, (points/itrSection), intensity);
 //			}
                   },
