@@ -110,16 +110,19 @@ int main (int argc, char* argv[]) {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
-    sl.parfor<double>(0, upper, itrSection,
+  
+    sl.parfor<double>(0,nbthreads,1,
                    [&](double& tls) -> void{
                     tls = 0.0;
 
                    },
                    [&](int i, double& tls) -> void{
-                        int low = i;
-                        int up = i + (itrSection - 1);
+                        
+		     for(int j=i; j<numItr; j+=itrSection){
+		   	int low = j;
+                        int up = j + (itrSection - 1);
                         tls += integrateNum(func, low, up, (points/itrSection), intensity);
-
+			}
                    },
                    [&](double tls) -> void{
                        sum += tls;
