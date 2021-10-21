@@ -90,7 +90,7 @@ int main (int argc, char* argv[]) {
 //  while (numItr%nbthreads != 0){
 //      nbthreads++;
 //  }
-  itrSection = numItr/nbthreads;
+  itrSection = ceil(numItr/nbthreads);
 
 //  if (numItr%nbthreads == 0){
 //      itrSection = numItr/nbthreads;
@@ -121,9 +121,9 @@ int main (int argc, char* argv[]) {
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
-                       if (i > up && up < numItr){
-                           up = numItr;
-                       }
+//                       if (i > up && up < numItr){
+//                           up = numItr;
+//                       }
                         tls += integrateNum(func, low, up, (points/itrSection), intensity);
 //			}
                   },
