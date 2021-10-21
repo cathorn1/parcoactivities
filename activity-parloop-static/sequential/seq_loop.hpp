@@ -64,7 +64,7 @@ void parfor (size_t beg, size_t end, size_t increment,
 
     TLS tls;
     before(tls);
-    for (size_t i=beg; i<=end; i+= increment) {
+    for (size_t i=beg; i<end; i+= increment) {
         f(i, tls);
     }
     after(tls);

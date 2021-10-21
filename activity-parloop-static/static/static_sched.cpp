@@ -91,9 +91,9 @@ int main (int argc, char* argv[]) {
     }
   else{
      // nbthreads = round(nbthreads);
-      int gd = gcd(numItr, nbthreads);
-      nbthreads = gd;
-      itrSection = numItr/nbthreads;
+//      int gd = gcd(numItr, nbthreads);
+  //    nbthreads = gd;
+    //  itrSection = numItr/nbthreads;
   }
 
   auto start = std::chrono::steady_clock::now();
