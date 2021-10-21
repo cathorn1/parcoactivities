@@ -129,8 +129,7 @@ int main (int argc, char* argv[]) {
                        if ((upper - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       parThreads.push_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), &tls[i]));
-
+                       parThreads.push_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls));
                    },
                    [&](std::vector<float>& tls) -> void{
 
