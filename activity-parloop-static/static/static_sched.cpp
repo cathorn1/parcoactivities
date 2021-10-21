@@ -122,15 +122,10 @@ int main (int argc, char* argv[]) {
                        int low =i;
                        int up = i + (itrSection - 1);
 
-//                       if (i > up && up < numItr){
-//                           up = numItr;
-//                       }
-                        tls += integrateNum(func, low, up, (points/itrSection), intensity);
-
-                       if (i > up && up < numItr){
+                       if (up > numItr){
                            up = numItr;
                        }
-                        tls += integrateNum(func, low, up, points, intensity);
+                        tls += integrateNum(func, low, up, (points/itrSection), intensity);
 
 //			}
                   },
