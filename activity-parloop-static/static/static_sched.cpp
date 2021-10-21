@@ -108,6 +108,7 @@ int main (int argc, char* argv[]) {
       itrSection = numItr/nbthreads;
     }
   else{
+      nbthreads = round(nbthreads);
       int gd = gcd(numItr, nbthreads);
       nbthreads = gd;
       itrSection = numItr/nbthreads;
