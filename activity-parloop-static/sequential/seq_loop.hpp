@@ -55,11 +55,13 @@ public:
 //};
 
 template<typename TLS>
+
 void parfor (size_t beg, size_t end, size_t increment,
              std::function<void(TLS&)> before,
              std::function<void(int, TLS&)> f,
              std::function<void(TLS&)> after
 ) {
+
     TLS tls;
     before(tls);
     for (size_t i=beg; i<end; i+= increment) {

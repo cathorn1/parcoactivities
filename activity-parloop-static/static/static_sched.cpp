@@ -97,30 +97,35 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection = numItr/nbthreads;
 
-  //std::array<std::thread, nbthreads> threads;
-
   auto start = std::chrono::steady_clock::now();
 
 //Sequential implementation of parfor
-  sl.parfor(0, 1, 1,
-             [&](int i) -> void {
-      integrateNum(func, lower, upper, points, intensity);
-  });
+//  sl.parfor(0, 1, 1,
+//             [&](int i) -> void {
+//      integrateNum(func, lower, upper, points, intensity);
+//  });
 
-//    sl.parfor<int>(0, numItr, 1,
-//                   [&](int& tls) -> void{
+    sl.parfor<int>(0, numItr, itrSection,
+                   [&](int& tls) -> void{
+                    tls = 0;
+
+                   },
+                   [&](int i, int& tls) -> void{
+                        lower = i;
+                        upper = i + (itrSection - 1);
+                        tls += integrateNum(func, lower, upper, points, intensity);
+
+                   },
+                   [&](int tls) -> void{
+                       sum += tls;
+                   }
+    );
+
+//    for (int i = 0, i < numItr; i =(i+itrSection)){
+//        for (int j = i; j < i+itrSection; j++ ){
 //
-//                        std::array<TLS, nbthreads> tlsArr;
-//                        tls = 0;
-//                   },
-//                   [&](int i, int& tls) -> void{
-//                       tls += integrateNum(func, lower, upper, points, intensity);
-//                   },
-//                   [&](int tls) -> void{
-//                       sum += tls;
-//                   }
-//    );
-
+//        }
+//    }
 
 
 //    for (int i =0; i < nbthreads; i++){
@@ -138,7 +143,7 @@ int main (int argc, char* argv[]) {
   std::chrono::duration<double> time_elapsed = stop - start;
 
   std::cerr << time_elapsed.count()<< "\n";
-  std::cout << result << std::endl;
+  std::cout << sum << std::endl;
 
   return 0;
 }
