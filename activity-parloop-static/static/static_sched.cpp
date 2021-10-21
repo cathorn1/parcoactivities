@@ -86,10 +86,10 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection;
 
-  nbthreads = round(nbthreads);
-  while (numItr%nbthreads != 0){
-      nbthreads++;
-  }
+//  nbthreads = round(nbthreads);
+//  while (numItr%nbthreads != 0){
+//      nbthreads++;
+//  }
   itrSection = numItr/nbthreads;
 
 //  if (numItr%nbthreads == 0){
