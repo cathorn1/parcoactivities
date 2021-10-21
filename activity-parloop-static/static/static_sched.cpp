@@ -26,7 +26,7 @@ float f4(float x, int intensity);
 
 //using std::chrono::system_clock;
 
-int func, points, intensity;
+int func, points, intensity, low, up;
 float lower, upper;
 float x;
 int i, nbthreads;
@@ -112,10 +112,9 @@ int main (int argc, char* argv[]) {
                     tls = 0;
                    },
                    [&](int i, float& tls) -> void{
-                        
-//		     for(int j=i; j<numItr; j+=itrSection){
-                       int low =i;
-                       int up = i + (itrSection - 1);
+
+                       low =i;
+                       up = i + (itrSection - 1);
 
                        if(up > upper) {
                            up = upper;
@@ -123,9 +122,8 @@ int main (int argc, char* argv[]) {
                        if ((upper-up) == itrRemain) {
                            up += itrRemain;
                        }
-
                        tls += integrateNum(func, low, up, points, intensity);
-//			}
+
                   },
                    [&](float tls) -> void{
                        sum += tls;
