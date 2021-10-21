@@ -8,6 +8,7 @@
 #include <thread>
 #include <vector>
 #include <array>
+#include <functional>
 #include "../sequential/seq_loop.hpp"
 
 
