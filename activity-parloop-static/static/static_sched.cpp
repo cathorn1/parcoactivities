@@ -88,15 +88,15 @@ int main (int argc, char* argv[]) {
 
   nbthreads = round(nbthreads);
 
-  if (numItr%nbthreads == 0){
-      itrSection = numItr/nbthreads;
-    }
-  else{
+//  if (numItr%nbthreads == 0){
+//      itrSection = numItr/nbthreads;
+//    }
+//  else{
      // nbthreads = round(nbthreads);
 //      int gd = gcd(numItr, nbthreads);
   //    nbthreads = gd;
     //  itrSection = numItr/nbthreads;
-  }
+//  }
 
   while (numItr%nbthreads != 0){
       nbthreads++;
