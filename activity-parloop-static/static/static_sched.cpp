@@ -121,7 +121,7 @@ int main (int argc, char* argv[]) {
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
-                       if (i == (numItr - 1)){
+                       if (i > up && up < numItr){
                            up = numItr;
                        }
                         tls += integrateNum(func, low, up, (points/itrSection), intensity);
