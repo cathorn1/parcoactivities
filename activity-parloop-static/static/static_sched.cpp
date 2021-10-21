@@ -116,9 +116,14 @@ int main (int argc, char* argv[]) {
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
-                       if ((upper - up) == itrRemain) {
+
+                       if(up > upper) {
+                           up = upper;
+                       }
+                       if ((upper-up) == itrRemain) {
                            up += itrRemain;
                        }
+
                        tls += integrateNum(func, low, up, points, intensity);
 //			}
                   },
