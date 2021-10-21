@@ -121,17 +121,17 @@ int main (int argc, char* argv[]) {
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
                        int up = i + (itrSection - 1);
-<<<<<<< HEAD
+
 //                       if (i > up && up < numItr){
 //                           up = numItr;
 //                       }
                         tls += integrateNum(func, low, up, (points/itrSection), intensity);
-=======
+
                        if (i > up && up < numItr){
                            up = numItr;
                        }
                         tls += integrateNum(func, low, up, points, intensity);
->>>>>>> c7284cdacbfdfae1ccd4a9aecdef12c4d4fc8cf2
+
 //			}
                   },
                    [&](double tls) -> void{
