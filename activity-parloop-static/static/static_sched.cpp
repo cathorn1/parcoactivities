@@ -126,10 +126,10 @@ int main (int argc, char* argv[]) {
                        }
                         tls += integrateNum(func, low, up, (points/itrSection), intensity);
 //			}
-                   },
+                  },
                    [&](double tls) -> void{
                        sum += tls;
-                   }
+                }
     );
 
 //    for (int i = 0, i < numItr; i =(i+itrSection)){
