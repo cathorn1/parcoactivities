@@ -19,12 +19,6 @@ public:
     }
   }
 
-//    void parfor1 (size_t beg, size_t end, size_t inc,
-//                 std::function<double(int, float, float, int, int)> f) {
-//        for (size_t i=beg; i<end; i+= inc) {
-//            f();
-//        }
-//    }
 
   /// @brief execute the function f multiple times with different
   /// parameters possibly in parallel
@@ -43,20 +37,37 @@ public:
   ///
   /// Once the iterations are complete, each thread will execute after
   /// on the TLS object. No two thread can execute after at the same time.
-  template<typename TLS>
-  void parfor (size_t beg, size_t end, size_t increment,
-	       std::function<void(TLS&)> before,
-	       std::function<void(int, TLS&)> f,
-	       std::function<void(TLS&)> after
-	       ) {
+
+//  template<typename TLS>
+//  void parfor (size_t beg, size_t end, size_t increment,
+//	       std::function<void(TLS&)> before,
+//	       std::function<void(int, TLS&)> f,
+//	       std::function<void(TLS&)> after
+//	       ) {
+//    TLS tls;
+//    before(tls);
+//    for (size_t i=beg; i<end; i+= increment) {
+//      f(i, tls);
+//    }
+//    after(tls);
+//  }
+//
+//};
+
+template<typename TLS>
+void parfor (size_t beg, size_t end, size_t increment,
+             std::function<void(TLS&)> before,
+             std::function<void(int, TLS&)> f,
+             std::function<void(TLS&)> after
+) {
     TLS tls;
-    before(tls);    
+    before(tls);
     for (size_t i=beg; i<end; i+= increment) {
-      f(i, tls);
+        f(i, tls);
     }
     after(tls);
-  }
-  
+}
+
 };
 
 #endif

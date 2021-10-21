@@ -6,6 +6,7 @@
 #include <cmath>
 #include <thread>
 #include <vector>
+#include <array>
 #include "../sequential/seq_loop.hpp"
 
 
@@ -27,8 +28,10 @@ float f4(float x, int intensity);
 int func, points, intensity;
 float lower, upper;
 float x;
-int i;
+int i, nbthreads;
 float itgr_output, result;
+int sum;
+SeqLoop sl;
 
 double integrateNum(int func, float lower, float upper, int points, int intensity) {
     if (func == 1) {
@@ -54,9 +57,26 @@ double integrateNum(int func, float lower, float upper, int points, int intensit
     }
 
     result = ((upper - lower) / points) * itgr_output;
-
     return result;
 }
+
+//double threadedParloop(int n, int func, float lower, float upper, int points, int intensity, float &sum){
+//    //threaded implementation of parfor
+//
+//    sl.parfor<int>(0, b.size(), 1,
+//                   [&](int& tls) -> void{
+//                       tls = 0;
+//                   },
+//                   [&](int i, int& tls) -> void{
+//                       tls += integrateNum(func, lower, upper, points, intensity);
+//                   },
+//                   [&](int tls) -> void{
+//                       sum += tls;
+//                   }
+//    );
+//
+//    return sum;
+//}
 
 int main (int argc, char* argv[]) {
 
@@ -71,17 +91,48 @@ int main (int argc, char* argv[]) {
   sscanf(argv[3], "%f", &upper);
   sscanf(argv[4], "%d", &points);
   sscanf(argv[5], "%d", &intensity);
+  sscanf(argv[6], "%d", &nbthreads);
 
-  SeqLoop sl;
+
+  int numItr = upper - lower;
+  int itrSection = numItr/nbthreads;
+
+  //std::array<std::thread, nbthreads> threads;
 
   auto start = std::chrono::steady_clock::now();
 
-
+//Sequential implementation of parfor
   sl.parfor(0, 1, 1,
              [&](int i) -> void {
       integrateNum(func, lower, upper, points, intensity);
   });
 
+//    sl.parfor<int>(0, numItr, 1,
+//                   [&](int& tls) -> void{
+//
+//                        std::array<TLS, nbthreads> tlsArr;
+//                        tls = 0;
+//                   },
+//                   [&](int i, int& tls) -> void{
+//                       tls += integrateNum(func, lower, upper, points, intensity);
+//                   },
+//                   [&](int tls) -> void{
+//                       sum += tls;
+//                   }
+//    );
+
+
+
+//    for (int i =0; i < nbthreads; i++){
+//        threads[i] = std::thread(threadedParloop, i, lower, upper, points, intensity, std::ref(sum));
+//    }
+
+//    for (auto & t : threads) {
+//        if (t.joinable())
+//        t.join();
+//    else
+//        std::cout << "t is not joinable" << std::endl;
+//    }
 
   auto stop = std::chrono::steady_clock::now();
   std::chrono::duration<double> time_elapsed = stop - start;
