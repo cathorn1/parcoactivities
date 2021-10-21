@@ -79,6 +79,12 @@ double integrateNum(int func, float lower, float upper, int points, int intensit
 //    return sum;
 //}
 
+int gcd(int a, int b){
+    if (b ==0)
+        return a;
+    return gcd(b, a%b);
+}
+
 int main (int argc, char* argv[]) {
 
   if (argc < 7) {
@@ -98,11 +104,12 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection;
 
-  if (numItr%nbthreads != 0){
-      nbthreads = round(nbthreads);
-      itrSection= numItr/nbthreads;
-  }
+  if (numItr%nbthreads == 0){
+      itrSection = numItr/nbthreads;
+    }
   else{
+      int gd = gcd(numItr, nbthreads);
+      nbthreads = gd;
       itrSection = numItr/nbthreads;
   }
 
