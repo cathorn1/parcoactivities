@@ -95,7 +95,14 @@ int main (int argc, char* argv[]) {
 
 
   int numItr = upper - lower;
-  int itrSection = numItr/nbthreads;
+  int itrSection= numItr/nbthreads;
+
+//  if (numItr%nbthreads != 0){
+//
+//  }
+//  else{
+//      itrSection = numItr/nbthreads;
+//  }
 
   auto start = std::chrono::steady_clock::now();
 
@@ -112,7 +119,7 @@ int main (int argc, char* argv[]) {
                    },
                    [&](int i, int& tls) -> void{
                         int low = i;
-                        int up = i + (itrSection);
+                        int up = (i + itrSection) - 1;
                         tls += integrateNum(func, low, up, points, intensity);
 
                    },
