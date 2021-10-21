@@ -4,6 +4,7 @@
 #include <string.h>
 #include <chrono>
 #include <cmath>
+#include <math.h>
 #include <thread>
 #include <vector>
 #include <array>
@@ -97,12 +98,12 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection= numItr/nbthreads;
 
-//  if (numItr%nbthreads != 0){
-//
-//  }
-//  else{
-//      itrSection = numItr/nbthreads;
-//  }
+  if (numItr%nbthreads != 0){
+      nbthreads = round(nbthreads);
+  }
+  else{
+      itrSection = numItr/nbthreads;
+  }
 
   auto start = std::chrono::steady_clock::now();
 
