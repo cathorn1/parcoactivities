@@ -111,12 +111,12 @@ int main (int argc, char* argv[]) {
 //  });
 
   
-    sl.parfor<double>(lower, lower+numItr-1, itrSection,
-                   [&](double& tls) -> void{
-                    tls = 0.0;
+    sl.parfor<float>(lower, lower+numItr-1, itrSection,
+                   [&](float& tls) -> void{
+                    tls = 0;
 
                    },
-                   [&](int i, double& tls) -> void{
+                   [&](int i, float& tls) -> void{
                         
 //		     for(int j=i; j<numItr; j+=itrSection){
                        int low =i;
@@ -129,7 +129,7 @@ int main (int argc, char* argv[]) {
 
 //			}
                   },
-                   [&](double tls) -> void{
+                   [&](float tls) -> void{
                        sum += tls;
                 }
     );
