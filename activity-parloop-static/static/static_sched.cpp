@@ -82,7 +82,6 @@ int main (int argc, char* argv[]) {
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
 
-
   int numItr = upper - lower;
   int itrSection, itrRemain;
 
@@ -101,14 +100,14 @@ int main (int argc, char* argv[]) {
 
   auto start = std::chrono::steady_clock::now();
 
-//Sequential implementation of parfor
+////Sequential implementation of parfor
 //  sl.parfor(0, 1, 1,
 //             [&](int i) -> void {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
   
-    sl.parfor<float>(lower, upper, itrSection,
+    sl.parfor<float>(lower, (lower+upper), itrSection,
                    [&](float& tls) -> void{
                     tls = 0;
                    },
