@@ -121,18 +121,18 @@ int main (int argc, char* argv[]) {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
-    sl.parfor<int>(0, numItr, itrSection,
-                   [&](int& tls) -> void{
+    sl.parfor<double>(0, numItr, itrSection,
+                   [&](double& tls) -> void{
                     tls = 0.0;
 
                    },
-                   [&](int i, int& tls) -> void{
+                   [&](int i, double& tls) -> void{
                         int low = i;
-                        int up = (i + itrSection) - 1;
+                        int up = i + (itrSection - 1);
                         tls += integrateNum(func, low, up, points, intensity);
 
                    },
-                   [&](int tls) -> void{
+                   [&](double tls) -> void{
                        sum += tls;
                    }
     );
