@@ -107,16 +107,16 @@ int main (int argc, char* argv[]) {
     sl.parfor<int>(0, numItr, itrSection,
                    [&](int& tls) -> void{
                     tls = 0.0;
-
+                    double val = 0.0;
                    },
                    [&](int i, int& tls) -> void{
                         int low = i;
                         int up = (i + itrSection) - 1;
-                        tls += integrateNum(func, low, up, points, intensity);
+                        val += integrateNum(func, low, up, points, intensity);
 
                    },
                    [&](int tls) -> void{
-                       sum += tls;
+                       sum += val;
                    }
     );
 
