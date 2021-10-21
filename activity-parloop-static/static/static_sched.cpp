@@ -61,24 +61,6 @@ double integrateNum(int func, float lower, float upper, int points, int intensit
     return result;
 }
 
-//double threadedParloop(int n, int func, float lower, float upper, int points, int intensity, float &sum){
-//    //threaded implementation of parfor
-//
-//    sl.parfor<int>(0, b.size(), 1,
-//                   [&](int& tls) -> void{
-//                       tls = 0;
-//                   },
-//                   [&](int i, int& tls) -> void{
-//                       tls += integrateNum(func, lower, upper, points, intensity);
-//                   },
-//                   [&](int tls) -> void{
-//                       sum += tls;
-//                   }
-//    );
-//
-//    return sum;
-//}
-
 int gcd(int a, int b){
     if (b ==0)
         return a;
