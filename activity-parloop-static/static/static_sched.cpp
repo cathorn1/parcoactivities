@@ -86,7 +86,21 @@ int main (int argc, char* argv[]) {
   int numItr = upper - lower;
   int itrSection;
 
+<<<<<<< HEAD
   nbthreads = round(nbthreads);
+=======
+
+  if (numItr%nbthreads == 0){
+      itrSection = numItr/nbthreads;
+    }
+  else{
+     // nbthreads = round(nbthreads);
+//      int gd = gcd(numItr, nbthreads);
+  //    nbthreads = gd;
+    //  itrSection = numItr/nbthreads;
+  }
+
+>>>>>>> ef7b8b42c0df11488a467a5a37fa8ed6bfd5a212
   while (numItr%nbthreads != 0){
       nbthreads++;
   }
