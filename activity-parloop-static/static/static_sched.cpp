@@ -31,11 +31,9 @@ int main (int argc, char* argv[]) {
     std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads>"<<std::endl;
     return -1;
   }
-    int func, points, intensity, low, up;
+    int func, points, intensity;
     double lower, upper;
-    double x;
-    int i, nbthreads;
-    double itgr_output, result;
+    int nbthreads;
     double sum;
     SeqLoop sl;
 
@@ -61,22 +59,23 @@ int main (int argc, char* argv[]) {
                             tls = 0;
                         }
                    },
-                   [&](int low, int up, double & tls) -> void {
+                   [&](int lower, int upper, double & tls) -> void {
 
-                      for (int i = low; i <= up; i++){
+                      for (int i = lower; i <= upper; i++){
                           switch (func) {
                               case 1:
-                                  tls += f1(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                   break;
                               case 2:
-                                  tls += f2(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  tls += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                   break;
                               case 3:
-                                  tls += f3(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  tls += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                   break;
                               case 4:
-                                  tls += f4(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  tls += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                   break;
+
                           }
                           }
 
@@ -85,8 +84,7 @@ int main (int argc, char* argv[]) {
 
                            sum += tls;
 
-                }
-    );
+                });
 
 
   auto stop = std::chrono::steady_clock::now();
