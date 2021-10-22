@@ -96,21 +96,34 @@ int main (int argc, char* argv[]) {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
-    sl.parfor<double>(0, nbthreads, 1,
+    sl.parfor<double>(0, nbthreads, 1, points,
                    [&](double & tls) -> void{
-                        tls = 0;
+                        for(int i=0; i < nbthreads; i++) {
+                            tls = 0;
+                        }
                    },
-                   [&](int i, double & tls) -> void {
+                   [&](int low, int up, double & tls) -> void {
 
-                      if (i == (nbthreads - 1))
-                            up += itrRemain;
+                      for (int i = low; i <= up; i++){
+                          switch (func) {
+                              case 1:
+                                  tls += f1(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  break;
+                              case 2:
+                                  tls += f2(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  break;
+                              case 3:
+                                  tls += f3(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  break;
+                              case 4:
+                                  tls += f4(lower + (i + .5) * ((upper - lower) / points), intensity);
+                                  break;
+                          }
+                          }
 
-                       parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
-                       parThreads[i].join();
-                       low = up;
-                       up += itrSection;
+
                        },
-                   [&](double & tls) -> void{
+                   [&](double tls) -> void{
 
                            sum += tls;
 
