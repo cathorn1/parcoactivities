@@ -108,7 +108,7 @@ int main (int argc, char* argv[]) {
                             up += itrRemain;
 
                        parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
-                       parThreads[i].join();
+                       //parThreads[i].join();
                        low = up;
                        up += itrSection;
                        },
