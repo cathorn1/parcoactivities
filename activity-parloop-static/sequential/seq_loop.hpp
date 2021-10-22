@@ -67,7 +67,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
     int inc =1;
     int itrs = n/end;
     int remain = n%end;
-    for (size_t i=beg; i<=end; i+= increment) {
+    for (size_t i=beg; i<end; i+= increment) {
         int up = itrs * inc;
         int low = up - itrs;
         up -= 1;
