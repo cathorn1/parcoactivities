@@ -35,8 +35,6 @@ double itgr_output, result;
 double sum;
 SeqLoop sl;
 
-
-
 void integrateNum(int func, double lower, double upper, int points, int intensity, double &tls) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
