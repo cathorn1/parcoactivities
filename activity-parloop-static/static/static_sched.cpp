@@ -99,10 +99,10 @@ int main (int argc, char* argv[]) {
 //  });
 
     sl.parfor<double>(0, nbthreads, 1,
-                   [&](double& tls) -> void{
+                   [&](double & tls) -> void{
                         tls = 0;
                    },
-                   [&](int i, double& tls) -> void {
+                   [&](int i, double & tls) -> void {
 
                       if (i == (nbthreads - 1))
                             up += itrRemain;
@@ -110,18 +110,20 @@ int main (int argc, char* argv[]) {
 //                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
 
                        parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
-                       //parThreads[i].join();
+                       parThreads[i].join();
                        low = up;
                        up += itrSection;
                        },
-                   [&](double tls) -> void{
-                       for (auto & t : parThreads) {
-                           if (t.joinable())
-                               t.join();
-                           else
-                               std::cout << "t is not joinable" << std::endl;
+                   [&](double & tls) -> void{
+//                       for (auto & t : parThreads) {
+//                           if (t.joinable())
+//                               t.join();
+//                           else
+//                               std::cout << "t is not joinable" << std::endl;
+//                       }
+                       for(int i = 0; i < nbthreads; i++){
+                           sum += tls;
                        }
-                       sum += tls;
                 }
     );
 
