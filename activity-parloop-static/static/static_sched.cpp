@@ -83,15 +83,14 @@ int main (int argc, char* argv[]) {
                    [&](double tls) -> void{
 
                            sum += tls;
-
                 });
-
+  double result = ((upper-lower)/points) * sum;
 
   auto stop = std::chrono::steady_clock::now();
   std::chrono::duration<double> time_elapsed = stop - start;
 
   std::cerr << time_elapsed.count()<< "\n";
-  std::cout << sum << std::endl;
+  std::cout << result << std::endl;
 
   return 0;
 }
