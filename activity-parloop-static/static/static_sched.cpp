@@ -101,7 +101,7 @@ int main (int argc, char* argv[]) {
   
     sl.parfor<std::vector<float>>(0, nbthreads, 1,
                    [&](std::vector<float> & tls) -> void{
-                    tls[i] = 0.0;
+                    tls[i]=0;
                    },
                    [&](int i, std::vector<float>& tls) -> void {
 
@@ -115,8 +115,10 @@ int main (int argc, char* argv[]) {
                            up += itrRemain;
                        }
 
-                       parThreads.push_back(std::move(std::thread(std::ref(integrateNum), std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
+//                       parThreads.push_back(std::move(std::thread(integrateNum, std::ref(func), std::ref(low),
+//                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
 
+                       parThreads.push_back(std::move(std::thread(integrateNum, func, low, up, points, intensity, tls)));
                        },
                    [&](std::vector<float>& tls) -> void{
 
