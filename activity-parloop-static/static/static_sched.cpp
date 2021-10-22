@@ -113,15 +113,9 @@ int main (int argc, char* argv[]) {
                        up += itrSection;
                        },
                    [&](double & tls) -> void{
-//                       for (auto & t : parThreads) {
-//                           if (t.joinable())
-//                               t.join();
-//                           else
-//                               std::cout << "t is not joinable" << std::endl;
-//                       }
-                       for(int i = 0; i < nbthreads; i++){
+
                            sum += tls;
-                       }
+
                 }
     );
 
