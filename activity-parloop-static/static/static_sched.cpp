@@ -80,6 +80,7 @@ int main (int argc, char* argv[]) {
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
 
+  int numThreads = nbthreads;
 
   int numItr = upper - lower;
   int itrSection, itrRemain;
@@ -113,9 +114,9 @@ int main (int argc, char* argv[]) {
                        if ((upper - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       std::thread th(&integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls);
 
-                       parThreads.push_back(std::move(th));
+                       parThreads.push_back(std::move(std::thread(std::ref(integrateNum), std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
+
                        },
                    [&](std::vector<float>& tls) -> void{
 
