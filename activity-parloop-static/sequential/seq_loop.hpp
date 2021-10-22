@@ -58,7 +58,7 @@ template<typename TLS>
 
 void parfor (size_t beg, size_t end, size_t increment, size_t n,
              std::function<void(TLS&)> before,
-             std::function<void(int, TLS&)> f,
+             std::function<void(int, int, TLS&)> f,
              std::function<void(TLS&)> after
 ) {
 
