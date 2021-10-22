@@ -34,7 +34,7 @@ int i, nbthreads;
 float itgr_output, result;
 int sum;
 SeqLoop sl;
-std::vector<std::thread> parThreads;
+
 
 
 void integrateNum(int &func, float &lower, float &upper, int &points, int &intensity, std::vector<float> &tls) {
@@ -65,12 +65,6 @@ void integrateNum(int &func, float &lower, float &upper, int &points, int &inten
     //return result;
 }
 
-int gcd(int a, int b){
-    if (b ==0)
-        return a;
-    return gcd(b, a%b);
-}
-
 int main (int argc, char* argv[]) {
 
   if (argc < 7) {
@@ -93,17 +87,7 @@ int main (int argc, char* argv[]) {
   itrSection = numItr/nbthreads;
   itrRemain = numItr%nbthreads;
 
-
-
-//  if (numItr%nbthreads == 0){
-//      itrSection = numItr/nbthreads;
-//    }
-//  else{
-//     // nbthreads = round(nbthreads);
-//      int gd = gcd(numItr, nbthreads);
-//      nbthreads = gd;
-//      itrSection = numItr/nbthreads;
-//  }
+    std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
 
@@ -129,8 +113,10 @@ int main (int argc, char* argv[]) {
                        if ((upper - up) == itrRemain) {
                            up += itrRemain;
                        }
-                       parThreads.push_back(std::thread(integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls));
-                   },
+                       std::thread th(&integrateNum, std::ref(func), std::ref(low), std::ref(up), std::ref(points), std::ref(intensity), tls);
+
+                       parThreads.push_back(std::move(th));
+                       },
                    [&](std::vector<float>& tls) -> void{
 
                        for (auto &t: parThreads) {
@@ -156,13 +142,6 @@ int main (int argc, char* argv[]) {
 
 //    for (int i =0; i < nbthreads; i++){
 //        threads[i] = std::thread(threadedParloop, i, lower, upper, points, intensity, std::ref(sum));
-//    }
-
-//    for (auto & t : threads) {
-//        if (t.joinable())
-//        t.join();
-//    else
-//        std::cout << "t is not joinable" << std::endl;
 //    }
 
   auto stop = std::chrono::steady_clock::now();
