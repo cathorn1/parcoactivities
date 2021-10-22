@@ -37,7 +37,7 @@ SeqLoop sl;
 
 
 
-void integrateNum(int func, float lower, float upper, int points, int intensity, double &tls) {
+void integrateNum(int func, double lower, double upper, int points, int intensity, double &tls) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -102,11 +102,11 @@ int main (int argc, char* argv[]) {
 
     sl.parfor<double>(0, nbthreads, 1,
                    [&](double& tls) -> void{
-                        tls = 0.0;
+                        tls = 0;
                    },
                    [&](int i, double& tls) -> void {
 
-                      if (i == nbthreads -1)
+                      if (i == (nbthreads - 1))
                             up += itrRemain;
 //                       parThreads.push_back(std::move(std::thread(integrateNum, std::ref(func), std::ref(low),
 //                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
