@@ -33,34 +33,6 @@ double itgr_output, result;
 double sum;
 SeqLoop sl;
 
-void integrateNum(int func, double lower, double upper, int points, int intensity, double &tls) {
-    if (func == 1) {
-        for (i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f1(x, intensity);
-        }
-    } else if (func == 2) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f2(x, intensity);
-        }
-    } else if (func == 3) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f3(x, intensity);
-        }
-    } else if (func == 4) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f4(x, intensity);
-        }
-    }
-
-    result = ((upper - lower) / points) * itgr_output;
-    tls = result;
-    //return result;
-}
-
 int main (int argc, char* argv[]) {
 
   if (argc < 7) {
@@ -76,17 +48,16 @@ int main (int argc, char* argv[]) {
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
 
-  int numThreads = nbthreads;
+//
+//  int numItr = upper - lower;
+//  double itrSection, itrRemain;
 
-  int numItr = upper - lower;
-  double itrSection, itrRemain;
-
-  itrSection = numItr/nbthreads;
-  //itrRemain = numItr%nbthreads;
-  itrRemain = remainder(upper-lower, nbthreads);
-  low = lower;
-  up = (lower + itrSection) - 1;
-  std::vector<std::thread> parThreads;
+//  itrSection = numItr/nbthreads;
+//  //itrRemain = numItr%nbthreads;
+//  itrRemain = remainder(upper-lower, nbthreads);
+//  low = lower;
+//  up = (lower + itrSection) - 1;
+//  std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
 
