@@ -106,8 +106,6 @@ int main (int argc, char* argv[]) {
 
                       if (i == (nbthreads - 1))
                             up += itrRemain;
-//                       parThreads.push_back(std::move(std::thread(integrateNum, std::ref(func), std::ref(low),
-//                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
 
                        parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
                        parThreads[i].join();
