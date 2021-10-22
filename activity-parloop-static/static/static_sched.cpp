@@ -28,16 +28,16 @@ float f4(float x, int intensity);
 //using std::chrono::system_clock;
 
 int func, points, intensity, low, up;
-float lower, upper;
-float x;
+double lower, upper;
+double x;
 int i, nbthreads;
-float itgr_output, result;
-int sum;
+double itgr_output, result;
+double sum;
 SeqLoop sl;
 
 
 
-void integrateNum(int &func, float &lower, float &upper, int &points, int &intensity) {
+void integrateNum(int func, float lower, float upper, int points, int intensity) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -74,8 +74,8 @@ int main (int argc, char* argv[]) {
 
   //scan values from argv[] command line array
   sscanf(argv[1], "%d", &func);
-  sscanf(argv[2], "%f", &lower);
-  sscanf(argv[3], "%f", &upper);
+  sscanf(argv[2], "%lf", &lower);
+  sscanf(argv[3], "%lf", &upper);
   sscanf(argv[4], "%d", &points);
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
@@ -83,12 +83,13 @@ int main (int argc, char* argv[]) {
   int numThreads = nbthreads;
 
   int numItr = upper - lower;
-  int itrSection, itrRemain;
+  double itrSection, itrRemain;
 
   itrSection = numItr/nbthreads;
   //itrRemain = numItr%nbthreads;
-  itrRemain = remainder((upper-lower, nbthreads));
-
+  itrRemain = remainder(upper-lower, nbthreads);
+  low = lower;
+  up = itrSection;
   std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
@@ -99,14 +100,11 @@ int main (int argc, char* argv[]) {
 //      integrateNum(func, lower, upper, points, intensity);
 //  });
 
-  
-    sl.parfor<std::vector<float>>(0, nbthreads, 1,
-                   [&](std::vector<float> & tls) -> void{
-                    for(int i =0; i < nbthreads; i++) {
-                        tls[i] = 0;
-                    }
+    sl.parfor<double>(0, nbthreads, 1,
+                   [&](double& tls) -> void{
+                        tls = 0.0;
                    },
-                   [&](int i, std::vector<float>& tls) -> void {
+                   [&](int i, double& tls) -> void {
 
                       if (i == nbthreads -1)
                             up += itrRemain;
@@ -118,21 +116,11 @@ int main (int argc, char* argv[]) {
                        low = up;
                        up += itrSection;
                        },
-                   [&](std::vector<float>& tls) -> void{
+                   [&](double tls) -> void{
                              sum += tls;
                 }
     );
 
-//    for (int i = 0, i < numItr; i =(i+itrSection)){
-//        for (int j = i; j < i+itrSection; j++ ){
-//
-//        }
-//    }
-
-
-//    for (int i =0; i < nbthreads; i++){
-//        threads[i] = std::thread(threadedParloop, i, lower, upper, points, intensity, std::ref(sum));
-//    }
 
   auto stop = std::chrono::steady_clock::now();
   std::chrono::duration<double> time_elapsed = stop - start;
