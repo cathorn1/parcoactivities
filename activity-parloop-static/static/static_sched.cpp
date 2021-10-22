@@ -110,7 +110,7 @@ int main (int argc, char* argv[]) {
 //                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
 
                        parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
-                       parThreads[i].join();
+                       //parThreads[i].join();
                        low = up;
                        up += itrSection;
                        },
