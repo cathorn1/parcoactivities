@@ -25,8 +25,6 @@ float f4(float x, int intensity);
 }
 #endif
 
-//using std::chrono::system_clock;
-
 int func, points, intensity, low, up;
 double lower, upper;
 double x;
@@ -87,7 +85,7 @@ int main (int argc, char* argv[]) {
   //itrRemain = numItr%nbthreads;
   itrRemain = remainder(upper-lower, nbthreads);
   low = lower;
-  up = itrSection;
+  up = itrSection -1;
   std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
@@ -108,7 +106,7 @@ int main (int argc, char* argv[]) {
                             up += itrRemain;
 
                        parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity, std::ref(tls)));
-                       //parThreads[i].join();
+                       parThreads[i].join();
                        low = up;
                        up += itrSection;
                        },
