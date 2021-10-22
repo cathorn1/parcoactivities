@@ -37,7 +37,7 @@ SeqLoop sl;
 
 
 
-void integrateNum(int &func, float &lower, float &upper, int &points, int &intensity, std::vector<float> &tls) {
+void integrateNum(int &func, float &lower, float &upper, int &points, int &intensity) {
     if (func == 1) {
         for (i = 0; i <= (points - 1); i++) {
             x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -61,7 +61,7 @@ void integrateNum(int &func, float &lower, float &upper, int &points, int &inten
     }
 
     result = ((upper - lower) / points) * itgr_output;
-    tls[i] = result;
+    //tls[i] = result;
     //return result;
 }
 
@@ -86,9 +86,10 @@ int main (int argc, char* argv[]) {
   int itrSection, itrRemain;
 
   itrSection = numItr/nbthreads;
-  itrRemain = numItr%nbthreads;
+  //itrRemain = numItr%nbthreads;
+  itrRemain = remainder((upper-lower, nbthreads));
 
-    std::vector<std::thread> parThreads;
+  std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
 
@@ -101,38 +102,24 @@ int main (int argc, char* argv[]) {
   
     sl.parfor<std::vector<float>>(0, nbthreads, 1,
                    [&](std::vector<float> & tls) -> void{
-                    tls[i]=0;
+                    for(int i =0; i < nbthreads; i++) {
+                        tls[i] = 0;
+                    }
                    },
                    [&](int i, std::vector<float>& tls) -> void {
 
-                       low = i;
-                       up = i + (itrSection - 1);
-
-                       if (up > upper) {
-                           up = upper;
-                       }
-                       if ((upper - up) == itrRemain) {
-                           up += itrRemain;
-                       }
-
+                      if (i == nbthreads -1)
+                            up += itrRemain;
 //                       parThreads.push_back(std::move(std::thread(integrateNum, std::ref(func), std::ref(low),
 //                                                                  std::ref(up), std::ref(points), std::ref(intensity), std::ref(tls))));
 
-                       parThreads.push_back(std::move(std::thread(integrateNum, func, low, up, points, intensity, tls)));
+                       parThreads.push_back(std::thread(integrateNum, func, low, up, points, intensity));
+                       parThreads[i].join();
+                       low = up;
+                       up += itrSection;
                        },
                    [&](std::vector<float>& tls) -> void{
-
-                       for (auto &t: parThreads) {
-                           if (t.joinable()) {
-                               t.join();
-                           }
-                           else {
-                               std::cout << "t is not joinable" << std::endl;
-                           }
-                       }
-
-                       for(int k =0; k < nbthreads; k++)
-                           sum += tls[k];
+                             sum += tls;
                 }
     );
 
