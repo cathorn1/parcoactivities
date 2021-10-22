@@ -85,7 +85,7 @@ int main (int argc, char* argv[]) {
   //itrRemain = numItr%nbthreads;
   itrRemain = remainder(upper-lower, nbthreads);
   low = lower;
-  up = lower + itrSection;
+  up = (lower + itrSection) - 1;
   std::vector<std::thread> parThreads;
 
   auto start = std::chrono::steady_clock::now();
