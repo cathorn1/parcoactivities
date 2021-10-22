@@ -115,7 +115,13 @@ int main (int argc, char* argv[]) {
                        up += itrSection;
                        },
                    [&](double tls) -> void{
-                             sum += tls;
+                       for (auto & t : parThreads) {
+                           if (t.joinable())
+                               t.join();
+                           else
+                               std::cout << "t is not joinable" << std::endl;
+                       }
+                       sum += tls;
                 }
     );
 
