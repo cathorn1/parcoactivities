@@ -25,20 +25,19 @@ float f4(float x, int intensity);
 }
 #endif
 
-int func, points, intensity, low, up;
-double lower, upper;
-double x;
-int i, nbthreads;
-double itgr_output, result;
-double sum;
-SeqLoop sl;
-
 int main (int argc, char* argv[]) {
 
   if (argc < 7) {
     std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads>"<<std::endl;
     return -1;
   }
+    int func, points, intensity, low, up;
+    double lower, upper;
+    double x;
+    int i, nbthreads;
+    double itgr_output, result;
+    double sum;
+    SeqLoop sl;
 
   //scan values from argv[] command line array
   sscanf(argv[1], "%d", &func);
