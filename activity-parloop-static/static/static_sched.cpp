@@ -48,17 +48,6 @@ int main (int argc, char* argv[]) {
   sscanf(argv[5], "%d", &intensity);
   sscanf(argv[6], "%d", &nbthreads);
 
-//
-//  int numItr = upper - lower;
-//  double itrSection, itrRemain;
-
-//  itrSection = numItr/nbthreads;
-//  //itrRemain = numItr%nbthreads;
-//  itrRemain = remainder(upper-lower, nbthreads);
-//  low = lower;
-//  up = (lower + itrSection) - 1;
-//  std::vector<std::thread> parThreads;
-
   auto start = std::chrono::steady_clock::now();
 
 ////Sequential implementation of parfor
