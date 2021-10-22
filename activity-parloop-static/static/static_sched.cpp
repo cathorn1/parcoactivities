@@ -59,9 +59,9 @@ int main (int argc, char* argv[]) {
                             tls = 0;
                         }
                    },
-                   [&](int lower, int upper, double & tls) -> void {
+                   [&](int low, int up, double & tls) -> void {
 
-                      for (int i = lower; i <= upper; i++){
+                      for (int i = low; i <= up; i++){
                           switch (func) {
                               case 1:
                                   tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
