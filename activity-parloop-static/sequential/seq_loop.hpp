@@ -126,7 +126,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             up += chunkRemain;
         }
 
-        tVec[counter] = std::thread(f, low, up, std::ref(tls));
+        tVec.push_back(std::thread(f, low, up, std::ref(tls)));
 
         inc++;
         counter++;
