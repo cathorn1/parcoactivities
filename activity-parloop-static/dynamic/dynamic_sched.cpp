@@ -44,9 +44,9 @@ int main (int argc, char* argv[]) {
 
     chunk = (upper-lower)/granularity;
 
-    sl.parfor<double>(0, upper, chunk, points, granularity,
+    sl.parfor<double>(0, nbthreads, 1, points, granularity,
                       [&](double & tls) -> void{
-                          for(int i=0; i < chunk; i++) {
+                          for(int i=0; i < nbthreads; i++) {
                               tls = 0;
 
                           }

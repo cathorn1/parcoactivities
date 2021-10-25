@@ -123,7 +123,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     printf("chunk top: %d, up: %d, low: %d", chunkSize, up, low);
     //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "/n";
 
-    for(int i = 0; i < end; i+=chunkSize){
+    for(size_t i = beg; i < end; i+=chunkSize){
 
         up = chunkSize * inc;
         low = up - chunkSize;
