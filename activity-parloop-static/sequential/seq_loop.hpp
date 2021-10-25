@@ -109,35 +109,35 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     TLS tls;
     before(tls);
-    int inc =1;
+    int inc = 1;
     int counter = 0;
-    int itrs = n/end;
-    int remain = n%end;
+    int itrs = n / end;
+    int remain = n % end;
 
-    int chunkSize = n/gran;
-    int chunkRemain = n%gran;
-    std::vector<std::thread> tVec;
+    int chunkSize = n / gran;
+    int chunkRemain = n % gran;
+    std::vector <std::thread> tVec;
 
     while (counter < chunkSize) {
         int up = chunkSize * inc;
         int low = up - chunkSize;
         up -= 1;
-        if (beg + 1 == end){
+        if (beg + 1 == end) {
             up += chunkRemain;
         }
 
-        tVec[inc] = std::thread(f, low, up, std::ref(tls));
-
-        for (auto & t : tVec) {
-        if (t.joinable())
-            t.join();
-        else
-            t = std::thread(f, low, up, std::ref(tls));
-            //std::cout << "t is not joinable" << std::endl;
-    }
+        tVec[counter] = std::thread(f, low, up, std::ref(tls));
 
         inc++;
         counter++;
+    }
+
+    for (auto &t: tVec) {
+        if (t.joinable())
+            t.join();
+        else
+        // t = std::thread(f, low, up, std::ref(tls));
+        //std::cout << "t is not joinable" << std::endl;
     }
 
     after(tls);
