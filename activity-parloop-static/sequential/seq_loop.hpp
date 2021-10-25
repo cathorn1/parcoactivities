@@ -118,18 +118,25 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkRemain = n%gran;
     std::vector<std::thread> tVec;
 
-    while(counter < n) {
+    while (counter < chunkSize) {
         int up = chunkSize * inc;
         int low = up - chunkSize;
         up -= 1;
         if (beg + 1 == end){
             up += chunkRemain;
         }
+
+        tVec[inc] = std::thread(f, low, up, std::ref(tls));
+
+        for (auto & t : tVec) {
+        if (t.joinable())
+            t.join();
+        else
+            t = std::thread(f, low, up, std::ref(tls));
+            //std::cout << "t is not joinable" << std::endl;
+    }
+
         inc++;
-
-        std::thread t(f, low, up, std::ref(tls));
-        t.join();
-
         counter++;
     }
 
