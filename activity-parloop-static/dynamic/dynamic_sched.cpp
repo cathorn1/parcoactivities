@@ -48,7 +48,6 @@ int main (int argc, char* argv[]) {
                       [&](double & tls) -> void{
                           for(int i=0; i < nbthreads; i++) {
                               tls = 0;
-
                           }
                       },
                       [&](int low, int up, double & tls) -> void {
@@ -79,6 +78,7 @@ int main (int argc, char* argv[]) {
                       });
 
     double result = ((upper-lower)/points) * sum;
+
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;
 
