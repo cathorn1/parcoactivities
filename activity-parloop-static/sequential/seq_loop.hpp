@@ -119,12 +119,12 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     std::vector <std::thread> tVec;
     int up, low;
 
-    while (counter < chunkSize) {
+    for(int i = 0; i < chunkSize; i++){
 
         up = chunkSize * inc;
         low = up - chunkSize;
         up -= 1;
-        if (counter + 1 == chunkSize) {
+        if (i + 1 == chunkSize) {
             up += chunkRemain;
         }
 
