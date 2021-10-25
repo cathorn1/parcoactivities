@@ -131,8 +131,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
         std::thread t (f, low, up, std::ref(tls));
 
-        if (t.joinable())
-            t.join();
+        t.join();
 
         inc++;
         counter++;
