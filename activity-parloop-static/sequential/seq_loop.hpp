@@ -87,9 +87,18 @@ public:
 //
 //};
 
-void setChunk (){
-
-  }
+//void doStuff (std::function<void(int, int, TLS&)> f){
+//    tVec.push_back(std::thread(f, low, up, std::ref(tls)));
+//
+//    for (auto & t : tVec) {
+//        if (t.joinable())
+//            t.join();
+//        else
+//            std::cout << "t is not joinable" << std::endl;
+//    }
+//
+//    counter++;
+//  }
 
 template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
@@ -109,7 +118,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkRemain = n%gran;
     std::vector<std::thread> tVec;
 
-    while(counter < end) {
+    for (size_t i=beg; i<end; i+= increment) {
         int up = chunkSize * inc;
         int low = up - chunkSize;
         up -= 1;
@@ -118,15 +127,8 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         }
         inc++;
 
-        tVec.push_back(std::thread(f, low, up, std::ref(tls)));
-        for (auto & t : tVec) {
-            if (t.joinable())
-                t.join();
-            else
-                std::cout << "t is not joinable" << std::endl;
-        }
-
-        counter++;
+        std::thread t(f, low, up, std::ref(tls));
+        t.join();
     }
 
     after(tls);
