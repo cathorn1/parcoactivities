@@ -46,11 +46,13 @@ int main (int argc, char* argv[]) {
                       [&](double & tls) -> void{
                           for(int i=0; i < nbthreads; i++) {
                               tls = 0;
+                              printf("%s", "seg fault a");
                           }
                       },
                       [&](int low, int up, double & tls) -> void {
-
+                          printf("%s", "seg fault b");
                           for (int i = low; i <= up; i++){
+                              printf("%s", "seg fault c");
                               switch (func) {
                                   case 1:
                                       tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
@@ -70,12 +72,12 @@ int main (int argc, char* argv[]) {
 
                       },
                       [&](double tls) -> void{
-
+                          printf("%s", "seg fault d");
                           sum += tls;
                       });
 
     double result = ((upper-lower)/points) * sum;
-
+    printf("%s", "seg fault e");
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;
 
