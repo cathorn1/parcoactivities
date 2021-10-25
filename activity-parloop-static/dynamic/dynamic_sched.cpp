@@ -42,7 +42,7 @@ int main (int argc, char* argv[]) {
 
     auto start = std::chrono::steady_clock::now();
 
-    chunk = points/granularity;
+    chunk = (upper-lower)/granularity;
 
     sl.parfor<double>(0, upper, 1, points, granularity,
                       [&](double & tls) -> void{
