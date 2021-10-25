@@ -132,6 +132,8 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             up += chunkRemain;
         }
 
+        inc++;
+        counter++;
         //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
         std::thread t (f, low, up, std::ref(tls));
 
@@ -139,8 +141,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
         printf("chunk inside: %d, up: %d, low: %d, gran: %zu, inc: %d, count: %d \n", chunkSize, up, low, gran, inc, counter);
         //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "\n";
-        inc++;
-        counter++;
+
 
     }
 
