@@ -102,6 +102,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int counter = 0;
     int itrs = n/end;
     int remain = n%end;
+
     int chunkSize = n/gran;
     int chunkRemain = n%gran;
 
@@ -115,7 +116,9 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         inc++;
 
         std::thread t(f, low, up, std::ref(tls));
-        t.join();
+        if(t.joinable)
+            t.join();
+        
         counter++;
     }
 

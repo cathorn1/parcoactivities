@@ -73,6 +73,7 @@ int main (int argc, char* argv[]) {
 
                           sum += tls;
                       });
+
     double result = ((upper-lower)/points) * sum;
 
     auto stop = std::chrono::steady_clock::now();
