@@ -54,8 +54,10 @@ public:
 //
 //};
 
-template<typename TLS>
 
+
+//template<typename TLS>
+//
 //void parfor (size_t beg, size_t end, size_t increment, size_t n,
 //             std::function<void(TLS&)> before,
 //             std::function<void(int, int, TLS&)> f,
@@ -87,6 +89,7 @@ void setChunk (){
 
   }
 
+template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
              std::function<void(TLS&)> before,
              std::function<void(int, int, TLS&)> f,
@@ -95,16 +98,14 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     TLS tls;
     before(tls);
-
     int inc =1;
     int counter = 0;
     int itrs = n/end;
     int remain = n%end;
-
     int chunkSize = n/gran;
     int chunkRemain = n%gran;
 
-    while(counter != end) {
+    while(counter < end) {
         int up = chunkSize * inc;
         int low = up - chunkSize;
         up -= 1;
@@ -117,7 +118,6 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         //t.join();
         counter++;
     }
-
 
     after(tls);
 }
