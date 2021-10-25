@@ -120,24 +120,24 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int up, low;
 
     while (counter < end) {
-        printf("%s", "seg fault 1\n");
+
         up = chunkSize * inc;
         low = up - chunkSize;
         up -= 1;
         if (counter + 1 == end) {
             up += chunkRemain;
-            printf("%s", "seg fault 2\n");
+
         }
-        printf("%s", "seg fault 3\n");
+
         //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
         std::thread t (f, low, up, std::ref(tls));
-        printf("%s", "seg fault 4\n");
+
         if (t.joinable())
             t.join();
 
         inc++;
         counter++;
-        printf("%s", "seg fault 5\n");
+
     }
 
 //    for (auto &t: tVec) {
