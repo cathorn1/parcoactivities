@@ -74,7 +74,7 @@ int main (int argc, char* argv[]) {
 
                       },
                       [&](double tls) -> void{
-                          printf("%s", "seg fault d\n");
+
                           sum += tls;
                       });
 
