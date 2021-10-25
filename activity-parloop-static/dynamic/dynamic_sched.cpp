@@ -25,7 +25,7 @@ int main (int argc, char* argv[]) {
     std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads> <granularity>"<<std::endl;
     return -1;
   }
-    int func, points, intensity;
+    int func, points, intensity, chunk;
     double lower, upper;
     int nbthreads, granularity;
     double sum;
@@ -42,17 +42,19 @@ int main (int argc, char* argv[]) {
 
     auto start = std::chrono::steady_clock::now();
 
+    chunk = points/granularity;
+
     sl.parfor<double>(0, upper, 1, points, granularity,
                       [&](double & tls) -> void{
-                          for(int i=0; i < nbthreads; i++) {
+                          for(int i=0; i < chunk; i++) {
                               tls = 0;
-                              printf("%s", "seg fault a\n");
+
                           }
                       },
                       [&](int low, int up, double & tls) -> void {
-                          printf("%s", "seg fault b\n");
+
                           for (int i = low; i <= up; i++){
-                              printf("%s", "seg fault c\n");
+
                               switch (func) {
                                   case 1:
                                       tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
@@ -77,7 +79,6 @@ int main (int argc, char* argv[]) {
                       });
 
     double result = ((upper-lower)/points) * sum;
-    printf("%s", "seg fault e\n");
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;
 
