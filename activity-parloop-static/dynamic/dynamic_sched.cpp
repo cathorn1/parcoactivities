@@ -42,7 +42,7 @@ int main (int argc, char* argv[]) {
 
     auto start = std::chrono::steady_clock::now();
 
-    sl.parfor<double>(0, nbthreads, 1, points, granularity,
+    sl.parfor<double>(0, upper, 1, points, granularity,
                       [&](double & tls) -> void{
                           for(int i=0; i < nbthreads; i++) {
                               tls = 0;
