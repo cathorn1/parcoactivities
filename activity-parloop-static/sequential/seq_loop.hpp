@@ -123,7 +123,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         up = chunkSize * inc;
         low = up - chunkSize;
         up -= 1;
-        if (beg + 1 == end) {
+        if (counter + 1 == end) {
             up += chunkRemain;
         }
 
