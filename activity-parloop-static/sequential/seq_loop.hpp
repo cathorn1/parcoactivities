@@ -4,6 +4,7 @@
 #include <functional>
 #include <thread>
 #include <vector>
+#include <iostream>
 
 class SeqLoop {
 public:
@@ -119,6 +120,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     std::vector <std::thread> tVec;
     int up, low;
     printf("chunk top: %d, up: %d, low: %d", chunkSize, up, low);
+    //std::cout << "chunk: " << chunkSize << "up: " << up <<
     for(int i = 0; i < end; i+=chunkSize){
 
         up = chunkSize * inc;
