@@ -124,9 +124,8 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         up = chunkSize * inc;
         low = up - chunkSize;
         up -= 1;
-        if (counter + 1 == end) {
+        if (counter + 1 == chunkSize) {
             up += chunkRemain;
-
         }
 
         //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
