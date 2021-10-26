@@ -113,7 +113,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int up, low;
 
     while(counter < n) {
-//        if (tVec.size() != end) {
+        if (tVec.size() != end) {
             up = chunkSize * inc;
             low = up - chunkSize;
             up -= 1;
@@ -126,7 +126,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             inc++;
             counter += chunkSize;
 
-      //  }
+        }
     }
     for (auto &t : tVec){
         t.detach();
