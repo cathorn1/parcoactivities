@@ -109,7 +109,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkSize = n / gran;
     int chunkRemain = n % gran;
 
-    std::vector <std::thread> tVec(end);
+    std::vector <std::thread> tVec(tNum);
     int up, low;
 
     //printf("chunk top: %d, up: %d, low: %d, gran: %zu \n", chunkSize, up, low, gran);
