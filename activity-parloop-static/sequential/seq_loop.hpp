@@ -144,7 +144,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "\n";
     }
 
-    for (auto &t: tVec) {
+    while (tVec.size() != 0) {
         if (t.joinable())
             t.join();
     }
