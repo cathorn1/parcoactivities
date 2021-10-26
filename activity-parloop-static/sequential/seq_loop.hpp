@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <stdio.h>
+#include <future>
 
 class SeqLoop {
 public:
@@ -135,7 +136,10 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
         //std::thread t (f, low, up, std::ref(tls));
 
-        tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
+        //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
+
+        auto fut = std::async(f, low, up, std::ref(tls));
+        //auto ret = fut.get();
 
         inc++;
         counter+= chunkSize;
@@ -144,11 +148,13 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "\n";
     }
 
-    if (tVec.size() != 0) {
-        for(auto &t : tVec)
-            if (t.joinable())
-              t.join();
-    }
+    //auto ret = fut.get();
+
+//    if (tVec.size() != 0) {
+//        for(auto &t : tVec)
+//            if (t.joinable())
+//              t.join();
+//    }
 
 //    for (auto &t: tVec) {
 //        if (t.joinable())
