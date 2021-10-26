@@ -145,8 +145,9 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     }
 
     while (tVec.size() != 0) {
-        if (t.joinable())
-            t.join();
+        for(auto &t : tVec)
+            if (t.joinable())
+              t.join();
     }
 
 //    for (auto &t: tVec) {
