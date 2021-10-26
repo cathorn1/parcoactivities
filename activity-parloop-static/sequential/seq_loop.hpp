@@ -141,8 +141,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         vecIndex++;
     }
     for(auto &t : tVec)
-            if (t.joinable())
-              t.join();
+            t.join();
 
     //auto ret = fut.get();
 //    while(counter < n) {
