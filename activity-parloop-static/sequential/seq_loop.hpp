@@ -123,7 +123,6 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int up, low;
 
     //printf("chunk top: %d, up: %d, low: %d, gran: %zu \n", chunkSize, up, low, gran);
-    //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "/n";
 
     while(counter < n){
 
@@ -138,14 +137,14 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
         //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
 
-        auto fut = std::async(f, low, up, std::ref(tls));
+        std::async(f, low, up, std::ref(tls));
         //auto ret = fut.get();
 
         inc++;
         counter+= chunkSize;
 
 //      printf("chunk inside: %d, up: %d, low: %d, gran: %zu, inc: %d, count: %d \n", chunkSize, up, low, gran, inc, counter);
-        //std::cout << "chunk: " << chunkSize << "up: " << up << "low: " << low << "\n";
+
     }
 
     //auto ret = fut.get();
@@ -155,14 +154,6 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 //            if (t.joinable())
 //              t.join();
 //    }
-
-//    for (auto &t: tVec) {
-//        if (t.joinable())
-//            t.join();
-        //else
-        // t = std::thread(f, low, up, std::ref(tls));
-        //std::cout << "t is not joinable" << std::endl;
-  //  }
 
     after(tls);
 }
