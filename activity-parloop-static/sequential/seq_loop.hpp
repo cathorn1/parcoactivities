@@ -125,7 +125,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             if (vecIndex > 3)
                 vecIndex = 0;
         }
-        else if (!tVec[vecIndex].joinable()) {
+        else if (!(tVec[vecIndex].joinable())) {
             up = chunkSize * inc;
             low = up - chunkSize;
             up -= 1;
