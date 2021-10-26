@@ -112,20 +112,8 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     std::vector <std::thread> tVec(tNum);
     int up, low;
 
-    //printf("chunk top: %d, up: %d, low: %d, gran: %zu \n", chunkSize, up, low, gran);
-
-    for (int k =0; k<end; k++){
-        tVec[k] = std::thread();
-    }
-
     while(counter < n) {
-
-        if (tVec[vecIndex].joinable()) {
-            vecIndex++;
-            if (vecIndex > 3)
-                vecIndex = 0;
-        }
-        else if (!(tVec[vecIndex].joinable())) {
+//        if (tVec.size() != end) {
             up = chunkSize * inc;
             low = up - chunkSize;
             up -= 1;
@@ -137,27 +125,44 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
             inc++;
             counter += chunkSize;
-        }
-        vecIndex++;
-    }
-    for(auto &t : tVec)
-            t.join();
 
-    //auto ret = fut.get();
+      //  }
+    }
+    for (auto &t : tVec){
+        t.detach();
+    }
+
+//    for (int k =0; k<end; k++){
+//        tVec[k] = std::thread();
+//    }
+//
 //    while(counter < n) {
-//        if (tVec.size() != end) {
+//
+//        if (tVec[vecIndex].joinable()) {
+//            vecIndex++;
+//            if (vecIndex > 3)
+//                vecIndex = 0;
+//        }
+//        else if (!(tVec[vecIndex].joinable())) {
 //            up = chunkSize * inc;
 //            low = up - chunkSize;
 //            up -= 1;
 //            if (counter + 1 == chunkSize) {
 //                up += chunkRemain;
 //            }
-//            //tVec.push_back(std::async(f, low, up, std::ref(tls)));
+//
+//            tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
+//
 //            inc++;
 //            counter += chunkSize;
-//
 //        }
+//        vecIndex++;
 //    }
+//    for(auto &t : tVec)
+//            t.join();
+
+
+
 //    if (tVec.size() != 0) {
 //        for(auto &t : tVec)
 //            if (t.joinable())
