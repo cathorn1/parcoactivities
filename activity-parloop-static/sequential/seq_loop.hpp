@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <future>
+#include <array>
 
 class SeqLoop {
 public:
@@ -90,19 +91,6 @@ public:
 //
 //};
 
-//void doStuff (std::function<void(int, int, TLS&)> f){
-//    tVec.push_back(std::thread(f, low, up, std::ref(tls)));
-//
-//    for (auto & t : tVec) {
-//        if (t.joinable())
-//            t.join();
-//        else
-//            std::cout << "t is not joinable" << std::endl;
-//    }
-//
-//    counter++;
-//  }
-
 template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
              std::function<void(TLS&)> before,
@@ -114,41 +102,56 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     before(tls);
     int inc = 1;
     int counter = 0;
+    int vecIndex =0;
     int itrs = n / end;
     int remain = n % end;
-
+    int tNum = end;
     int chunkSize = n / gran;
     int chunkRemain = n % gran;
-    std::vector <std::thread> tVec;
+
+    std::vector <std::thread> tVec(end);
     int up, low;
 
     //printf("chunk top: %d, up: %d, low: %d, gran: %zu \n", chunkSize, up, low, gran);
 
-    while(counter < n){
-
-        up = chunkSize * inc;
-        low = up - chunkSize;
-        up -= 1;
-        if (counter + 1 == chunkSize) {
-            up += chunkRemain;
-        }
-
-        //std::thread t (f, low, up, std::ref(tls));
-
-        //tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
-
-        std::async(f, low, up, std::ref(tls));
-        //auto ret = fut.get();
-
-        inc++;
-        counter+= chunkSize;
-
-//      printf("chunk inside: %d, up: %d, low: %d, gran: %zu, inc: %d, count: %d \n", chunkSize, up, low, gran, inc, counter);
-
+    for (int k =0; k<end; k++){
+        tVec[k] = std::thread();
     }
 
-    //auto ret = fut.get();
+    while(counter < n) {
+        while (tVec[vecIndex].joinable()) {
+            vecIndex++;
+            if(!tVec[vecIndex].joinable())
+                break;
+        }
+            up = chunkSize * inc;
+            low = up - chunkSize;
+            up -= 1;
+            if (counter + 1 == chunkSize) {
+                up += chunkRemain;
+            }
 
+            tVec[vecIndex] = (std::thread(f, low, up, std::ref(tls)));
+
+            inc++;
+            counter += chunkSize;
+
+    }
+    //auto ret = fut.get();
+//    while(counter < n) {
+//        if (tVec.size() != end) {
+//            up = chunkSize * inc;
+//            low = up - chunkSize;
+//            up -= 1;
+//            if (counter + 1 == chunkSize) {
+//                up += chunkRemain;
+//            }
+//            //tVec.push_back(std::async(f, low, up, std::ref(tls)));
+//            inc++;
+//            counter += chunkSize;
+//
+//        }
+//    }
 //    if (tVec.size() != 0) {
 //        for(auto &t : tVec)
 //            if (t.joinable())
