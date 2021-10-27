@@ -110,9 +110,18 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkRemain = n % gran;
 
     std::vector <std::thread> tVec(tNum);
+    std::vector <std::future<void>> finished;
     int up, low;
 
-    while(counter < n) {
+    std::mutex mu;
+
+    // start N threads in the thread pool.
+    for (std::size_t i = 0; i < end; ++i) {
+            // each thread is a std::async running this->thread_task():
+
+        }
+
+        while(counter < n) {
 
             up = chunkSize * inc;
             low = up - chunkSize;
@@ -121,21 +130,56 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
                 up += chunkRemain;
             }
 
-            std::thread theThread(f, low, up, std::ref(tls));
-
-            tVec.push_back(std::move(theThread));
+//            std::thread theThread(f, low, up, std::ref(tls));
+//
+//            tVec.push_back(std::move(theThread));
+            finished.push_back(
+                    std::async(
+                            std::launch::async,
+                            [&]{ f, low, up, std::ref(tls); }
+                    )
+            );
 
             inc++;
             counter += chunkSize;
 
-        for (auto &t : tVec){
-            if(t.joinable())
-                t.join();
-            else
-                continue;
-    }
 
     }
+//    for (auto &t : tVec){
+//        if(t.joinable())
+//            t.join();
+//        else
+//            continue;
+
+    }
+
+
+//    for (size_t i = beg; i < end; i += increment) {
+//        up = chunkSize * inc;
+//        low = up - chunkSize;
+//        up -= 1;
+//        counter += chunkSize;
+//        inc++;
+//
+//        std::thread theThread(f, low, up, std::ref(tls));
+//
+//        while (counter < n) {
+//            mu.lock();
+//            low = counter;
+//            up = counter + chunkSize - 1;
+//            counter += chunkSize;
+//            if (up > n) {
+//                up = n;
+//                counter = n;
+//            }
+//            f(low, up, std::ref(tls));
+//
+//            mu.unlock();
+//        }
+//            theThread.join();
+//    }
+
+
 
 //    for (int k =0; k<end; k++){
 //        tVec[k] = std::thread();
