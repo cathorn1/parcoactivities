@@ -133,10 +133,11 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             inc++;
             counter += chunkSize;
 
+            for(auto &f : finished){
+               f.get();
+           }
     }
-    for(auto &f : finished){
-        f.get();
-    }
+
 
 //    for (auto &t : tVec){
 //        if(t.joinable())
