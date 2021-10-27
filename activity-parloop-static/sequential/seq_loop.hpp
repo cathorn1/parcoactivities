@@ -112,30 +112,57 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     std::vector <std::thread> tVec(tNum);
     int up, low;
 
-    while(counter < n) {
+    std::mutex mu;
 
-            up = chunkSize * inc;
-            low = up - chunkSize;
-            up -= 1;
-            if (counter + 1 == chunkSize) {
-                up += chunkRemain;
-            }
+    for (size_t i = beg; i < end; i += increment) {
+        int up = chunkSize * inc;
+        int low = up - chunkSize;
+        up -= 1;
+        counter += chunkSize;
+        inc++;
 
-            std::thread theThread(f, low, up, std::ref(tls));
+        std::thread theThread(f, low, up, std::ref(tls));
 
-            tVec.push_back(std::move(theThread));
-
-            inc++;
+        while (counter < n) {
+            mu.lock();
+            low = counter;
+            up = counter + chunkSize - 1;
             counter += chunkSize;
+            if (up > n) {
+                up = n;
+                counter = n;
+            }
+            f(low, up, std::ref(tls));
 
-        for (auto &t : tVec){
-            if(t.joinable())
-                t.join();
-            else
-                continue;
+            mu.unlock();
+        }
+        theThread.join();
     }
 
-    }
+//    while(counter < n) {
+//
+//            up = chunkSize * inc;
+//            low = up - chunkSize;
+//            up -= 1;
+//            if (counter + 1 == chunkSize) {
+//                up += chunkRemain;
+//            }
+//
+//            std::thread theThread(f, low, up, std::ref(tls));
+//
+//            tVec.push_back(std::move(theThread));
+//
+//            inc++;
+//            counter += chunkSize;
+//
+//        for (auto &t : tVec){
+//            if(t.joinable())
+//                t.join();
+//            else
+//                continue;
+//    }
+//
+//    }
 
 //    for (int k =0; k<end; k++){
 //        tVec[k] = std::thread();
