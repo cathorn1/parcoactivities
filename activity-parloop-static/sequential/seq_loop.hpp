@@ -100,6 +100,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     TLS tls;
     before(tls);
+
     int inc = 1;
     int counter = 0;
     int vecIndex =0;
@@ -124,93 +125,15 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
                 up += chunkRemain;
             }
 
-            //std::thread theThread(f, low, up, std::ref(tls));
-//
-//            tVec.push_back(std::move(theThread));
-
-           finished.push_back(std::async(std::launch::deferred, f, low, up, std::ref(tls)));
+            finished.push_back(std::async(std::launch::deferred, f, low, up, std::ref(tls)));
 
             inc++;
             counter += chunkSize;
-
 
     }
     for(auto &f : finished){
         f.get();
     }
-
-//    for (auto &t : tVec){
-//        if(t.joinable())
-//            t.join();
-//        else
-//            continue;
-
-
-
-
-//    for (size_t i = beg; i < end; i += increment) {
-//        up = chunkSize * inc;
-//        low = up - chunkSize;
-//        up -= 1;
-//        counter += chunkSize;
-//        inc++;
-//
-//        std::thread theThread(f, low, up, std::ref(tls));
-//
-//        while (counter < n) {
-//            mu.lock();
-//            low = counter;
-//            up = counter + chunkSize - 1;
-//            counter += chunkSize;
-//            if (up > n) {
-//                up = n;
-//                counter = n;
-//            }
-//            f(low, up, std::ref(tls));
-//
-//            mu.unlock();
-//        }
-//            theThread.join();
-//    }
-
-
-
-//    for (int k =0; k<end; k++){
-//        tVec[k] = std::thread();
-//    }
-//
-//    while(counter < n) {
-//
-//        if (tVec[vecIndex].joinable()) {
-//            vecIndex++;
-//            if (vecIndex > 3)
-//                vecIndex = 0;
-//        }
-//        else if (!(tVec[vecIndex].joinable())) {
-//            up = chunkSize * inc;
-//            low = up - chunkSize;
-//            up -= 1;
-//            if (counter + 1 == chunkSize) {
-//                up += chunkRemain;
-//            }
-//
-//            tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
-//
-//            inc++;
-//            counter += chunkSize;
-//        }
-//        vecIndex++;
-//    }
-//    for(auto &t : tVec)
-//            t.join();
-
-
-
-//    if (tVec.size() != 0) {
-//        for(auto &t : tVec)
-//            if (t.joinable())
-//              t.join();
-//    }
 
     after(tls);
 }

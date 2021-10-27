@@ -31,6 +31,8 @@ int main (int argc, char* argv[]) {
     double sum;
     SeqLoop sl;
 
+    std::vector<double> tlsVec;
+
     //scan values from argv[] command line array
     sscanf(argv[1], "%d", &func);
     sscanf(argv[2], "%lf", &lower);
@@ -44,37 +46,37 @@ int main (int argc, char* argv[]) {
 
     chunk = (upper-lower)/granularity;
 
-    sl.parfor<double>(0, nbthreads, 1, points, granularity,
-                      [&](double & tls) -> void{
+    sl.parfor<std::vector<double>>(0, nbthreads, 1, points, granularity,
+                      [&](std::vector<double> & tls) -> void{
                           for(int i=0; i < nbthreads; i++) {
-                              tls = 0;
+                              tls[i] = 0.0;
                           }
                       },
-                      [&](int low, int up, double & tls) -> void {
+                      [&](int low, int up, std::vector<double> & tls) -> void {
 
                           for (int i = low; i <= up; i++){
 
                               switch (func) {
                                   case 1:
-                                      tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                                      tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                       break;
                                   case 2:
-                                      tls += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                                      tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                       break;
                                   case 3:
-                                      tls += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                                      tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                       break;
                                   case 4:
-                                      tls += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                                      tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                                       break;
 
                               }
                           }
 
                       },
-                      [&](double tls) -> void{
-
-                          sum += tls;
+                      [&](std::vector<double> tls) -> void{
+                          for(auto d : tls)
+                            sum += d;
                       });
 
     double result = ((upper-lower)/points) * sum;
