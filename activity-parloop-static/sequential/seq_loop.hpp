@@ -115,13 +115,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     std::mutex mu;
 
-    // start N threads in the thread pool.
-    for (std::size_t i = 0; i < end; ++i) {
-            // each thread is a std::async running this->thread_task():
-
-        }
-
-        while(counter < n) {
+           while(counter < n) {
 
             up = chunkSize * inc;
             low = up - chunkSize;
@@ -134,12 +128,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 //
 //            tVec.push_back(std::move(theThread));
 
-           // finished.push_back(
-                    std::async(
-                            std::launch::async,
-                            [&]{ f, low, up, std::ref(tls);}
-                    );
-           // );
+            finished.push_back(std::async(std::launch::async, f, low, up, std::ref(tls)));
 
             inc++;
             counter += chunkSize;
