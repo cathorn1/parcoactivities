@@ -112,27 +112,27 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
 
     int up, low;
 
-   for (int i = 0; i < end; i++) {
+       for (int i = 0; i < end; i++) {
 
-       int up = itrs * inc;
-       int low = up - itrs;
-       up -= 1;
-       if (beg + 1 == end){
-           up += remain;
-       }
+           up = itrs * inc;
+           low = up - itrs;
+           up -= 1;
+           if (beg + 1 == end){
+               up += remain;
+           }
 
-    tVec.push_back(std::thread(f, low, up, std::ref(tls)));
+           tVec.push_back(std::thread(f, low, up, std::ref(tls)));
 
-    inc++;
+           inc++;
 
+        }
+
+        for(auto &t : tVec){
+            t.join();
+        }
+
+        after(tls);
     }
-
-    for(auto &t : tVec){
-        t.join();
-    }
-
-    after(tls);
-}
 
 };
 
