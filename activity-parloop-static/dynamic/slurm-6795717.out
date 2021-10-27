@@ -1,0 +1,28 @@
+running on gal-c12.uncc.edu
+THREAD=16: before starting time is Wed Oct 27 00:16:27 EDT 2021
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486388 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486391 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486394 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486400 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486404 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486412 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486426 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486430 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486434 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486441 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486444 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486451 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486474 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486477 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486482 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486488 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486491 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486497 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486535 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486540 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486544 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486550 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486552 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+/var/spool/slurm/slurmd/job6795717/slurm_script: line 44: 3486560 Killed                  ./dynamic_sched 1 0 10 ${n} ${intensity} ${THREAD} ${gran} 2> ${RESULTDIR}/dynamic_${n}_${intensity}_${THREAD}_${gran} > /dev/null
+THREAD=16: after ending time is Wed Oct 27 01:04:59 EDT 2021
+slurmstepd: error: Detected 24 oom-kill event(s) in StepId=6795717.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
