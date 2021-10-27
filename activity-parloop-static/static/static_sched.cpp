@@ -9,7 +9,7 @@
 #include <vector>
 #include <array>
 #include <functional>
-#include "../sequential/seq_loop.hpp"
+#include "seq_loop_static.hpp"
 
 
 #ifdef __cplusplus
@@ -47,43 +47,38 @@ int main (int argc, char* argv[]) {
 
   auto start = std::chrono::steady_clock::now();
 
-////Sequential implementation of parfor
-//  sl.parfor(0, 1, 1,
-//             [&](int i) -> void {
-//      integrateNum(func, lower, upper, points, intensity);
-//  });
+    sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
+            [&](std::vector<double> & tls) -> void{
+                for(int i=0; i < nbthreads; i++) {
+                    tls[i] = 0.0;
+                }
+            },
+            [&](int low, int up, std::vector<double> & tls) -> void {
 
-    sl.parfor<double>(0, nbthreads, 1, points,
-                   [&](double & tls) -> void{
-                        for(int i=0; i < nbthreads; i++) {
-                            tls = 0;
-                        }
-                   },
-                   [&](int low, int up, double & tls) -> void {
+                for (int i = low; i <= up; i++){
 
-                      for (int i = low; i <= up; i++){
-                          switch (func) {
-                              case 1:
-                                  tls += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                  break;
-                              case 2:
-                                  tls += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                  break;
-                              case 3:
-                                  tls += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                  break;
-                              case 4:
-                                  tls += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                  break;
+                    switch (func) {
+                        case 1:
+                            tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 2:
+                            tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 3:
+                            tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 4:
+                            tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
 
-                          }
-                          }
+                    }
+                }
 
-                       },
-                   [&](double tls) -> void{
-
-                           sum += tls;
-                });
+            },
+            [&](std::vector<double> tls) -> void{
+                for(auto d : tls)
+                    sum += d;
+            });
   double result = ((upper-lower)/points) * sum;
 
   auto stop = std::chrono::steady_clock::now();
