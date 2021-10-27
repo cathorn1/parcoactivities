@@ -133,10 +133,11 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 //            std::thread theThread(f, low, up, std::ref(tls));
 //
 //            tVec.push_back(std::move(theThread));
+
             finished.push_back(
                     std::async(
                             std::launch::async,
-                            [&]{ f, low, up, std::ref(tls); }
+                            [&]{ f, low, up, std::ref(tls);}
                     )
             );
 
@@ -151,7 +152,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 //        else
 //            continue;
 
-    }
+
 
 
 //    for (size_t i = beg; i < end; i += increment) {
