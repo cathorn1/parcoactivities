@@ -128,13 +128,16 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 //
 //            tVec.push_back(std::move(theThread));
 
-            std::async(std::launch::async, f, low, up, std::ref(tls));
+           finished.emplace_back(std::async(std::launch::async, f, low, up, std::ref(tls)));
 
             inc++;
             counter += chunkSize;
 
-
     }
+    for(auto &f : finished){
+        f.get();
+    }
+
 //    for (auto &t : tVec){
 //        if(t.joinable())
 //            t.join();
