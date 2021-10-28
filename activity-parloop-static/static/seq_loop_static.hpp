@@ -91,10 +91,14 @@ public:
 //
 //};
 
+void helpMe(){
+
+  }
+
 template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n,
              std::function<void(TLS&)> before,
-             std::function<void(int&, int&, TLS&)> f,
+             std::function<void(int, int, TLS&)> f,
              std::function<void(TLS&)> after
 ) {
 
@@ -121,7 +125,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
                up += remain;
            }
 
-           tVec.push_back(std::move(std::thread(f, low, up, tls)));
+           tVec.push_back(std::move(std::thread(f, std::ref(low), std::ref(up), tls)));
 
            inc++;
         }

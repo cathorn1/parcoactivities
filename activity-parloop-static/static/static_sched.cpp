@@ -25,6 +25,37 @@ float f4(float x, int intensity);
 }
 #endif
 
+double integrateNum (int func, int points, double upper, double lower, int intensity) {
+
+    double itgr_output = 0.0;
+    double x = 0.0;
+
+    if (func == 1) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f1(x, intensity);
+        }
+    } else if (func == 2) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f2(x, intensity);
+        }
+    } else if (func == 3) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f3(x, intensity);
+        }
+    } else if (func == 4) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f4(x, intensity);
+        }
+    }
+
+    double result = ((upper - lower) / points) * itgr_output;
+    return result;
+}
+
 int main (int argc, char* argv[]) {
 
   if (argc < 7) {
@@ -33,8 +64,8 @@ int main (int argc, char* argv[]) {
   }
 
     int func = atoi(argv[1]);
-    float lower = atoi(argv[2]);
-    float upper = atoi(argv[3]);
+    double lower = atof(argv[2]);
+    double upper = atof(argv[3]);
     int points = atoi(argv[4]);
     int intensity = atoi(argv[5]);
     int nbthreads = atoi(argv[6]);
@@ -50,39 +81,61 @@ int main (int argc, char* argv[]) {
                     tls[i] = 0.0;
                 }
             },
-            [&](int &low, int &up, std::vector<double> & tls) mutable -> void {
+            [&](int low, int up, std::vector<double> & tls) mutable -> void {
 
-                for (int i = low; i <= up; i++){
+            for(int i=0; i < nbthreads; i++) {
 
-                    switch (func) {
-                        case 1:
-                            tls[0] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                            break;
-                        case 2:
-                            tls[1] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                            break;
-                        case 3:
-                            tls[2] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                            break;
-                        case 4:
-                            tls[3] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                            break;
-
-                    }
-                }
+               tls[i] = integrateNum(func, points, upper, lower, intensity);
+            }
 
             },
             [&](std::vector<double> &tls) mutable -> void{
                 for(auto d : tls)
                     sum += d;
             });
-  double result = ((upper-lower)/points) * sum;
+
 
   auto stop = std::chrono::steady_clock::now();
   std::chrono::duration<double> time_elapsed = stop - start;
 
   std::cerr << time_elapsed.count()<< "\n";
-  std::cout << result << std::endl;
+  std::cout << sum << std::endl;
 
   return 0;
 }
+
+
+//    sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
+//            [&](std::vector<double> &tls) mutable -> void{
+//
+//            for(int i=0; i < nbthreads; i++) {
+//                    tls[i] = 0.0;
+//                }
+//            },
+//            [&](int low, int up, std::vector<double> & tls) mutable -> void {
+//
+//                for (int i = low; i <= up; i++){
+//
+//                    switch (func) {
+//                        case 1:
+//                            tls[0] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 2:
+//                            tls[1] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 3:
+//                            tls[2] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 4:
+//                            tls[3] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//
+//                    }
+//                }
+//
+//            },
+//            [&](std::vector<double> &tls) mutable -> void{
+//                for(auto d : tls)
+//                    sum += d;
+//            });
+//  double result = ((upper-lower)/points) * sum;

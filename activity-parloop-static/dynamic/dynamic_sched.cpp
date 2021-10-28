@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <thread>
+#include <vector>
 #include "../sequential/seq_loop.hpp"
 
 #ifdef __cplusplus
@@ -19,73 +20,130 @@ float f4(float x, int intensity);
 }
 #endif
 
+double integrateNum (int func, int points, double upper, double lower, int intensity) {
+
+    double itgr_output = 0.0;
+    double x = 0.0;
+
+    if (func == 1) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f1(x, intensity);
+        }
+    } else if (func == 2) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f2(x, intensity);
+        }
+    } else if (func == 3) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f3(x, intensity);
+        }
+    } else if (func == 4) {
+        for (int i = 0; i <= (points - 1); i++) {
+            x = ((lower + (i + .5)) * ((upper - lower) / points));
+            itgr_output += f4(x, intensity);
+        }
+    }
+
+    double result = ((upper - lower) / points) * itgr_output;
+    return result;
+}
+
+int func, points, intensity, nbthreads, granularity;
+double lower, upper;
+
 int main (int argc, char* argv[]) {
 
   if (argc < 8) {
     std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads> <granularity>"<<std::endl;
     return -1;
   }
-    int func, points, intensity, chunk;
-    double lower, upper;
-    int nbthreads, granularity;
-    double sum;
-    SeqLoop sl;
 
     std::vector<double> tlsVec;
 
-    //scan values from argv[] command line array
-    sscanf(argv[1], "%d", &func);
-    sscanf(argv[2], "%lf", &lower);
-    sscanf(argv[3], "%lf", &upper);
-    sscanf(argv[4], "%d", &points);
-    sscanf(argv[5], "%d", &intensity);
-    sscanf(argv[6], "%d", &nbthreads);
-    sscanf(argv[7], "%d", &granularity);
+    func = atoi(argv[1]);
+    lower = atof(argv[2]);
+    upper = atof(argv[3]);
+    points = atoi(argv[4]);
+    intensity = atoi(argv[5]);
+    nbthreads = atoi(argv[6]);
+    granularity = atoi(argv[7]);
+
+    double sum;
+    SeqLoop sl;
 
     auto start = std::chrono::steady_clock::now();
 
-    chunk = (upper-lower)/granularity;
+    double chunk = (upper-lower)/granularity;
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points, granularity,
-                      [&](std::vector<double> & tls) -> void{
-                          for(int i=0; i < nbthreads; i++) {
-                              tls[i] = 0.0;
-                          }
-                      },
-                      [&](int low, int up, std::vector<double> & tls) -> void {
+            [&](std::vector<double> &tls) mutable -> void{
 
-                          for (int i = low; i <= up; i++){
+                for(int i=0; i < nbthreads; i++) {
+                    tls[i] = 0.0;
+                }
+            },
+            [&](int low, int up, std::vector<double> & tls) mutable -> void {
 
-                              switch (func) {
-                                  case 1:
-                                      tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                      break;
-                                  case 2:
-                                      tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                      break;
-                                  case 3:
-                                      tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                      break;
-                                  case 4:
-                                      tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
-                                      break;
+                for(int i=low; i < up; i++) {
 
-                              }
-                          }
+                    tls[i] = integrateNum(func, points, up, low, intensity);
+                }
 
-                      },
-                      [&](std::vector<double> tls) -> void{
-                          for(auto d : tls)
-                            sum += d;
-                      });
-
-    double result = ((upper-lower)/points) * sum;
+            },
+            [&](std::vector<double> &tls) mutable -> void{
+                for(auto d : tls)
+                    sum += d;
+            });
 
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;
 
     std::cerr << time_elapsed.count()<< "\n";
-    std::cout << result << std::endl;
+    std::cout << sum << std::endl;
 
     return 0;
 }
+
+
+
+
+//    sl.parfor<std::vector<double>>(0, nbthreads, 1, points, granularity,
+//            [&](std::vector<double> & tls) -> void{
+//                for(int i=0; i < nbthreads; i++) {
+//                    tls[i] = 0.0;
+//                }
+//            },
+//            [&](int low, int up, std::vector<double> & tls) -> void {
+//
+//                for (int i = low; i <= up; i++){
+//
+//                    switch (func) {
+//                        case 1:
+//                            tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 2:
+//                            tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 3:
+//                            tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//                        case 4:
+//                            tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+//                            break;
+//
+//                    }
+//                }
+//
+//            },
+//            [&](std::vector<double> tls) -> void{
+//                for(auto d : tls)
+//                    sum += d;
+//            });
+//
+//    double result = ((upper-lower)/points) * sum;
+
+
+

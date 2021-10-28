@@ -91,6 +91,13 @@ public:
 //
 //};
 
+    void helpMe(std::function<void(int, int, std::vector<double>&)> f, double lower, double upper, int chunk, int chunkRemain, std::vector<double> &tls){
+        while(true){
+            std::thread(f, lower, upper, std::ref(tls));
+        }
+    }
+
+
 template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
              std::function<void(TLS&)> before,
@@ -111,33 +118,34 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkRemain = n % gran;
 
     std::vector <std::thread> tVec(tNum);
-    std::vector <std::future<void>> finished;
+
     int up, low;
 
     std::mutex mu;
 
-           while(counter < n) {
+    for(int i = 0; i < n; i+=counter){
 
-            up = chunkSize * inc;
-            low = up - chunkSize;
-            up -= 1;
-            if (counter + 1 == chunkSize) {
-                up += chunkRemain;
-            }
+        up = chunkSize * inc;
+        low = up - chunkSize;
+        up -= 1;
+        if (counter + 1 == chunkSize) {
+            up += chunkRemain;
+        }
 
-            finished.push_back(std::async(std::launch::deferred, f, low, up, std::ref(tls)));
+        helpMe(std::ref(f), low, up, chunkSize, chunkRemain, std::ref(tls));
 
-            inc++;
-            counter += chunkSize;
+        counter += chunkSize;
 
     }
-    for(auto &f : finished){
-        f.get();
+
+        for(auto &t : tVec){
+            t.join();
     }
 
     after(tls);
 }
 
 };
+
 
 #endif
