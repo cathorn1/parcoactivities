@@ -85,7 +85,7 @@ int main (int argc, char* argv[]) {
             },
             [&](int low, int up, std::vector<double> & tls) mutable -> void {
                 printf("%s \n", "seg fault F");
-                for(int i=low; i < up; i++) {
+                for(int i=low; i < nbthreads; i++) {
                     printf("%s \n", "seg fault G");
                     tls.push_back(integrateNum(func, points, upper, lower, intensity));
                     printf("%s \n", "seg fault H");
