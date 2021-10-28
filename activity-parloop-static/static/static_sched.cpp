@@ -105,7 +105,7 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector<double> &tls)  -> void{
-                for(auto d : tls)
+                for(double d : tls)
                     sum += d;
             });
 
