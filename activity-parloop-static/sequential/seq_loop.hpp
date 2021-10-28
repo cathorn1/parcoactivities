@@ -137,7 +137,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
         inc++;
         counter += chunkSize;
-        printf("%s \n", "seg fault 3");
+        printf("%s %d\n", "seg fault 3", i);
     }
 
 //        for(auto &t : tVec){
