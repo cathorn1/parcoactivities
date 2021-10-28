@@ -83,7 +83,7 @@ int main (int argc, char* argv[]) {
             },
             [&](int low, int up, std::vector<double> & tls)  -> void {
 
-                for (int i = 0; i <= points; i++){
+                for (int i = 0; i <= nbthreads; i++){
                     printf("%s %d\n", "seg fault G", i);
                     switch (func) {
                         case 1:
