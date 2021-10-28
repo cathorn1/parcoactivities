@@ -84,9 +84,10 @@ int main (int argc, char* argv[]) {
             [&](int low, int up, std::vector<double> & tls)  -> void {
 
                 for (int i = low; i <= up; i++){
-
+                    printf("%s %d\n", "seg fault G", i);
                     switch (func) {
                         case 1:
+                            printf("%s %d\n", "case-1", i);
                             tls.push_back(f1(lower + (i + 0.5) * ((upper - lower) / points), intensity));
                             break;
                         case 2:
