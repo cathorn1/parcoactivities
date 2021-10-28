@@ -88,16 +88,16 @@ int main (int argc, char* argv[]) {
                     switch (func) {
                         case 1:
                             printf("%s %d\n", "case-1", i);
-                            tls[i] = f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 2:
-                            tls[i] = f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 3:
-                            tls[i] = f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 4:
-                            tls[i] = f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
 
                     }
