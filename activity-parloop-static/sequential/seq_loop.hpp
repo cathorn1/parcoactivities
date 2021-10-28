@@ -133,7 +133,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             up += chunkRemain;
         }
 
-        helpMe(std::ref(f), low, up, chunkSize, chunkRemain, std::ref(tls));
+        //helpMe(std::ref(f), low, up, chunkSize, chunkRemain, std::ref(tls));
 
         counter += chunkSize;
         printf("%s \n", "seg fault 3");
