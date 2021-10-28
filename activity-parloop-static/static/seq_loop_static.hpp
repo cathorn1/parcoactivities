@@ -121,7 +121,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
            up = itrs * inc;
            low = up - itrs;
            up -= 1;
-           if (beg + 1 == end){
+           if (i + 1 == end){
                up += remain;
            }
 
