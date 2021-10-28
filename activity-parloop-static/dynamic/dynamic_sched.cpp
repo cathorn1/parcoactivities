@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <chrono>
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,6 +64,8 @@ int main (int argc, char* argv[]) {
 
     std::vector<double> tlsVec;
 
+    printf("%s \n", "seg fault A");
+
     func = atoi(argv[1]);
     lower = atof(argv[2]);
     upper = atof(argv[3]);
@@ -78,24 +81,33 @@ int main (int argc, char* argv[]) {
 
     double chunk = (upper-lower)/granularity;
 
+    printf("%s \n", "seg fault B");
+
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points, granularity,
             [&](std::vector<double> &tls) mutable -> void{
-
+                printf("%s \n", "seg fault C");
                 for(int i=0; i < nbthreads; i++) {
+                    printf("%s \n", "seg fault D");
                     tls[i] = 0.0;
+                    printf("%s \n", "seg fault e");
                 }
             },
             [&](int low, int up, std::vector<double> & tls) mutable -> void {
-
+                printf("%s \n", "seg fault F");
                 for(int i=low; i < up; i++) {
-
+                    printf("%s \n", "seg fault G");
                     tls[i] = integrateNum(func, points, up, low, intensity);
+                    printf("%s \n", "seg fault H");
                 }
 
             },
             [&](std::vector<double> &tls) mutable -> void{
-                for(auto d : tls)
+                printf("%s \n", "seg fault I");
+                for(auto d : tls) {
+                    printf("%s \n", "seg fault J");
                     sum += d;
+                    printf("%s \n", "seg fault K");
+                }
             });
 
     auto stop = std::chrono::steady_clock::now();
