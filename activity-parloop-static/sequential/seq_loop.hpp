@@ -91,9 +91,9 @@ public:
 //
 //};
 
-    void helpMe(std::function<void(int, int, std::vector<double>&)> f, double lower, double upper, int chunk, int chunkRemain, std::vector<double> &tls){
+    void helpMe(std::function<void(int, int, std::vector<double>&)> f, double lower, double upper, int chunk, int chunkRemain, std::vector<double> &tls, std::vector<std::thread> &tVec){
         while(true){
-            std::thread(f, lower, upper, std::ref(tls));
+            tVec.push_back(std::thread(f, lower, upper, std::ref(tls)));
         }
     }
 
@@ -139,10 +139,10 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         printf("%s \n", "seg fault 3");
     }
 
-        for(auto &t : tVec){
-            printf("%s \n", "seg fault 4");
-            t.join();
-    }
+//        for(auto &t : tVec){
+//            printf("%s \n", "seg fault 4");
+//            t.join();
+//    }
     printf("%s \n", "seg fault 5");
     after(tls);
 }
