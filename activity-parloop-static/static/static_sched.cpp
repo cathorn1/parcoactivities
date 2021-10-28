@@ -76,28 +76,28 @@ int main (int argc, char* argv[]) {
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
             [&](std::vector<double> &tls) mutable -> void{
-                //printf("%s \n", "seg fault C");
+                printf("%s \n", "seg fault C");
                 for(int i=0; i < nbthreads; i++) {
-                    //printf("%s \n", "seg fault D");
+                    printf("%s \n", "seg fault D");
                     tls.push_back(0.0);
-                    //printf("%s \n", "seg fault e");
+                    printf("%s \n", "seg fault e");
                 }
             },
             [&](int low, int up, std::vector<double> & tls) mutable -> void {
-                //printf("%s \n", "seg fault F");
+                printf("%s \n", "seg fault F");
                 for(int i=low; i < nbthreads; i++) {
-                    //printf("%s \n", "seg fault G");
+                    printf("%s \n", "seg fault G");
                     tls.push_back(integrateNum(func, points, upper, lower, intensity));
-                    //printf("%s \n", "seg fault H");
+                    printf("%s \n", "seg fault H");
                 }
 
             },
             [&](std::vector<double> &tls) mutable -> void{
-                //printf("%s \n", "seg fault I");
+                printf("%s \n", "seg fault I");
                 for(auto d : tls) {
-                   // printf("%s \n", "seg fault J");
+                    printf("%s \n", "seg fault J");
                     sum += d;
-                    //printf("%s \n", "seg fault K");
+                    printf("%s \n", "seg fault K");
                 }
             });
 
