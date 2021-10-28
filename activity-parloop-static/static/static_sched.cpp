@@ -76,22 +76,29 @@ int main (int argc, char* argv[]) {
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
             [&](std::vector<double> &tls) mutable -> void{
-
-            for(int i=0; i < nbthreads; i++) {
-                    tls[i] = 0.0;
+                printf("%s \n", "seg fault C");
+                for(int i=0; i < nbthreads; i++) {
+                    printf("%s \n", "seg fault D");
+                    tls.push_back(0.0);
+                    printf("%s \n", "seg fault e");
                 }
             },
             [&](int low, int up, std::vector<double> & tls) mutable -> void {
-
-            for(int i=0; i < nbthreads; i++) {
-
-               tls[i] = integrateNum(func, points, upper, lower, intensity);
-            }
+                printf("%s \n", "seg fault F");
+                for(int i=low; i < up; i++) {
+                    printf("%s \n", "seg fault G");
+                    tls.push_back(integrateNum(func, points, upper, lower, intensity));
+                    printf("%s \n", "seg fault H");
+                }
 
             },
             [&](std::vector<double> &tls) mutable -> void{
-                for(auto d : tls)
+                printf("%s \n", "seg fault I");
+                for(auto d : tls) {
+                    printf("%s \n", "seg fault J");
                     sum += d;
+                    printf("%s \n", "seg fault K");
+                }
             });
 
 
