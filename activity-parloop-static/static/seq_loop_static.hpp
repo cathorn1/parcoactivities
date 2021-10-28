@@ -124,6 +124,8 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
                up += remain;
            }
 
+           printf("low: %d, up: %d, inc: %d, itrs: %d, remain: %d", low, up, inc, itrs, remain);
+
            tVec.push_back(std::move(std::thread(f, low, up, std::ref(tls))));
 
            inc++;
