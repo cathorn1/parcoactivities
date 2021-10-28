@@ -115,7 +115,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
     std::vector <std::thread> tVec;
 
 
-       for (size_t i=beg; i<end; i+= increment) {
+       for (size_t i= 0; i<end; i++) {
 
            int up = itrs * inc;
            int low = up - itrs;
