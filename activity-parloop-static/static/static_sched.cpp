@@ -72,7 +72,7 @@ int main (int argc, char* argv[]) {
                 }
 
             },
-            [&](std::vector<double> tls) mutable -> void{
+            [&](std::vector<double> &tls) mutable -> void{
                 for(auto d : tls)
                     sum += d;
             });
