@@ -75,7 +75,7 @@ int main (int argc, char* argv[]) {
   auto start = std::chrono::steady_clock::now();
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
-            [&](std::vector<double> &tls) mutable -> void{
+            [&](std::vector<double> &tls) -> void{
                 printf("%s \n", "seg fault C");
                 for(int i=0; i < nbthreads; i++) {
                     printf("%s \n", "seg fault D");
@@ -83,7 +83,7 @@ int main (int argc, char* argv[]) {
                     printf("%s \n", "seg fault e");
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) mutable -> void {
+            [&](int low, int up, std::vector<double> & tls) -> void {
                 printf("%s \n", "seg fault F");
                 for(int i=low; i < up; i++) {
                     printf("%s \n", "seg fault G");
@@ -92,7 +92,7 @@ int main (int argc, char* argv[]) {
                 }
 
             },
-            [&](std::vector<double> &tls) mutable -> void{
+            [&](std::vector<double> &tls) -> void{
                 printf("%s \n", "seg fault I");
                 for(auto d : tls) {
                     printf("%s \n", "seg fault J");
