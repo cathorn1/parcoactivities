@@ -52,16 +52,16 @@ double integrateNum (int func, int points, double upper, double lower, int inten
         }
     }
 
-    //double result = ((upper - lower) / points) * itgr_output;
-    return itgr_output;
+    double result = ((upper - lower) / points) * itgr_output;
+    return result;
 }
 
 int main (int argc, char* argv[]) {
 
-  if (argc < 7) {
-    std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads>"<<std::endl;
-    return -1;
-  }
+    if (argc < 7) {
+        std::cerr << "usage: " << argv[0] << " <functionid> <a> <b> <n> <intensity> <nbthreads>" << std::endl;
+        return -1;
+    }
 
     int func = atoi(argv[1]);
     double lower = atof(argv[2]);
@@ -72,45 +72,83 @@ int main (int argc, char* argv[]) {
     double sum;
     SeqLoop sl;
 
-  auto start = std::chrono::steady_clock::now();
+    auto start = std::chrono::steady_clock::now();
 
-    sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
-            [&](std::vector<double> &tls) -> void{
-//                printf("%s \n", "seg fault C");
-                for(int i=0; i < nbthreads; i++) {
-//                    printf("%s \n", "seg fault D");
+        sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
+            [&](std::vector<double> &tls) mutable -> void{
+
+            for(int i=0; i < nbthreads; i++) {
                     tls.push_back(0.0);
-//                    printf("%s \n", "seg fault e");
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) -> void {
-//                printf("%s \n", "seg fault F");
-                for(int i=low; i < nbthreads; i++) {
-//                    printf("%s %d\n", "seg fault G", i);
-                    tls.push_back(integrateNum(func, points, upper, lower, intensity));
-//                    printf("%s %d\n", "seg fault H", i);
+            [&](int low, int up, std::vector<double> & tls) mutable -> void {
+
+                for (int i = low; i <= up; i++){
+
+                    switch (func) {
+                        case 1:
+                            tls.push_back(f1(lower + (i + 0.5) * ((upper - lower) / points), intensity));
+                            break;
+                        case 2:
+                            tls.push_back(f2(lower + (i + 0.5) * ((upper - lower) / points), intensity));
+                            break;
+                        case 3:
+                            tls.push_back(f3(lower + (i + 0.5) * ((upper - lower) / points), intensity));
+                            break;
+                        case 4:
+                            tls.push_back(f4(lower + (i + 0.5) * ((upper - lower) / points), intensity));
+                            break;
+
+                    }
                 }
 
             },
-            [&](std::vector<double> &tls) -> void{
-//                printf("%s \n", "seg fault I");
-                for(auto d : tls) {
-                    //printf("%s \n", "seg fault J");
+            [&](std::vector<double> &tls) mutable -> void{
+                for(auto d : tls)
                     sum += d;
-                    //printf("%s \n", "seg fault K");
-                }
             });
+  double result = ((upper-lower)/points) * sum;
 
-    double result = ((upper-lower)/points) * sum;
+    auto stop = std::chrono::steady_clock::now();
+    std::chrono::duration<double> time_elapsed = stop - start;
 
-  auto stop = std::chrono::steady_clock::now();
-  std::chrono::duration<double> time_elapsed = stop - start;
+    std::cerr << time_elapsed.count() << "\n";
+    std::cout << sum << std::endl;
 
-  std::cerr << time_elapsed.count()<< "\n";
-  std::cout << result << std::endl;
-
-  return 0;
+    return 0;
 }
+
+//    auto start = std::chrono::steady_clock::now();
+//
+//    sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
+//            [&](std::vector<double> &tls) -> void{
+////                printf("%s \n", "seg fault C");
+//                for(int i=0; i < nbthreads; i++) {
+////                    printf("%s \n", "seg fault D");
+//                    tls.push_back(0.0);
+////                    printf("%s \n", "seg fault e");
+//                }
+//            },
+//            [&](int low, int up, std::vector<double> & tls) -> void {
+////                printf("%s \n", "seg fault F");
+//                for(int i=low; i < up; i++) {
+////                    printf("%s %d\n", "seg fault G", i);
+//                    tls.push_back(integrateNum(func, points, upper, lower, intensity));
+////                    printf("%s %d\n", "seg fault H", i);
+//                }
+//
+//            },
+//            [&](std::vector<double> &tls) -> void{
+////                printf("%s \n", "seg fault I");
+//                for(auto d : tls) {
+//                    //printf("%s \n", "seg fault J");
+//                    sum += d;
+//                    //printf("%s \n", "seg fault K");
+//                }
+//            });
+
+
+
 
 
 //    sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
