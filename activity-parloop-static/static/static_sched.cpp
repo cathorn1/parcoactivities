@@ -44,13 +44,13 @@ int main (int argc, char* argv[]) {
   auto start = std::chrono::steady_clock::now();
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
-            [&](std::vector<double> &tls) -> void{
+            [&](std::vector<double> &tls) mutable -> void{
 
             for(int i=0; i < nbthreads; i++) {
                     tls[i] = 0.0;
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) -> void {
+            [&](int low, int up, std::vector<double> & tls) mutable -> void {
 
                 for (int i = low; i <= up; i++){
 
@@ -72,7 +72,7 @@ int main (int argc, char* argv[]) {
                 }
 
             },
-            [&](std::vector<double> tls) -> void{
+            [&](std::vector<double> tls) mutable -> void{
                 for(auto d : tls)
                     sum += d;
             });
