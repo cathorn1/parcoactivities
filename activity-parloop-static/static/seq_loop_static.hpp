@@ -108,7 +108,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
     int remain = n % end;
     int tNum = end;
 
-    std::vector <std::thread> tVec(tNum);
+    std::vector <std::thread> tVec;
 
     int up, low;
 

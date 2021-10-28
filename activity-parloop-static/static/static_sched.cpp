@@ -48,8 +48,9 @@ int main (int argc, char* argv[]) {
   auto start = std::chrono::steady_clock::now();
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
-            [&](std::vector<double> & tls) -> void{
-                for(int i=0; i < nbthreads; i++) {
+            [&](std::vector<double> &tls) -> void{
+
+            for(int i=0; i < nbthreads; i++) {
                     tls[i] = 0.0;
                 }
             },
@@ -59,16 +60,16 @@ int main (int argc, char* argv[]) {
 
                     switch (func) {
                         case 1:
-                            tls[i] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[0] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 2:
-                            tls[i] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[1] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 3:
-                            tls[i] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[2] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 4:
-                            tls[i] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            tls[3] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
 
                     }
