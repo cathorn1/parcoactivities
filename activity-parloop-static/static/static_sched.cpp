@@ -85,7 +85,7 @@ int main (int argc, char* argv[]) {
             },
             [&](int low, int up, std::vector<double> & tls) -> void {
                 printf("%s \n", "seg fault F");
-                for(int i=low; i < up; i++) {
+                for(int i=low; i < nbthreads; i++) {
                     printf("%s %d\n", "seg fault G", i);
                     tls.push_back(integrateNum(func, points, upper, lower, intensity));
                     printf("%s %d\n", "seg fault H", i);
@@ -95,9 +95,9 @@ int main (int argc, char* argv[]) {
             [&](std::vector<double> &tls) -> void{
                 printf("%s \n", "seg fault I");
                 for(auto d : tls) {
-                    printf("%s \n", "seg fault J");
+                    //printf("%s \n", "seg fault J");
                     sum += d;
-                    printf("%s \n", "seg fault K");
+                    //printf("%s \n", "seg fault K");
                 }
             });
 
