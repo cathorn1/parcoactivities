@@ -50,7 +50,7 @@ int main (int argc, char* argv[]) {
                     tls[i] = 0.0;
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) mutable -> void {
+            [&](int &low, int &up, std::vector<double> & tls) mutable -> void {
 
                 for (int i = low; i <= up; i++){
 
