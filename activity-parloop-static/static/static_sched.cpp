@@ -31,19 +31,15 @@ int main (int argc, char* argv[]) {
     std::cerr<<"usage: "<<argv[0]<<" <functionid> <a> <b> <n> <intensity> <nbthreads>"<<std::endl;
     return -1;
   }
-    int func, points, intensity;
-    double lower, upper;
-    int nbthreads;
+
+    int func = atoi(argv[1]);
+    float lower = atoi(argv[2]);
+    float upper = atoi(argv[3]);
+    int points = atoi(argv[4]);
+    int intensity = atoi(argv[5]);
+    int nbthreads = atoi(argv[6]);
     double sum;
     SeqLoop sl;
-
-  //scan values from argv[] command line array
-  sscanf(argv[1], "%d", &func);
-  sscanf(argv[2], "%lf", &lower);
-  sscanf(argv[3], "%lf", &upper);
-  sscanf(argv[4], "%d", &points);
-  sscanf(argv[5], "%d", &intensity);
-  sscanf(argv[6], "%d", &nbthreads);
 
   auto start = std::chrono::steady_clock::now();
 
