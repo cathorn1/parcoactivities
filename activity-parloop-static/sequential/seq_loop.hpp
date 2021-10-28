@@ -124,7 +124,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     std::mutex mu;
     printf("%s \n", "seg fault 1");
 
-    for(int i = beg; i < n; i+=counter){
+    for(int i = beg; i < n; i++){
         printf("%s \n", "seg fault 2");
         up = chunkSize * inc;
         low = up - chunkSize;
