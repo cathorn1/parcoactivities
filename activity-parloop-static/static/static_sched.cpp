@@ -16,10 +16,10 @@
 extern "C" {
 #endif
 
-float f1(float x, int intensity);
-float f2(float x, int intensity);
-float f3(float x, int intensity);
-float f4(float x, int intensity);
+double f1(float x, int intensity);
+double f2(float x, int intensity);
+double f3(float x, int intensity);
+double f4(float x, int intensity);
 
 #ifdef __cplusplus
 }
