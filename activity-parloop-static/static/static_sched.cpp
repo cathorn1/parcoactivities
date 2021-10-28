@@ -83,21 +83,21 @@ int main (int argc, char* argv[]) {
             },
             [&](int low, int up, std::vector<double> & tls)  -> void {
 
-                for (int i = 0; i <= up; i++){
+                for (int i = 0; i <= nbthreads; i++){
                     printf("%s %d\n", "seg fault G", i);
                     switch (func) {
                         case 1:
                             printf("%s %d\n", "case-1", i);
-                            tls.push_back(std::move(f1(lower + (i + 0.5) * ((upper - lower) / points), intensity)));
+                            tls[i] = f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 2:
-                            tls.push_back(std::move(f2(lower + (i + 0.5) * ((upper - lower) / points), intensity)));
+                            tls[i] = f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 3:
-                            tls.push_back(std::move(f3(lower + (i + 0.5) * ((upper - lower) / points), intensity)));
+                            tls[i] = f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
                         case 4:
-                            tls.push_back(std::move(f4(lower + (i + 0.5) * ((upper - lower) / points), intensity)));
+                            tls[i] = f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
                             break;
 
                     }
