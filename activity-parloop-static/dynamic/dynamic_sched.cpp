@@ -88,7 +88,7 @@ int main (int argc, char* argv[]) {
                 printf("%s \n", "seg fault C");
                 for(int i=0; i < nbthreads; i++) {
                     printf("%s \n", "seg fault D");
-                    tls[i] = 0.0;
+                    tls.push_back(0.0);
                     printf("%s \n", "seg fault e");
                 }
             },
