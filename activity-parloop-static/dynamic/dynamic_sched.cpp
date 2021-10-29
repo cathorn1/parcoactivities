@@ -64,8 +64,6 @@ int main (int argc, char* argv[]) {
 
     std::vector<double> tlsVec;
 
-    printf("%s \n", "seg fault A");
-
     func = atoi(argv[1]);
     lower = atof(argv[2]);
     upper = atof(argv[3]);
