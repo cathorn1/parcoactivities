@@ -84,12 +84,16 @@ int main (int argc, char* argv[]) {
                    printf("%s \n", "seg fault e");
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) -> void {
+            [&](int low, int up, int count, std::vector<double> & tls) -> void {
                printf("%s \n", "middle func F");
-                for(int i=0; i < nbthreads; i++) {printf("%s %d\n", "seg fault G", i);
-                    tls.push_back(integrateNum(func, points, upper, lower, intensity));
+                for(int i=low; i < up; i++) {
+                    printf("%s %d\n", "seg fault G", i);
+
+                    tls[count] += integrateNum(func, points, upper, lower, intensity);
+
                     printf("%s %d\n", "seg fault H", i);
                 }
+
 
             },
             [&](std::vector<double> &tls) -> void{
