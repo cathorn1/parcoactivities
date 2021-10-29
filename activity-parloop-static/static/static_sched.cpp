@@ -53,7 +53,7 @@ double integrateNum (int func, int points, double upper, double lower, int inten
     }
 
     double result = ((upper - lower) / points) * itgr_output;
-    return result;
+    return itgr_output;
 }
 
 int main (int argc, char* argv[]) {
@@ -107,11 +107,13 @@ int main (int argc, char* argv[]) {
 
             });
 
+    double result = ((upper-lower)/points) * sum;
+
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;
 
     std::cerr << time_elapsed.count() << "\n";
-    std::cout << sum << std::endl;
+    std::cout << result << std::endl;
 
     return 0;
 }
