@@ -101,9 +101,10 @@ int main (int argc, char* argv[]) {
                 for(auto d : tls) {
                     //printf("%s \n", "seg fault J");
                     sum += d;
-                    sum = sum/nbthreads;
+
                     //printf("%s \n", "seg fault K");
                 }
+                sum = sum/nbthreads;
             });
 
     auto stop = std::chrono::steady_clock::now();
