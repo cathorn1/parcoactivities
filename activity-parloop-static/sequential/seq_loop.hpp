@@ -121,7 +121,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     int up, low;
 
-    for(int i = beg; i < end; i++) {
+    for(int i = beg; i < end; i+=increment) {
         //printf("%s \n", "seg fault 2");
         up = chunkSize * inc;
         low = up - chunkSize;
@@ -134,7 +134,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
         inc++;
         counter = +chunkSize;
-
+    }
         size_t k = beg;
         bool cont = true;
         std::mutex mut;
@@ -149,7 +149,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             f(low, k, counter, std::ref(tls));
 
         }
-    }
+
 
         for(auto &t : tVec){
             //printf("%s \n", "seg fault 4");
