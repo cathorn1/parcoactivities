@@ -100,7 +100,7 @@ int main (int argc, char* argv[]) {
                         case 1:
                             //printf("%s %d\n", "case-1", i);
                             //x = ((lower + (i + .5)) * ((upper - lower) / points));
-                            tls[count] += f1((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
+                            tls[count] += f1((lower + (i + 0.5)) * ((up - low) / points), intensity);
                             printf("tls[%d] %f ", count, tls[count]);
                             break;
                         case 2:
