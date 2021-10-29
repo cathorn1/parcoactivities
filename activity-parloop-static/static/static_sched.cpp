@@ -89,7 +89,7 @@ int main (int argc, char* argv[]) {
                 //for(int i=low; i < up; i++) {
                     //printf("%s %d\n", "seg fault G");
 
-                    tls[count] += integrateNum(func, points, up, low, intensity);
+                    tls[count] += integrateNum(func, points, upper, lower, intensity);
                     printf("tls[%d] %f ", count, tls[count]);
                     //printf("%s %d\n", "seg fault H");
                 //}
