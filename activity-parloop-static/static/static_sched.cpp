@@ -77,15 +77,15 @@ int main (int argc, char* argv[]) {
 
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points,
             [&](std::vector<double> &tls) -> void{
-                printf("%s \n", "first func C");
+                //printf("%s \n", "first func C");
                 for(int i=0; i < nbthreads; i++) {
-                   printf("%s \n", "seg fault D");
+                //   printf("%s \n", "seg fault D");
                     tls.push_back(0.0);
-                   printf("%s \n", "seg fault e");
+               //    printf("%s \n", "seg fault e");
                 }
             },
             [&](int low, int up, int count, std::vector<double> & tls) -> void {
-               printf("%s \n", "middle func F");
+             //  printf("%s \n", "middle func F");
                 //for(int i=low; i < up; i++) {
                     //printf("%s %d\n", "seg fault G");
 
@@ -97,7 +97,7 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector<double> &tls) -> void{
-               printf("%s \n", "last func");
+              // printf("%s \n", "last func");
                 for(auto d : tls) {
                     //printf("%s \n", "seg fault J");
                     sum += d;
