@@ -90,7 +90,7 @@ int main (int argc, char* argv[]) {
                     //printf("%s %d\n", "seg fault G");
 
                     tls[count] += integrateNum(func, points, upper, lower, intensity);
-
+                    printf("tls[%d] %f ", count, tls[count]);
                     //printf("%s %d\n", "seg fault H");
                 //}
 
@@ -104,7 +104,7 @@ int main (int argc, char* argv[]) {
 
                     //printf("%s \n", "seg fault K");
                 }
-                sum = sum/nbthreads;
+
             });
 
     auto stop = std::chrono::steady_clock::now();
