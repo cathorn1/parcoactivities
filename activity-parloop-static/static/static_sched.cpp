@@ -96,6 +96,7 @@ int main (int argc, char* argv[]) {
 
                 for (int i = low; i <= up; i++){
                     //printf("%s %d\n", "seg fault G", i);
+                    printf("func %d", func);
                     switch (func) {
                         case 1:
                             //printf("%s %d\n", "case-1", i);
