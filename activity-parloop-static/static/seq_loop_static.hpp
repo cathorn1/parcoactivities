@@ -115,7 +115,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
     std::vector <std::thread> tVec;
 
 
-       for (size_t i= 0; i<end; i++) {
+       for (int i= beg; i<end; i+=increment) {
 
            int up = itrs * inc;
            int low = up - itrs;
@@ -124,7 +124,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n,
                up += remain;
            }
 
-           //printf("low: %d, up: %d, inc: %d, itrs: %d, remain: %d \n", low, up, inc, itrs, remain);
+           printf("low: %d, up: %d, inc: %d, itrs: %d, remain: %d, count: %d \n", low, up, inc, itrs, remain, counter);
 
            tVec.push_back(std::thread(f, low, up, counter, std::ref(tls)));
 
