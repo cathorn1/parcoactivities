@@ -89,10 +89,30 @@ int main (int argc, char* argv[]) {
                 //for(int i=low; i < up; i++) {
                     //printf("%s %d\n", "seg fault G");
 
-                    tls[count] += integrateNum(func, points, up, low, intensity);
-                    printf("tls[%d] %f ", count, tls[count]);
+//                    tls[count] += integrateNum(func, points, up, low, intensity);
+//                    printf("tls[%d] %f ", count, tls[count]);
                     //printf("%s %d\n", "seg fault H");
                 //}
+
+                for (int i = low; i <= up; i++){
+                    printf("%s %d\n", "seg fault G", i);
+                    switch (func) {
+                        case 1:
+                            printf("%s %d\n", "case-1", i);
+                            tls[count] += f1(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 2:
+                            tls[count] += f2(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 3:
+                            tls[count] += f3(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+                        case 4:
+                            tls[count] += f4(lower + (i + 0.5) * ((upper - lower) / points), intensity);
+                            break;
+
+                    }
+                }
 
 
             },
