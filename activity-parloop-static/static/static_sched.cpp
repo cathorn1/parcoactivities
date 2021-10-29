@@ -86,13 +86,13 @@ int main (int argc, char* argv[]) {
             },
             [&](int low, int up, int count, std::vector<double> & tls) -> void {
              //  printf("%s \n", "middle func F");
-                for(int i=low; i < up; i++) {
+                //for(int i=low; i < up; i++) {
                     //printf("%s %d\n", "seg fault G");
 
                     tls[count] += integrateNum(func, points, up, low, intensity);
                     printf("tls[%d] %f ", count, tls[count]);
                     //printf("%s %d\n", "seg fault H");
-                }
+                //}
 
 
             },
