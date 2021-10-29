@@ -21,36 +21,36 @@ float f4(float x, int intensity);
 }
 #endif
 
-double integrateNum (int func, int points, double upper, double lower, int intensity) {
-
-    double itgr_output = 0.0;
-    double x = 0.0;
-
-    if (func == 1) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f1(x, intensity);
-        }
-    } else if (func == 2) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f2(x, intensity);
-        }
-    } else if (func == 3) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f3(x, intensity);
-        }
-    } else if (func == 4) {
-        for (int i = 0; i <= (points - 1); i++) {
-            x = ((lower + (i + .5)) * ((upper - lower) / points));
-            itgr_output += f4(x, intensity);
-        }
-    }
-
-    double result = ((upper - lower) / points) * itgr_output;
-    return result;
-}
+//double integrateNum (int func, int points, double upper, double lower, int intensity) {
+//
+//    double itgr_output = 0.0;
+//    double x = 0.0;
+//
+//    if (func == 1) {
+//        for (int i = 0; i <= (points - 1); i++) {
+//            x = ((lower + (i + .5)) * ((upper - lower) / points));
+//            itgr_output += f1(x, intensity);
+//        }
+//    } else if (func == 2) {
+//        for (int i = 0; i <= (points - 1); i++) {
+//            x = ((lower + (i + .5)) * ((upper - lower) / points));
+//            itgr_output += f2(x, intensity);
+//        }
+//    } else if (func == 3) {
+//        for (int i = 0; i <= (points - 1); i++) {
+//            x = ((lower + (i + .5)) * ((upper - lower) / points));
+//            itgr_output += f3(x, intensity);
+//        }
+//    } else if (func == 4) {
+//        for (int i = 0; i <= (points - 1); i++) {
+//            x = ((lower + (i + .5)) * ((upper - lower) / points));
+//            itgr_output += f4(x, intensity);
+//        }
+//    }
+//
+//    double result = ((upper - lower) / points) * itgr_output;
+//    return result;
+//}
 
 int func, points, intensity, nbthreads, granularity;
 double lower, upper;
@@ -81,34 +81,61 @@ int main (int argc, char* argv[]) {
 
     double chunk = (upper-lower)/granularity;
 
-    printf("%s \n", "seg fault B");
-
     sl.parfor<std::vector<double>>(0, nbthreads, 1, points, granularity,
-            [&](std::vector<double> &tls) mutable -> void{
-                printf("%s \n", "seg fault C");
+            [&](std::vector<double> &tls) -> void{
+                //printf("%s \n", "first func C");
                 for(int i=0; i < nbthreads; i++) {
-                    printf("%s \n", "seg fault D");
+                    //   printf("%s \n", "seg fault D");
                     tls.push_back(0.0);
-                    printf("%s \n", "seg fault e");
+                    //    printf("%s \n", "seg fault e");
                 }
             },
-            [&](int low, int up, std::vector<double> & tls) mutable -> void {
-                printf("%s \n", "seg fault F");
-                for(int i=low; i < up; i++) {
-                    printf("%s \n", "seg fault G");
-                    tls.push_back(integrateNum(func, points, up, low, intensity));
-                    printf("%s \n", "seg fault H");
+            [&](int low, int up, int count, std::vector<double> & tls) -> void {
+
+                for (int i = low; i <= up; i++){
+                    //printf("%s %d\n", "seg fault G", i);
+
+                    switch (func) {
+                        case 1:
+                            //printf("%s %d\n", "case-1", i);
+
+                            tls[count] += f1((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
+//                            if (i == up)
+//                                printf("tls[%d] %f ", count, tls[count]);
+                            break;
+                        case 2:
+                            tls[count] += f2((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
+//                            if (i == up)
+//                                printf("tls[%d] %f ", count, tls[count]);
+                            break;
+                        case 3:
+                            tls[count] += f3((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
+//                            if (i == up)
+//                                printf("tls[%d] %f ", count, tls[count]);
+                            break;
+                        case 4:
+                            tls[count] += f4((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
+//                            if (i == up)
+//                                printf("tls[%d] %f ", count, tls[count]);
+                            break;
+
+                    }
                 }
 
+
             },
-            [&](std::vector<double> &tls) mutable -> void{
-                printf("%s \n", "seg fault I");
+            [&](std::vector<double> tls) -> void{
+                // printf("%s \n", "last func");
                 for(auto d : tls) {
-                    printf("%s \n", "seg fault J");
+                    //printf("%s \n", "seg fault J");
                     sum += d;
-                    printf("%s \n", "seg fault K");
+
+                    //printf("%s \n", "seg fault K");
                 }
+
             });
+
+    double result = ((upper-lower)/points) * sum;
 
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_elapsed = stop - start;

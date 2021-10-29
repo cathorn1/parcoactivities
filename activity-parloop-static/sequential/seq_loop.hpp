@@ -101,7 +101,7 @@ public:
 template<typename TLS>
 void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
              std::function<void(TLS&)> before,
-             std::function<void(int, int, TLS&)> f,
+             std::function<void(int, int, int, TLS&)> f,
              std::function<void(TLS&)> after
 ) {
 
@@ -117,16 +117,12 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
     int chunkSize = n / gran;
     int chunkRemain = n % gran;
 
-    printf("")
-    std::vector <std::thread> tVec(tNum);
+    std::vector <std::thread> tVec;
 
     int up, low;
 
-    std::mutex mu;
-    printf("%s \n", "seg fault 1");
-
-    for(int i = beg; i < n; i+=counter){
-        printf("%s \n", "seg fault 2");
+    for(int i = beg; i < end; i++) {
+        //printf("%s \n", "seg fault 2");
         up = chunkSize * inc;
         low = up - chunkSize;
         up -= 1;
@@ -134,18 +130,32 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
             up += chunkRemain;
         }
 
-        //helpMe(std::ref(f), low, up, chunkSize, chunkRemain, std::ref(tls));
+        tVec.push_back(std::thread(f, low, up, counter, std::ref(tls)));
 
         inc++;
-        counter += chunkSize;
-        printf("%s %d\n", "seg fault 3", i);
+        counter = +chunkSize;
+
+        size_t k = beg;
+        bool cont = true;
+        std::mutex mut;
+
+        while (cont == true) {
+            mut.lock();
+            size_t localk = k;
+            k += chunkSize;
+            if (localk < end)
+                cont = false;
+            mut.unlock();
+            f(low, k, counter, std::ref(tls));
+
+        }
     }
 
-//        for(auto &t : tVec){
-//            printf("%s \n", "seg fault 4");
-//            t.join();
-//    }
-    printf("%s \n", "seg fault 5");
+        for(auto &t : tVec){
+            //printf("%s \n", "seg fault 4");
+            t.join();
+    }
+    //printf("%s \n", "seg fault 5");
     after(tls);
 }
 
