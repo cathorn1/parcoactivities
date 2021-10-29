@@ -101,6 +101,7 @@ int main (int argc, char* argv[]) {
                 for(auto d : tls) {
                     //printf("%s \n", "seg fault J");
                     sum += d;
+                    sum = sum/nbthreads;
                     //printf("%s \n", "seg fault K");
                 }
             });
