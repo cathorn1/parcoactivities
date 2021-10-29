@@ -121,7 +121,7 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
 
     int up, low;
 
-    for(int i = beg; i < end; i+=increment) {
+    for(int i = beg; i < end; i++) {
         //printf("%s \n", "seg fault 2");
         up = chunkSize * inc;
         low = up - chunkSize;
