@@ -94,7 +94,7 @@ int main (int argc, char* argv[]) {
                     //printf("%s %d\n", "seg fault H");
                 //}
 
-                for (int i = low; i < up; i++){
+                for (int i = low; i <= up; i++){
                     //printf("%s %d\n", "seg fault G", i);
                     switch (func) {
                         case 1:
@@ -121,7 +121,7 @@ int main (int argc, char* argv[]) {
 
 
             },
-            [&](std::vector<double> &tls) -> void{
+            [&](std::vector<double> tls) -> void{
               // printf("%s \n", "last func");
                 for(auto d : tls) {
                     //printf("%s \n", "seg fault J");
