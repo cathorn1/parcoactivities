@@ -139,16 +139,16 @@ void parfor (size_t beg, size_t end, size_t increment, size_t n, size_t gran,
         bool cont = true;
         std::mutex mut;
 
-        while (cont == true) {
-            mut.lock();
-            size_t localk = k;
-            k += chunkSize;
-            if (localk < end)
-                cont = false;
-            mut.unlock();
-            f(low, k, counter, std::ref(tls));
-
-        }
+//        while (cont == true) {
+//            mut.lock();
+//            size_t localk = k;
+//            k += chunkSize;
+//            if (localk < end)
+//                cont = false;
+//            mut.unlock();
+//            f(low, k, counter, std::ref(tls));
+//
+//        }
 
 
         for(auto &t : tVec){
