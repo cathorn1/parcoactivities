@@ -16,10 +16,10 @@
 extern "C" {
 #endif
 
-double f1(float x, int intensity);
-double f2(float x, int intensity);
-double f3(float x, int intensity);
-double f4(float x, int intensity);
+float f1(float x, int intensity);
+float f2(float x, int intensity);
+float f3(float x, int intensity);
+float f4(float x, int intensity);
 
 #ifdef __cplusplus
 }
@@ -96,7 +96,7 @@ int main (int argc, char* argv[]) {
 
                 for (int i = low; i <= up; i++){
                     //printf("%s %d\n", "seg fault G", i);
-                    printf("func %d", func);
+
                     switch (func) {
                         case 1:
                             //printf("%s %d\n", "case-1", i);
@@ -107,15 +107,18 @@ int main (int argc, char* argv[]) {
                             break;
                         case 2:
                             tls[count] += f2((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
-                            printf("tls[%d] %f ", count, tls[count]);
+                            if (i == up)
+                                printf("tls[%d] %f ", count, tls[count]);
                             break;
                         case 3:
                             tls[count] += f3((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
-                            printf("tls[%d] %f ", count, tls[count]);
+                            if (i == up)
+                                printf("tls[%d] %f ", count, tls[count]);
                             break;
                         case 4:
                             tls[count] += f4((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
-                            printf("tls[%d] %f ", count, tls[count]);
+                            if (i == up)
+                                printf("tls[%d] %f ", count, tls[count]);
                             break;
 
                     }
