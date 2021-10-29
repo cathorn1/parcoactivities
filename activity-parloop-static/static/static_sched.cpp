@@ -94,13 +94,13 @@ int main (int argc, char* argv[]) {
                     //printf("%s %d\n", "seg fault H");
                 //}
 
-                for (int i = low; i <= up; i++){
+                for (int i = low; i < up; i++){
                     //printf("%s %d\n", "seg fault G", i);
                     switch (func) {
                         case 1:
                             //printf("%s %d\n", "case-1", i);
-                            //x = ((lower + (i + .5)) * ((upper - lower) / points));
-                            tls[count] += f1((lower + (i + 0.5)) * ((up - low) / points), intensity);
+
+                            tls[count] += f1((lower + (i + 0.5)) * ((upper - lower) / points), intensity);
                             printf("tls[%d] %f ", count, tls[count]);
                             break;
                         case 2:
