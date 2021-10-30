@@ -49,7 +49,7 @@ int main (int argc, char* argv[]) {
                 for (int i = 0; i <= m; ++i) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
-                    //tls[i][0] = 0;
+                    tls[i][0] = 0;
                     //printf("%s\n", "howdy 1");
                 }
                 for (int j = 0; j <= n; ++j) {
