@@ -89,7 +89,7 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
 
-    checkLCS(X, m, Y, n, result);
+    //checkLCS(X, m, Y, n, result);
 
     std::cerr<<elpased_seconds.count()<<std::endl;
 
