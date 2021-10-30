@@ -68,11 +68,13 @@ int main (int argc, char* argv[]) {
                     //printf("%s\n", "howdy 5");
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
+                printf("%s %d\n", "from middle ", tls[m][n]);
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 6");
                 result = tls[m][n];
+                printf("%s %d\n", "from last ", tls[m][n]);
                 printf("%s\n", "howdy 77");
 //                    for (int i=0; i<=m; ++i) {
 //                        delete[] tls[i];
@@ -84,7 +86,7 @@ int main (int argc, char* argv[]) {
 
     //int result = -1; // length of common subsequence
     printf("%s", "made bottom");
-    printf("%d", result);
+    printf("%s %d\n", "from end", result);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
