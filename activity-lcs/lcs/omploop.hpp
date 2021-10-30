@@ -20,7 +20,7 @@ public:
   }
 
   template<typename TLS>
-  void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* X, char* Y,
+  void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
                std::function<void(TLS&)> before,
                std::function<void(int, int, char*, char*, TLS&)> f,
                std::function<void(TLS&)> after
@@ -37,7 +37,7 @@ public:
           int a = (i/n) + 1;
           int b = (i%n) + 1;
 
-          f(a, b, X, Y, std::ref(tls));
+          f(a, b, U, W, std::ref(tls));
       }
 #pragma omp critical
       after(tls);

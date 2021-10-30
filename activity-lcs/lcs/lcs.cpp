@@ -56,9 +56,9 @@ int main (int argc, char* argv[]) {
                     tls[0][j] = 0;
                 }
             },
-            [&](int a, int b, char* X, char* Y, std::vector <std::vector<int>> &tls) -> void {
+            [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
                 //printf("%s\n", "howdy 3");
-                if (X[a - 1] == Y[b - 1]) {
+                if (U[a - 1] == W[b - 1]) {
                     //printf("%s\n", "howdy 4");
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
@@ -83,7 +83,7 @@ int main (int argc, char* argv[]) {
 
     int result = answer; // length of common subsequence
     //printf("%s", "made bottom");
-    //printf("%s %d\n", "from end", result);
+    printf("%s %d\n", "from end", result);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
