@@ -51,10 +51,10 @@ int main (int argc, char* argv[]) {
                     //tls[i][0] = 0;
                     //printf("%s\n", "howdy 1");
                 }
-//                for (int j = 0; j <= n; ++j) {
-//                    //printf("%s\n", "howdy 2");
-//                    tls[0][j] = 0;
-//                }
+                for (int j = 0; j <= n; ++j) {
+                    //printf("%s\n", "howdy 2");
+                    tls[0][j] = 0;
+                }
             },
             [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
                 //printf("%s\n", "howdy 3");
@@ -73,10 +73,11 @@ int main (int argc, char* argv[]) {
                 answer = tls[m][n];
                 printf("%s %d\n", "from last ", tls[m][n]);
                 printf("%s\n", "howdy 77");
+
 //                    for (int i=0; i<=m; ++i) {
-//                        delete[] tls[i];
+//                        delete tls[i];
 //                    }
-//                    delete[] tls;
+//                    delete tls;
             });
 
 
