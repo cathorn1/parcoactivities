@@ -80,7 +80,7 @@ int main (int argc, char* argv[]) {
 
 
     //int result = -1; // length of common subsequence
-
+    printf("%s", "made bottom");
     printf("%d", result);
 
     checkLCS(X, m, Y, n, result);
