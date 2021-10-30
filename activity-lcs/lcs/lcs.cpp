@@ -50,16 +50,18 @@ int main (int argc, char* argv[]) {
                     tls.push_back(vec);
                     //tls[i][0] = 0;
                 }
-//                for (int j = 0; j <= n; ++j) {
-//                    tls[0][j] = 0;
-//                }
+                for (int j = 0; j <= n; ++j) {
+                    tls[0][j] = 0;
+                }
             },
-            [&](std::vector <std::vector<int>> &tls) -> void {
+            [&](int a, int b, std::vector <std::vector<int>> &tls) -> void {
+
                 if (X[a - 1] == Y[b - 1]) {
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
+
                 a++;
                 b++;
             },
