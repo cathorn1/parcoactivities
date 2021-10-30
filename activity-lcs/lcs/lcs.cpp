@@ -32,7 +32,7 @@ int main (int argc, char* argv[]) {
     int m = atoi(argv[1]);
     int n = atoi(argv[2]);
     int nbthreads = atoi(argv[3]);
-    int result;
+    int answer;
     OmpLoop om;
 
     // get string data
@@ -40,9 +40,6 @@ int main (int argc, char* argv[]) {
     char *Y = new char[n];
     generateLCS(X, m, Y, n);
     //insert LCS code here.
-
-    int a = 1;
-    int b = 1;
 
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
@@ -73,7 +70,7 @@ int main (int argc, char* argv[]) {
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 6");
-                result = tls[m][n];
+                answer = tls[m][n];
                 printf("%s %d\n", "from last ", tls[m][n]);
                 printf("%s\n", "howdy 77");
 //                    for (int i=0; i<=m; ++i) {
@@ -84,7 +81,7 @@ int main (int argc, char* argv[]) {
 
 
 
-    //int result = -1; // length of common subsequence
+    int result = answer; // length of common subsequence
     //printf("%s", "made bottom");
     //printf("%s %d\n", "from end", result);
 
