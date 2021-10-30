@@ -23,6 +23,7 @@ extern "C" {
 int LCS(char* X, int m, char* Y, int n) {
 
   int** C = new int*[m+1];
+
   for (int i=0; i<=m; ++i) {
     C[i] = new int[n+1];
     C[i][0] = 0;
