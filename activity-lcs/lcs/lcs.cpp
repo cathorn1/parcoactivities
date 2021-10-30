@@ -50,20 +50,20 @@ int main (int argc, char* argv[]) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
                     tls[i][0] = 0;
-                    printf("%s\n", "howdy 1");
+                    printf("%s %d\n", "howdy 1", i);
                 }
                 for (int j = 0; j < n; ++j) {
-                    printf("%s\n", "howdy 2");
+                    printf("%s %d\n", "howdy 2", j);
                     tls[0][j] = 0;
                 }
             },
             [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 3");
                 if (U[a - 1] == W[b - 1]) {
-                    printf("%s\n", "howdy 4");
+                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
-                    printf("%s\n", "howdy 5");
+                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
                 printf("%s %d\n", "from middle ", tls[m][n]);
