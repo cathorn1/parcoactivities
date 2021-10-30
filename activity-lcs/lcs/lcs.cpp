@@ -71,9 +71,9 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
-                //printf("%s\n", "howdy 6");
+                printf("%s\n", "howdy 6");
                 result = tls[m][n];
-                //printf("%s\n", "howdy 77");
+                printf("%s\n", "howdy 77");
 //                    for (int i=0; i<=m; ++i) {
 //                        delete[] tls[i];
 //                    }
