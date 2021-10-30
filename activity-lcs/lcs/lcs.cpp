@@ -62,8 +62,6 @@ int main (int argc, char* argv[]) {
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
 
-                a++;
-                b++;
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
                 result = tls[m][n];
