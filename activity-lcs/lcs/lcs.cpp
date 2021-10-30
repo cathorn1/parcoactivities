@@ -56,7 +56,7 @@ int main (int argc, char* argv[]) {
             },
             [&](int a, int b, std::vector <std::vector<int>> &tls) -> void {
 
-                if (X[a - 1] == Y[b - 1]) {
+                if (&X[a - 1] == &Y[b - 1]) {
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
