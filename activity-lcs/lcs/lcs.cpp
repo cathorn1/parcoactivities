@@ -42,10 +42,10 @@ int main (int argc, char* argv[]) {
 
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n,
             [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i <= m; ++i) {
+                for (int i = 0; i <= m+1; ++i) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
-                    //
+                    //tls[i][0] = 0;
                 }
                 for (int j = 0; j <= n; ++j) {
                     tls[0][j] = 0;
