@@ -7,6 +7,7 @@
 #include <vector>
 #include <array>
 #include <chrono>
+#include <algorithm>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -69,10 +70,10 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
-//                printf("%s\n", "howdy 6");
-//                answer = tls[m][n];
-//                printf("%s %d\n", "from last ", tls[m][n]);
-//                printf("%s\n", "howdy 77");
+                printf("%s\n", "howdy 6");
+                answer = tls[m][n];
+                printf("%s %d\n", "from last ", tls[m][n]);
+                printf("%s\n", "howdy 77");
 
 //                    for (int i=0; i<=m; ++i) {
 //                        delete tls[i];
@@ -82,16 +83,16 @@ int main (int argc, char* argv[]) {
 
 
 
-   // int result = answer; // length of common subsequence
-    //printf("%s", "made bottom");
-    //printf("%s %d\n", "from end", result);
+    int result = answer; // length of common subsequence
+    printf("%s", "made bottom");
+    printf("%s %d\n", "from end", result);
 
-   // std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-   // std::chrono::duration<double> elpased_seconds = end-start;
+    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elpased_seconds = end-start;
 
-    //checkLCS(X, m, Y, n, result);
+    checkLCS(X, m, Y, n, result);
 
-    //std::cerr<<elpased_seconds.count()<<std::endl;
+    std::cerr<<elpased_seconds.count()<<std::endl;
 
     return 0;
 }
