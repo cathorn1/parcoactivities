@@ -37,7 +37,7 @@ public:
           int a = (i/n) + 1;
           int b = (i%n) + 1;
 
-          f(a, b, X, Y, tls);
+          f(a, b, X, Y, std::ref(tls));
       }
 #pragma omp critical
       after(tls);
