@@ -43,7 +43,7 @@ int main (int argc, char* argv[]) {
     int a = 1;
     int b = 1;
 
-    om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n,
+    om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector <std::vector<int>> &tls) -> void {
                 for (int i = 0; i <= m; ++i) {
                     std::vector<int> vec(1, 0);
@@ -54,9 +54,9 @@ int main (int argc, char* argv[]) {
                     tls[0][j] = 0;
                 }
             },
-            [&](int a, int b, std::vector <std::vector<int>> &tls) -> void {
+            [&](int a, int b, char* X, char* Y, std::vector <std::vector<int>> &tls) -> void {
 
-                if (&X[a - 1] == &Y[b - 1]) {
+                if (X[a - 1] == Y[b - 1]) {
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);

@@ -20,9 +20,9 @@ public:
   }
 
   template<typename TLS>
-  void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n,
+  void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* X, char* Y,
                std::function<void(TLS&)> before,
-               std::function<void(int, int, TLS&)> f,
+               std::function<void(int, int, char*, char*, TLS&)> f,
                std::function<void(TLS&)> after
                ) {
 #pragma omp parallel num_threads(nbthread)
@@ -37,7 +37,7 @@ public:
           int a = (i/n) + 1;
           int b = (i%n) + 1;
 
-          f(a, b, tls);
+          f(a, b, X, Y, tls);
       }
 #pragma omp critical
       after(tls);
