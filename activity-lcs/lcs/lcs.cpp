@@ -69,10 +69,10 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
-                printf("%s\n", "howdy 6");
-                answer = tls[m][n];
-                printf("%s %d\n", "from last ", tls[m][n]);
-                printf("%s\n", "howdy 77");
+//                printf("%s\n", "howdy 6");
+//                answer = tls[m][n];
+//                printf("%s %d\n", "from last ", tls[m][n]);
+//                printf("%s\n", "howdy 77");
 
 //                    for (int i=0; i<=m; ++i) {
 //                        delete tls[i];
