@@ -22,7 +22,7 @@ public:
   template<typename TLS>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n,
                std::function<void(TLS&)> before,
-               std::function<void(int, int, TLS&)> f,
+               std::function<void(TLS&)> f,
                std::function<void(TLS&)> after
                ) {
 #pragma omp parallel num_threads(nbthread)
@@ -33,10 +33,11 @@ public:
 #pragma omp for schedule(static)
 
       for (size_t i=beg; i<(m*n); i+= increment) {
-          int a = i/n;
-          int b = i%n;
-
-          f(a, b, tls);
+          f(tls);
+//          int a = i/n;
+//          int b = i%n;
+//
+//          f(a, b, tls);
       }
 #pragma omp critical
       after(tls);

@@ -40,9 +40,12 @@ int main (int argc, char* argv[]) {
     generateLCS(X, m, Y, n);
     //insert LCS code here.
 
+    int a = 1;
+    int b = 1;
+
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n,
             [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i <= m+1; ++i) {
+                for (int i = 0; i <= m; ++i) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
                     //tls[i][0] = 0;
@@ -51,12 +54,14 @@ int main (int argc, char* argv[]) {
                     tls[0][j] = 0;
                 }
             },
-            [&](int a, int b, std::vector <std::vector<int>> &tls) -> void {
+            [&](std::vector <std::vector<int>> &tls) -> void {
                 if (X[a - 1] == Y[b - 1]) {
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
+                a++;
+                b++;
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
                 result = tls[m][n];
