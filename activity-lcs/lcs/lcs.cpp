@@ -83,17 +83,18 @@ int main (int argc, char* argv[]) {
 
 
 
-//    int result = answer; // length of common subsequence
-//    printf("%s", "made bottom");
-//    printf("%s %d\n", "from end", result);
-//
-//    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-//    std::chrono::duration<double> elpased_seconds = end-start;
-//
-//    checkLCS(X, m, Y, n, result);
-//
-//    std::cerr<<elpased_seconds.count()<<std::endl;
+    int result = answer; // length of common subsequence
+    printf("%s", "made bottom");
+    printf("%s %d\n", "from end", result);
 
+    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elpased_seconds = end-start;
+
+    checkLCS(X, m, Y, n, result);
+
+    std::cerr<<elpased_seconds.count()<<std::endl;
+
+    exit(0);
     return 0;
 }
 //    om.parfor<std::vector<std::vector<int>>>(0, nbthreads, 1, m, n,
