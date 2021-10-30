@@ -49,26 +49,26 @@ int main (int argc, char* argv[]) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
                     //tls[i][0] = 0;
-                    printf("%s", "howdy 1");
+                    printf("%s\n", "howdy 1");
                 }
                 for (int j = 0; j <= n; ++j) {
-                    printf("%s", "howdy 2");
+                    printf("%s\n", "howdy 2");
                     tls[0][j] = 0;
                 }
             },
             [&](int a, int b, char* X, char* Y, std::vector <std::vector<int>> &tls) -> void {
-                printf("%s", "howdy 3");
+                printf("%s\n", "howdy 3");
                 if (X[a - 1] == Y[b - 1]) {
-                    printf("%s", "howdy 4");
+                    printf("%s\n", "howdy 4");
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
-                    printf("%s", "howdy 5");
+                    printf("%s\n", "howdy 5");
                     tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
-                printf("%s", "howdy 6");
+                printf("%s\n", "howdy 6");
                 result = tls[m][n];
 
 //                    for (int i=0; i<=m; ++i) {
