@@ -32,10 +32,10 @@ public:
       
 #pragma omp for schedule(static)
 
-      for (size_t i=beg; i<(m*n); i+= increment) {
+      for (size_t i=beg; i<((m*n)-n); i+= increment) {
           //f(tls);
-          int a = (i/n);
-          int b = (i%n);
+          int a = (i/n) + 1;
+          int b = (i%n) + 1;
 
           f(a, b, U, W, std::ref(tls));
       }
