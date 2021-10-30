@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <vector>
 #include <array>
+#include <chrono>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -42,6 +43,8 @@ int main (int argc, char* argv[]) {
 
     int a = 1;
     int b = 1;
+
+    std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector <std::vector<int>> &tls) -> void {
@@ -83,8 +86,12 @@ int main (int argc, char* argv[]) {
     printf("%s", "made bottom");
     printf("%d", result);
 
+    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elpased_seconds = end-start;
+
     checkLCS(X, m, Y, n, result);
 
+    std::cerr<<elpased_seconds.count()<<std::endl;
 
     return 0;
 }
