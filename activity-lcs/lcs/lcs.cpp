@@ -50,9 +50,9 @@ int main (int argc, char* argv[]) {
                     tls.push_back(vec);
                     //tls[i][0] = 0;
                 }
-                for (int j = 0; j <= n; ++j) {
-                    tls[0][j] = 0;
-                }
+//                for (int j = 0; j <= n; ++j) {
+//                    tls[0][j] = 0;
+//                }
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
                 if (X[a - 1] == Y[b - 1]) {
