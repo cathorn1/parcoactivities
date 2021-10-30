@@ -64,7 +64,14 @@ int main (int argc, char* argv[]) {
                     tls[a][b] = tls[a - 1][b - 1] + 1;
                 } else {
                     printf("%s a: %d b: %d\n", "howdy 5", a, b);
-                    tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
+                    int x = tls[a - 1][b];
+                    int y = tls[a][b - 1];
+                    if (x > y)
+                        tls[a][b] = x;
+                    else
+                        tls[a][b] = y;
+
+                    //tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
                 printf("%s %d\n", "from middle ", tls[m][n]);
 
