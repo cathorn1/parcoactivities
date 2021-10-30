@@ -62,7 +62,7 @@ int main (int argc, char* argv[]) {
                 printf("%d\n", tls[0][0]);
                 if (U[a - 1] == W[b - 1]) {
                     printf("%s a: %d b: %d\n", "howdy 4", a, b);
-                    tls[a][b] = tls[a - 1][b - 1] + 1;
+                    tls[a][b] = (tls[a - 1][b - 1]) + 1;
                 } else {
                     printf("%s a: %d b: %d\n", "howdy 5", a, b);
                     int x = tls[a - 1][b];
