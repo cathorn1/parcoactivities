@@ -46,13 +46,13 @@ int main (int argc, char* argv[]) {
 
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i <= m; ++i) {
+                for (int i = 0; i < m; ++i) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
                     tls[i][0] = 0;
                     printf("%s\n", "howdy 1");
                 }
-                for (int j = 0; j <= n; ++j) {
+                for (int j = 0; j < n; ++j) {
                     printf("%s\n", "howdy 2");
                     tls[0][j] = 0;
                 }
@@ -94,8 +94,9 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elpased_seconds.count()<<std::endl;
 
-    exit(0);
+
     return 0;
+
 }
 //    om.parfor<std::vector<std::vector<int>>>(0, nbthreads, 1, m, n,
 //            [&](std::vector<std::vector<int>> & tls) -> void{
