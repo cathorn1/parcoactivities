@@ -59,12 +59,13 @@ int main (int argc, char* argv[]) {
             },
             [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 3");
-                printf("%d\n", tls[1][1]);
+                printf("%d\n", tls[a][b]);
                 if (U[a - 1] == W[b - 1]) {
                     printf("%s a: %d b: %d\n", "howdy 4", a, b);
                     tls[a][b] = (tls[a - 1][b - 1]) + 1;
                 } else {
                     printf("%s a: %d b: %d\n", "howdy 5", a, b);
+                    printf("tls: %d\n", tls[1][1]);
                     int x = tls[a - 1][b];
                     int y = tls[a][b - 1];
                     if (x > y)
