@@ -30,7 +30,7 @@ public:
       TLS tls;
       before(tls);
       
-#pragma omp for schedule(static)
+#pragma omp for schedule(static) ordered
 
       for (size_t i=1; i<((m*n)); i+= increment) {
           //f(tls);
