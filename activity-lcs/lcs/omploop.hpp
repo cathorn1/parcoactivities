@@ -28,7 +28,7 @@ public:
                std::function<void(int, int, char*, char*, TLS&)> f,
                std::function<void(TLS&)> after
                ) {
-      //setNbThread(end);
+      setNbThread(end);
 #pragma omp parallel num_threads(nbthread)
     {
       TLS tls;
@@ -36,7 +36,7 @@ public:
       
 #pragma omp for schedule(static)
 
-      for (size_t i=1; i<((m*n)); i+= increment) {
+      for (size_t i=0; i<((m*n)); i+= increment) {
           //f(tls);
           a = (i/n) + 1;
           b = (i%n) + 1;
