@@ -21,7 +21,7 @@ extern "C" {
 }
 #endif
 
-long answer;
+
 
 int main (int argc, char* argv[]) {
 
@@ -34,6 +34,7 @@ int main (int argc, char* argv[]) {
     int n = atoi(argv[2]);
     int nbthreads = atoi(argv[3]);
 
+    int answer = 0;
     OmpLoop om;
 
     // get string data
@@ -47,13 +48,13 @@ int main (int argc, char* argv[]) {
 
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i < n+1; ++i) {
+                for (int i = 0; i < m+1; ++i) {
                     std::vector<int> vec(1, 0);
                     tls.push_back(vec);
                     tls[i][0] = 0;
                     printf("%s %d\n", "howdy 1", i);
                 }
-                for (int j = 0; j < m+1; ++j) {
+                for (int j = 0; j < n+1; ++j) {
                     printf("%s %d\n", "howdy 2", j);
                     tls[0][j] = 0;
                 }
@@ -93,9 +94,9 @@ int main (int argc, char* argv[]) {
 
 
 
-    long result = answer; // length of common subsequence
+    int result = answer; // length of common subsequence
     printf("%s", "made bottom");
-    printf("%s %ld\n", "from end", result);
+    printf("%s %d\n", "from end", result);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
