@@ -104,7 +104,7 @@ int main (int argc, char* argv[]) {
 //
 //    std::cerr<<elpased_seconds.count()<<std::endl;
 //
-
+exit(0);
     return 0;
 
 }
