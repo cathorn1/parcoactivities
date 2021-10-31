@@ -21,7 +21,7 @@ extern "C" {
 }
 #endif
 
-int answer;
+long long answer;
 
 int main (int argc, char* argv[]) {
 
