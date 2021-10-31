@@ -75,7 +75,7 @@ int main (int argc, char* argv[]) {
 
                     //tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
                 }
-                printf("%s %d\n", "from middle ", tls[m][n]);
+                //printf("%s %d\n", "from middle ", tls[m][n]);
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
