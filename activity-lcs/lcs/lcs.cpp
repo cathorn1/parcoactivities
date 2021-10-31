@@ -21,7 +21,7 @@ extern "C" {
 }
 #endif
 
-
+int answer;
 
 int main (int argc, char* argv[]) {
 
@@ -33,7 +33,7 @@ int main (int argc, char* argv[]) {
     int m = atoi(argv[1]);
     int n = atoi(argv[2]);
     int nbthreads = atoi(argv[3]);
-    int answer;
+
     OmpLoop om;
 
     // get string data
