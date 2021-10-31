@@ -44,51 +44,51 @@ int main (int argc, char* argv[]) {
 
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
-            [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i < m+1; ++i) {
-                    std::vector<int> vec(1, 0);
-                    tls.push_back(vec);
-                    tls[i][0] = 0;
-                    printf("%s %d\n", "howdy 1", i);
-                }
-                for (int j = 0; j < n+1; ++j) {
-                    printf("%s %d\n", "howdy 2", j);
-                    tls[0][j] = 0;
-                }
-            },
-            [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
-                printf("%s\n", "howdy 3");
-                printf("%d\n", tls[a][b]);
-                if (U[a - 1] == W[b - 1]) {
-                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
-                    tls[a][b] = (tls[a - 1][b - 1]) + 1;
-                } else {
-                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
-                    printf("tls: %d\n", tls[a][b]);
-//                    int x = tls[a - 1][b];
-//                    int y = tls[a][b - 1];
-//                    if (x > y)
-//                        tls[a][b] = x;
-//                    else
-//                        tls[a][b] = y;
-
-                    tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
-                }
-                //printf("%s %d\n", "from middle ", tls[m][n]);
-
-            },
-            [&](std::vector <std::vector<int>> &tls) -> void {
-                printf("%s\n", "howdy 6");
-                answer = tls[m][n];
-                printf("%s %d\n", "from last ", tls[m][n]);
-                printf("%s\n", "howdy 77");
-
-//                    for (int i=0; i<=m; ++i) {
-//                        delete tls[i];
-//                    }
-//                    delete tls;
-            });
+//    om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
+//            [&](std::vector <std::vector<int>> &tls) -> void {
+//                for (int i = 0; i < m+1; ++i) {
+//                    std::vector<int> vec(1, 0);
+//                    tls.push_back(vec);
+//                    tls[i][0] = 0;
+//                    printf("%s %d\n", "howdy 1", i);
+//                }
+//                for (int j = 0; j < n+1; ++j) {
+//                    printf("%s %d\n", "howdy 2", j);
+//                    tls[0][j] = 0;
+//                }
+//            },
+//            [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
+//                printf("%s\n", "howdy 3");
+//                printf("%d\n", tls[a][b]);
+//                if (U[a - 1] == W[b - 1]) {
+//                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
+//                    tls[a][b] = (tls[a - 1][b - 1]) + 1;
+//                } else {
+//                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
+//                    printf("tls: %d\n", tls[a][b]);
+////                    int x = tls[a - 1][b];
+////                    int y = tls[a][b - 1];
+////                    if (x > y)
+////                        tls[a][b] = x;
+////                    else
+////                        tls[a][b] = y;
+//
+//                    tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
+//                }
+//                //printf("%s %d\n", "from middle ", tls[m][n]);
+//
+//            },
+//            [&](std::vector <std::vector<int>> &tls) -> void {
+//                printf("%s\n", "howdy 6");
+//                answer = tls[m][n];
+//                printf("%s %d\n", "from last ", tls[m][n]);
+//                printf("%s\n", "howdy 77");
+//
+////                    for (int i=0; i<=m; ++i) {
+////                        delete tls[i];
+////                    }
+////                    delete tls;
+//            });
 
 
 
