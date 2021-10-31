@@ -44,6 +44,7 @@ int main (int argc, char* argv[]) {
 
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
+
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector <std::vector<int>> &tls) -> void {
                 for (int i = 0; i < m+1; ++i) {
