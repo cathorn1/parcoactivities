@@ -19,6 +19,9 @@ public:
     nbthread = t;
   }
 
+  int a = 0;
+  int b = 0;
+
   template<typename TLS>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
                std::function<void(TLS&)> before,
@@ -35,8 +38,8 @@ public:
 
       for (size_t i=1; i<((m*n)); i+= increment) {
           //f(tls);
-          int a = (i/n) + 1;
-          int b = (i%n) + 1;
+          a = (i/n) + 1;
+          b = (i%n) + 1;
 
           f(a, b, U, W, tls);
       }
