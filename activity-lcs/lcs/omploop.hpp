@@ -38,8 +38,8 @@ public:
 
       for (size_t i=0; i<((m*n)); i+= increment) {
           //f(tls);
-          a = (i/n) + 1;
-          b = (i%n) + 1;
+          a = (i/m) + 1;
+          b = (i%m) + 1;
 
           f(a, b, U, W, tls);
       }
