@@ -79,7 +79,7 @@ int main (int argc, char* argv[]) {
                 //printf("%s %d\n", "from middle ", tls[m][n]);
 
             },
-            [&](std::vector <std::vector<int>> tls) -> void {
+            [&](std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 6");
                 answer = tls[m][n];
                 printf("%s %d\n", "from last ", tls[m][n]);
