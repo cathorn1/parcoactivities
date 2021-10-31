@@ -65,7 +65,7 @@ int main (int argc, char* argv[]) {
                     tls[a][b] = (tls[a - 1][b - 1]) + 1;
                 } else {
                     printf("%s a: %d b: %d\n", "howdy 5", a, b);
-                    printf("tls: %d\n", tls[1][1]);
+                    printf("tls: %d\n", tls[a - 1][b]);
                     int x = tls[a - 1][b];
                     int y = tls[a][b - 1];
                     if (x > y)
