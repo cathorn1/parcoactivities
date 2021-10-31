@@ -21,7 +21,7 @@ extern "C" {
 }
 #endif
 
-long long answer;
+long answer;
 
 int main (int argc, char* argv[]) {
 
@@ -93,18 +93,18 @@ int main (int argc, char* argv[]) {
 
 
 
-//    int result = answer; // length of common subsequence
-//    printf("%s", "made bottom");
-//    printf("%s %d\n", "from end", result);
-//
-//    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-//    std::chrono::duration<double> elpased_seconds = end-start;
-//
-//    checkLCS(X, m, Y, n, result);
-//
-//    std::cerr<<elpased_seconds.count()<<std::endl;
-//
-exit(0);
+    long result = answer; // length of common subsequence
+    printf("%s", "made bottom");
+    printf("%s %ld\n", "from end", result);
+
+    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elpased_seconds = end-start;
+
+    checkLCS(X, m, Y, n, result);
+
+    std::cerr<<elpased_seconds.count()<<std::endl;
+
+
     return 0;
 
 }
