@@ -19,32 +19,35 @@ public:
     nbthread = t;
   }
 
-  int a = 0;
-  int b = 0;
+//  int a = 0;
+//  int b = 0;
 
-  template<typename TLS>
+  template<typename C>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
-               std::function<void(TLS&)> before,
-               std::function<void(int, int, char*, char*, TLS&)> f,
-               std::function<void(TLS&)> after
+               std::vector<std::vector<int>>,
+               std::function<void(C&)> before,
+               std::function<void(C&)> f,
+               std::function<void(C&)> after
                ) {
 
 #pragma omp parallel num_threads(nbthread)
     {
-      TLS tls;
-      before(tls);
+      C C_arr;
+      before(C_arr);
       
 #pragma omp for schedule(static)
 
-      for (size_t i=0; i<((m*n)); i+= increment) {
-          //f(tls);
-          a = (i/m) + 1;
-          b = (i%m) + 1;
+      f(C_arr);
 
-          f(a, b, U, W, tls);
-      }
+//      for (size_t i=0; i < ((m+n)-1); i+= increment) {
+//          //f(tls);
+//          int a = ;
+//          int b = ;
+//
+//          f(a, b, U, W, C_arr);
+//      }
 #pragma omp critical
-      after(tls);
+      after(C_arr);
     }
   }
 

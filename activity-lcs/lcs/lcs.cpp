@@ -45,49 +45,76 @@ int main (int argc, char* argv[]) {
 
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    om.setNbThread(1);
+    om.setNbThread(nbthreads);
+    std::vector<std::vector<int>> C;
+    int i =0;
+    int j =0;
+    int k =0;
+    int s=0;
+    int count =0;
+    int LCSmax =0;
 
-    om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
-            [&](std::vector <std::vector<int>> &tls) -> void {
-                for (int i = 0; i < m+1; ++i) {
-                    std::vector<int> vec(1, 0);
-                    tls.push_back(vec);
-                    tls[i][0] = 0;
-                    printf("%s %d\n", "howdy 1", i);
-                }
-                for (int j = 0; j < n+1; ++j) {
-                    printf("%s %d\n", "howdy 2", j);
-                    tls[0][j] = 0;
-                }
-            },
-            [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
-                printf("%s\n", "howdy 3");
-                printf("%d\n", tls[a][b]);
+    for (int i = 0; i < m; ++i) {
+        std::vector<int> vec(1, 0);
+        C.push_back(vec);
+        C[i][0] = 0;
+        //printf("%s %d\n", "howdy 1", i);
+    }
+    for (int j = 0; j < n; ++j) {
+        //printf("%s %d\n", "howdy 2", j);
+        C[0][j] = 0;
+    }
 
-                if (U[a - 1] == W[b - 1]) {
-                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
-                    tls[a][b] = (tls[a - 1][b - 1]) + 1;
-                } else {
-                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
-                    printf("tls: %d\n", tls[a][b]);
-//                    int x = tls[a - 1][b];
-//                    int y = tls[a][b - 1];
-//                    if (x > y)
-//                        tls[a][b] = x;
-//                    else
-//                        tls[a][b] = y;
-
-                    tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
-                }
-                //printf("%s %d\n", "from middle ", tls[m][n]);
+    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, C,
+            [&](std::vector<std::vector<int>> &C) -> void {
 
             },
-            [&](std::vector <std::vector<int>> &tls) -> void {
+            [&](std::vector<std::vector<int>> &C) -> void {
+//                printf("%s\n", "howdy 3");
+//                printf("%d\n", tls[a][b]);
 
-                printf("%s\n", "howdy 6");
-                answer = tls[m][n];
-                printf("%s %d\n", "from last ", tls[m][n]);
-                printf("%s\n", "howdy 77");
+                for (i = 1; i <= m; i++){
+                    for (j =1; j<=i; j++){
+                        k = i-(j-1);
+
+                        if(X[k-1]==Y[j-1]){
+                            C[k][j]=C[k-1][j-1]+1; {
+                                if(C[k][j]>LCSmax){
+                                    LCSmax =C[k][j];
+                                    //parent[s]=k-1;
+                                    s++;
+                                    count++;
+                                }
+                            }
+
+                        }
+                        else if(C[k-1][j] >= C[k][j-1]){
+                            C[k][j]=C[k-1][j];
+                        }
+                        else{
+                            C[k][j]=C[k][j-1];
+                        }
+                    }
+                }
+
+//                if (X[a - 1] == Y[b - 1]) {
+////                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
+//                    C[a][b] = (C[a - 1][b - 1]) + 1;
+//                } else {
+////                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
+////                    printf("tls: %d\n", tls[a][b]);
+//
+//                    C[a][b] = std::max(C[a - 1][b], C[a][b - 1]);
+//                }
+//                //printf("%s %d\n", "from middle ", tls[m][n]);
+
+            },
+            [&](std::vector<std::vector<int>> &C) -> void {
+
+//                printf("%s\n", "howdy 6");
+                answer = C[m][n];
+//                printf("%s %d\n", "from last ", tls[m][n]);
+//                printf("%s\n", "howdy 77");
 
 //                    for (int i=0; i<=m; ++i) {
 //                        delete tls[i];
@@ -110,6 +137,41 @@ int main (int argc, char* argv[]) {
     return 0;
 
 }
+
+
+//om.parfor< std::vector < std::vector < int>>>(0, end, 1, m, n, X, Y,
+//            [&](std::vector <std::vector<int>> &tls) -> void {
+//
+//            },
+//            [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
+////                printf("%s\n", "howdy 3");
+////                printf("%d\n", tls[a][b]);
+//
+//                if (U[a - 1] == W[b - 1]) {
+////                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
+//                    tls[a][b] = (tls[a - 1][b - 1]) + 1;
+//                } else {
+////                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
+////                    printf("tls: %d\n", tls[a][b]);
+//
+//                    tls[a][b] = std::max(tls[a - 1][b], tls[a][b - 1]);
+//                }
+//                //printf("%s %d\n", "from middle ", tls[m][n]);
+//
+//            },
+//            [&](std::vector <std::vector<int>> &tls) -> void {
+//
+////                printf("%s\n", "howdy 6");
+//                answer = tls[m][n];
+////                printf("%s %d\n", "from last ", tls[m][n]);
+////                printf("%s\n", "howdy 77");
+//
+////                    for (int i=0; i<=m; ++i) {
+////                        delete tls[i];
+////                    }
+////                    delete tls;
+//            });
+
 //    om.parfor<std::vector<std::vector<int>>>(0, nbthreads, 1, m, n,
 //            [&](std::vector<std::vector<int>> & tls) -> void{
 //                for (int i=0; i<=m; ++i) {
