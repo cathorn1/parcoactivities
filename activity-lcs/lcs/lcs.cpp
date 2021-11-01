@@ -73,29 +73,29 @@ int main (int argc, char* argv[]) {
                 printf("%s\n", "howdy 3");
                 //printf("%d\n", C[k][j]);
 
-                for (i = 1; i <= m; i++){
-                    for (j =1; j<=i; j++){
-                        k = i-(j-1);
-
-                        if(X[k-1]==Y[j-1]){
-                            C[k][j]=C[k-1][j-1]+1; {
-                                if(C[k][j]>LCSmax){
-                                    LCSmax =C[k][j];
-                                    //parent[s]=k-1;
-                                    s++;
-                                    count++;
-                                }
-                            }
-
-                        }
-                        else if(C[k-1][j] >= C[k][j-1]){
-                            C[k][j]=C[k-1][j];
-                        }
-                        else{
-                            C[k][j]=C[k][j-1];
-                        }
-                    }
-                }
+//                for (i = 1; i <= m; i++){
+//                    for (j =1; j<=i; j++){
+//                        k = i-(j-1);
+//
+//                        if(X[k-1]==Y[j-1]){
+//                            C[k][j]=C[k-1][j-1]+1; {
+//                                if(C[k][j]>LCSmax){
+//                                    LCSmax =C[k][j];
+//                                    //parent[s]=k-1;
+//                                    s++;
+//                                    count++;
+//                                }
+//                            }
+//
+//                        }
+//                        else if(C[k-1][j] >= C[k][j-1]){
+//                            C[k][j]=C[k-1][j];
+//                        }
+//                        else{
+//                            C[k][j]=C[k][j-1];
+//                        }
+//                    }
+//                }
 
 //                if (X[a - 1] == Y[b - 1]) {
 ////                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
