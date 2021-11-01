@@ -65,7 +65,7 @@ int main (int argc, char* argv[]) {
         C_a[0][j] = 0;
     }
 
-    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, C_a,
+    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, std::ref(C_a),
             [&](std::vector<std::vector<int>> &C) -> void {
                 C = C_a;
             },
