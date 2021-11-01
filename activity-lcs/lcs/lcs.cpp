@@ -70,8 +70,8 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector<std::vector<int>> &C) -> void {
-//                printf("%s\n", "howdy 3");
-//                printf("%d\n", tls[a][b]);
+                printf("%s\n", "howdy 3");
+                printf("%d\n", C[k][j]);
 
                 for (i = 1; i <= m; i++){
                     for (j =1; j<=i; j++){
@@ -106,13 +106,13 @@ int main (int argc, char* argv[]) {
 //
 //                    C[a][b] = std::max(C[a - 1][b], C[a][b - 1]);
 //                }
-//                //printf("%s %d\n", "from middle ", tls[m][n]);
+                printf("%s %d\n", "from middle ", C[m][n]);
 
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
 //                printf("%s\n", "howdy 6");
-                answer = C[m][n];
+                answer = C[k][j];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
 
