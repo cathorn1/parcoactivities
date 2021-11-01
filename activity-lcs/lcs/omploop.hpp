@@ -37,8 +37,10 @@ public:
       
 #pragma omp for schedule(static)
 
-      f(C_arr);
+      for (size_t i=beg; i < end; i+= increment) {
 
+          f(C_arr);
+      }
 //      for (size_t i=0; i < ((m+n)-1); i+= increment) {
 //          //f(tls);
 //          int a = ;
