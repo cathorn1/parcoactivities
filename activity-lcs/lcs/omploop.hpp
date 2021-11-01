@@ -28,7 +28,7 @@ public:
                std::function<void(int, int, char*, char*, TLS&)> f,
                std::function<void(TLS&)> after
                ) {
-      setNbThread(end);
+
 #pragma omp parallel num_threads(nbthread)
     {
       TLS tls;
