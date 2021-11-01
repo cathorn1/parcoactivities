@@ -43,7 +43,7 @@ int main (int argc, char* argv[]) {
     generateLCS(X, m, Y, n);
     //insert LCS code here.
 
-    std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
+    //std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
 
     om.parfor < std::vector < std::vector < int>>>(0, nbthreads, 1, m, n, X, Y,
@@ -62,6 +62,7 @@ int main (int argc, char* argv[]) {
             [&](int a, int b, char* U, char* W, std::vector <std::vector<int>> &tls) -> void {
                 printf("%s\n", "howdy 3");
                 printf("%d\n", tls[a][b]);
+
                 if (U[a - 1] == W[b - 1]) {
                     printf("%s a: %d b: %d\n", "howdy 4", a, b);
                     tls[a][b] = (tls[a - 1][b - 1]) + 1;
@@ -81,6 +82,7 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector <std::vector<int>> &tls) -> void {
+
                 printf("%s\n", "howdy 6");
                 answer = tls[m][n];
                 printf("%s %d\n", "from last ", tls[m][n]);
@@ -92,19 +94,17 @@ int main (int argc, char* argv[]) {
 //                    delete tls;
             });
 
-
-
     //int result = answer; // length of common subsequence
-    printf("%s", "made bottom");
-    printf("%s %d\n", "from end", answer);
-
-    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elpased_seconds = end-start;
-
-    checkLCS(X, m, Y, n, answer);
-
-    std::cerr<<elpased_seconds.count()<<std::endl;
-    std::cout<<answer<<std::endl;
+//    printf("%s", "made bottom");
+//    printf("%s %d\n", "from end", answer);
+//
+//    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+//    std::chrono::duration<double> elpased_seconds = end-start;
+//
+//    checkLCS(X, m, Y, n, answer);
+//
+//    std::cerr<<elpased_seconds.count()<<std::endl;
+//    std::cout<<answer<<std::endl;
 
     return 0;
 
