@@ -106,7 +106,7 @@ int main (int argc, char* argv[]) {
 //
 //                    C[a][b] = std::max(C[a - 1][b], C[a][b - 1]);
 //                }
-                printf("%s %d\n", "from middle ", C[m][n]);
+                //printf("%s %d\n", "from middle ", C[m][n]);
 
             },
             [&](std::vector<std::vector<int>> &C) -> void {
