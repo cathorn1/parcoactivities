@@ -46,7 +46,7 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
     om.setNbThread(nbthreads);
-    std::vector<std::vector<int>> C;
+    std::vector<std::vector<int>> C_a;
     int i =0;
     int j =0;
     int k =0;
@@ -56,22 +56,22 @@ int main (int argc, char* argv[]) {
 
     for (int i = 0; i < m; ++i) {
         std::vector<int> vec(1, 0);
-        C.push_back(vec);
-        C[i][0] = 0;
+        C_a.push_back(vec);
+        C_a[i][0] = 0;
         //printf("%s %d\n", "howdy 1", i);
     }
     for (int j = 0; j < n; ++j) {
         //printf("%s %d\n", "howdy 2", j);
-        C[0][j] = 0;
+        C_a[0][j] = 0;
     }
 
-    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, C,
+    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, C_a,
             [&](std::vector<std::vector<int>> &C) -> void {
-
+                C = C_a;
             },
             [&](std::vector<std::vector<int>> &C) -> void {
                 printf("%s\n", "howdy 3");
-                printf("%d\n", C[k][j]);
+                //printf("%d\n", C[k][j]);
 
                 for (i = 1; i <= m; i++){
                     for (j =1; j<=i; j++){
