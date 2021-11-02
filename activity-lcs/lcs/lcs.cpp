@@ -80,7 +80,7 @@ int main (int argc, char* argv[]) {
                     if (U[k - 1] == W[j - 1]) {
                         printf("%s\n", "howdy 4");
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
-                        {
+
 
                             if (C_a[k][j] > Lmax) {
                                 printf("%s\n", "howdy 5");
@@ -89,21 +89,22 @@ int main (int argc, char* argv[]) {
                                 s++;
                                 count++;
                             }
-                        }
-                    } else if (C_a[k - 1][j] >= C_a[k][j - 1]) {
-                        printf("%s\n", "howdy 6");
-//                    printf("tls: %d\n", tls[a][b]);
 
-                        C_a[k][j] = C_a[k - 1][j];
-
-                    } else {
-                        printf("%s\n", "howdy 7");
-                        C_a[k][j] = C_a[k][j - 1];
-                        //C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
+                            else{
+//                    } else if (C_a[k - 1][j] >= C_a[k][j - 1]) {
+//                        printf("%s\n", "howdy 6");
+////                    printf("tls: %d\n", tls[a][b]);
+//
+//                        C_a[k][j] = C_a[k - 1][j];
+//
+//                    } else {
+//                        printf("%s\n", "howdy 7");
+//                        C_a[k][j] = C_a[k][j - 1];
+                        C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                     }
                     printf("%s %d\n", "from middle ", C_a[k][j]);
 
-            //    }
+                }
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
