@@ -38,8 +38,8 @@ int main (int argc, char* argv[]) {
     OmpLoop om;
 
     // get string data
-    char *X = new char[m];
-    char *Y = new char[n];
+    char *X = new char[m+1];
+    char *Y = new char[n+1];
     generateLCS(X, m, Y, n);
     //insert LCS code here.
 
