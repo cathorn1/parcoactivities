@@ -76,7 +76,7 @@ int main (int argc, char* argv[]) {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
                 printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                while ((k-1) < sizeof(X) && (j-1 < sizeof Y)) {
+                if ((k-1) < sizeof(X) && (j-1 < sizeof Y)) {
                     if (X[k - 1] == Y[j - 1]) {
                         printf("%s\n", "howdy 4");
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
