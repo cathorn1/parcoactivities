@@ -44,7 +44,7 @@ public:
 #pragma omp for schedule(static)
       //nbDiag = (m+n)-1;
 
-      for (i=1; i < m; i++) {
+      for (i=1; i <= m; i++) {
           //a = diag;
           //nbTaskDiag = a;
 
