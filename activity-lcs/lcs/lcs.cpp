@@ -73,50 +73,37 @@ int main (int argc, char* argv[]) {
                 //C = C_a;
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
-                printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
+                //printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
+                //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
                // if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
                     if (U[k - 1] == W[j - 1]) {
-                        printf("%s\n", "howdy 4");
+                        //printf("%s\n", "howdy 4");
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
 
 
                             if (C_a[k][j] > Lmax) {
-                                printf("%s\n", "howdy 5");
+                                //printf("%s\n", "howdy 5");
                                 Lmax = C_a[k][j];
                                 parent[s] = k - 1;
                                 s++;
                                 count++;
                             }
-
                             else{
-//                    } else if (C_a[k - 1][j] >= C_a[k][j - 1]) {
-//                        printf("%s\n", "howdy 6");
-////                    printf("tls: %d\n", tls[a][b]);
-//
-//                        C_a[k][j] = C_a[k - 1][j];
-//
-//                    } else {
-//                        printf("%s\n", "howdy 7");
-//                        C_a[k][j] = C_a[k][j - 1];
+
                         C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                     }
-                    printf("%s %d\n", "from middle ", C_a[k][j]);
+                    //printf("%s %d\n", "from middle ", C_a[k][j]);
 
                 }
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
 //                printf("%s\n", "howdy 6");
-                answer = C_a[m][n];
+                  answer = C_a[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
 
-//                    for (int i=0; i<=m; ++i) {
-//                        delete tls[i];
-//                    }
-//                    delete tls;
             });
 
     //int result = answer; // length of common subsequence
