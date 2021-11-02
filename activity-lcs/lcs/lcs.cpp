@@ -38,8 +38,8 @@ int main (int argc, char* argv[]) {
     OmpLoop om;
 
     // get string data
-    char *X = new char[m+1];
-    char *Y = new char[n+1];
+    char *X = new char[m];
+    char *Y = new char[n];
     generateLCS(X, m, Y, n);
     //insert LCS code here.
 
@@ -76,34 +76,34 @@ int main (int argc, char* argv[]) {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
                 printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                if (X[k - 1] == Y[j - 1]) {
-                    printf("%s\n", "howdy 4" );
-                    C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
-                    {
+                while ((k-1) < sizeof(X) && (j-1 < sizeof Y)) {
+                    if (X[k - 1] == Y[j - 1]) {
+                        printf("%s\n", "howdy 4");
+                        C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
+                        {
 
-                        if (C_a[k][j] > Lmax) {
-                            printf("%s\n", "howdy 5");
-                            Lmax = C_a[k][j];
-                            parent[s] = k - 1;
-                            s++;
-                            count++;
+                            if (C_a[k][j] > Lmax) {
+                                printf("%s\n", "howdy 5");
+                                Lmax = C_a[k][j];
+                                parent[s] = k - 1;
+                                s++;
+                                count++;
+                            }
                         }
-                    }
-                }
-                else if (C_a[k-1][j] >= C_a[k][j-1]) {
-                    printf("%s\n", "howdy 6");
+                    } else if (C_a[k - 1][j] >= C_a[k][j - 1]) {
+                        printf("%s\n", "howdy 6");
 //                    printf("tls: %d\n", tls[a][b]);
 
-                    C_a[k][j] = C_a[k - 1][j];
+                        C_a[k][j] = C_a[k - 1][j];
+
+                    } else {
+                        printf("%s\n", "howdy 7");
+                        C_a[k][j] = C_a[k][j - 1];
+                        //C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
+                    }
+                    printf("%s %d\n", "from middle ", C_a[k][j]);
 
                 }
-                else{
-                    printf("%s\n", "howdy 7");
-                    C_a[k][j] = C_a[k][j-1];
-                    //C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
-                }
-                printf("%s %d\n", "from middle ", C_a[k][j]);
-
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
