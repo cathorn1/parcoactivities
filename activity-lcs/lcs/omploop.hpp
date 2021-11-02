@@ -51,7 +51,7 @@ public:
               a = (m-1);
           }
 
-              for(int j = 1; j <i+1; j++) {
+              for(int j = 1; j <=i; j++) {
 
                   int b = j;
                   f(a, b, U, W, C_arr);
