@@ -77,7 +77,7 @@ int main (int argc, char* argv[]) {
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
 
-                    if (U[k - 1] == W[j - 1]) {
+                    if (X[k - 1] == Y[j - 1]) {
                         printf("%s\n", "howdy 4");
                         C[k][j] = (C[k - 1][j - 1]) + 1;
 
