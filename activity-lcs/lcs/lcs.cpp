@@ -55,7 +55,7 @@ int main (int argc, char* argv[]) {
     int count =0;
     int Lmax =0;
 
-    printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
+    //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
 
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, std::ref(C_a),
@@ -74,21 +74,21 @@ int main (int argc, char* argv[]) {
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
-                printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
+                //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-               // if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
+
                     if (U[k - 1] == W[j - 1]) {
                         printf("%s\n", "howdy 4");
                         C[k][j] = (C[k - 1][j - 1]) + 1;
 
 
-                        if (C[k][j] > Lmax) {
-                            printf("%s\n", "howdy 5");
-                            Lmax = C[k][j];
-                            parent[s] = k - 1;
-                            s++;
-                            count++;
-                        }
+//                        if (C[k][j] > Lmax) {
+//                            printf("%s\n", "howdy 5");
+//                            Lmax = C[k][j];
+//                            parent[s] = k - 1;
+//                            s++;
+//                            count++;
+//                        }
                     }
                     else{
 
