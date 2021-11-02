@@ -45,7 +45,7 @@ public:
 #pragma omp for schedule(static)
 
 
-      for (int i=1; i <= ((m+n)-1); i++) {
+      for (int i=1; i < ((m+n)-1); i++) {
           int a = i;
           if(i> (m)) {
               a = (m);
