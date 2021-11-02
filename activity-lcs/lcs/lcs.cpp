@@ -94,7 +94,7 @@ int main (int argc, char* argv[]) {
 
                         C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                     }
-                    //printf("%s %d\n", "from middle ", C_a[k][j]);
+                    printf("%s %d\n", "from middle ", C_a[k][j]);
                         answer = C_a[k][j];
 
             },
