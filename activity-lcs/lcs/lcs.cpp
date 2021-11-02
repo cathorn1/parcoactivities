@@ -60,24 +60,26 @@ int main (int argc, char* argv[]) {
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, std::ref(C_a),
             [&](std::vector<std::vector<int>> &C) -> void {
+                printf("%s\n", "howdy 1");
                 for (int i = 0; i <=m; ++i) {
                     std::vector<int> vec(1, 0);
                     C.push_back(vec);
                     parent.push_back(0);
-                    //C_a[i][0] = 0;
-                    //printf("%s %d\n", "howdy 1", i);
+                    //C[i][0] = 0;
+//                    printf("%s %d\n", "howdy 1", i);
                 }
                 for (int j = 0; j <=n; ++j) {
                     //printf("%s %d\n", "howdy 2", j);
                     C[0][j] = 0;
                 }
+                printf("%s\n", "howdy 2");
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
 
-                    if (X[i - 1] == Y[k - 1]) {
+                    if (U[i - 1] == W[k - 1]) {
                         printf("%s\n", "howdy 4");
                         C[i][k] = (C[i - 1][k - 1]) + 1;
 
@@ -100,7 +102,7 @@ int main (int argc, char* argv[]) {
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
-//                printf("%s\n", "howdy 6");
+                printf("%s\n", "howdy 6");
                   answer = C[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
