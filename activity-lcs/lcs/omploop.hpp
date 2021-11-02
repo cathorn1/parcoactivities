@@ -55,7 +55,9 @@ public:
 
                   int b = j+1;
                   f(a, b, U, W, C_arr);
-                  a--;
+
+                  if (a !=0)
+                    a--;
               }
       }
 #pragma omp critical
