@@ -77,11 +77,12 @@ int main (int argc, char* argv[]) {
                 printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
                 if (X[k - 1] == Y[j - 1]) {
-//                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
+                    printf("%s\n", "howdy 4" );
                     C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
                     {
 
                         if (C_a[k][j] > Lmax) {
+                            printf("%s\n", "howdy 5");
                             Lmax = C_a[k][j];
                             parent[s] = k - 1;
                             s++;
@@ -90,13 +91,14 @@ int main (int argc, char* argv[]) {
                     }
                 }
                 else if (C_a[k-1][j] >= C_a[k][j-1]) {
-//                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
+                    printf("%s\n", "howdy 6");
 //                    printf("tls: %d\n", tls[a][b]);
 
                     C_a[k][j] = C_a[k - 1][j];
 
                 }
                 else{
+                    printf("%s\n", "howdy 7");
                     C_a[k][j] = C_a[k][j-1];
                     //C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                 }
