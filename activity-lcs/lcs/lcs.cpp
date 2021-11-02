@@ -83,14 +83,6 @@ int main (int argc, char* argv[]) {
                         printf("%s\n", "howdy 4");
                         C[a][b] = (C[a - 1][b - 1]) + 1;
 
-
-//                        if (C[k][j] > Lmax) {
-//                            printf("%s\n", "howdy 5");
-//                            Lmax = C[k][j];
-//                            parent[s] = k - 1;
-//                            s++;
-//                            count++;
-//                        }
                     }
                     else{
 

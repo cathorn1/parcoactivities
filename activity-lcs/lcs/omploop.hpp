@@ -47,21 +47,27 @@ public:
 
       for (int i=1; i <= ((m+n)-1); i++) {
           int a = i;
+          nbTaskDiag = a;
           if(i> (m)) {
               a = (m);
+              nbTaskDiag -= 1;
           }
 
-              for(int j = 0; j <i; j++) {
 
-                  int b = j+1;
-                  if(i> (m)) {
-                      b += 1;
-                  }
-                  f(a, b, U, W, C_arr);
+          for(int j = 1; j <= nbTaskDiag; j++) {
 
-                  if (a !=0)
-                    a--;
+              //k = i -(j-1);
+
+              int b = j+1;
+              if(i> (m)) {
+                  b += 1;
               }
+              f(a, b, U, W, C_arr);
+
+              if (a !=0) {
+                  a--;
+              }
+          }
       }
 #pragma omp critical
       after(C_arr);
