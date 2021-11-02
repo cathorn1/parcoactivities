@@ -40,11 +40,12 @@ public:
     {
       C C_arr;
       before(C_arr);
-      
+
+      for (i=1; i <= m; i++) {
 #pragma omp for schedule(static)
       //nbDiag = (m+n)-1;
 
-      for (i=1; i <= m; i++) {
+
           //a = diag;
           //nbTaskDiag = a;
 
