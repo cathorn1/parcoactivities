@@ -73,17 +73,17 @@ int main (int argc, char* argv[]) {
                 //C = C_a;
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                //printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
-                //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
+                printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
+                printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
                // if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
                     if (U[k - 1] == W[j - 1]) {
-                        //printf("%s\n", "howdy 4");
+                        printf("%s\n", "howdy 4");
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
 
 
                         if (C_a[k][j] > Lmax) {
-                            //printf("%s\n", "howdy 5");
+                            printf("%s\n", "howdy 5");
                             Lmax = C_a[k][j];
                             parent[s] = k - 1;
                             s++;
