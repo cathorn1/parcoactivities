@@ -82,25 +82,26 @@ int main (int argc, char* argv[]) {
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
 
 
-                            if (C_a[k][j] > Lmax) {
-                                //printf("%s\n", "howdy 5");
-                                Lmax = C_a[k][j];
-                                parent[s] = k - 1;
-                                s++;
-                                count++;
-                            }
-                            else{
+                        if (C_a[k][j] > Lmax) {
+                            //printf("%s\n", "howdy 5");
+                            Lmax = C_a[k][j];
+                            parent[s] = k - 1;
+                            s++;
+                            count++;
+                        }
+                    }
+                    else{
 
                         C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                     }
                     //printf("%s %d\n", "from middle ", C_a[k][j]);
+                        answer = C_a[k][j];
 
-                }
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
 //                printf("%s\n", "howdy 6");
-                  answer = C_a[m][n];
+                  //answer = C_a[k][j];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
 
