@@ -27,7 +27,7 @@ public:
   int taskDiag =0;
   int nbTaskDiag= 0;
   int count = 0;
-  int bCount = 1;
+  int bCount = 0;
 
   template<typename C>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
@@ -55,6 +55,7 @@ public:
               a = (m);
               count--;
               nbTaskDiag = count;
+              bCount++;
           }
 
           for(int j = 1; j <= nbTaskDiag; j++) {
@@ -64,7 +65,7 @@ public:
               int b = j;
               if(i> (m)) {
                   b = (j+bCount);
-                  bCount++;
+
                   if(i == (m+n)-1){
                       b = m;
                   }
