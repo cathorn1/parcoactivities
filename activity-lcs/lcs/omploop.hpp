@@ -41,9 +41,9 @@ public:
       C C_arr;
       before(C_arr);
 
-
+        nbDiag = (m+n)-1;
 #pragma omp for schedule(static)
-          nbDiag = (m+n)-1;
+
 
           for (i=1; i <= nbDiag; i++) {
 
