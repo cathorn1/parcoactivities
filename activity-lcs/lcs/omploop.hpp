@@ -62,7 +62,7 @@ public:
 
               int b = j;
               if(i> (m)) {
-                  b = i - (j+1);
+                  b = a - (j+1);
                   if(i == (m+n)-1){
                       b = m;
                   }
