@@ -109,7 +109,7 @@ int main (int argc, char* argv[]) {
             [&](std::vector<std::vector<int>> &C) -> void {
 
 //                printf("%s\n", "howdy 6");
-                //answer = C_a[m][n];
+                answer = C_a[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
 
