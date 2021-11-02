@@ -47,7 +47,7 @@ public:
 
       for (int i=1; i <= ((m+n)-1); i++) {
           int a = i;
-          if(i>= (m-1)) {
+          if(i> (m-1)) {
               a = (m-1);
           }
 
