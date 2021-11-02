@@ -76,7 +76,7 @@ int main (int argc, char* argv[]) {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
                 printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
+               // if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
                     if (U[k - 1] == W[j - 1]) {
                         printf("%s\n", "howdy 4");
                         C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
@@ -103,7 +103,7 @@ int main (int argc, char* argv[]) {
                     }
                     printf("%s %d\n", "from middle ", C_a[k][j]);
 
-                }
+            //    }
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
