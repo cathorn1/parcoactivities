@@ -41,11 +41,11 @@ public:
       C C_arr;
       before(C_arr);
 
-        nbDiag = (m+n)-1;
+
 #pragma omp for schedule(static)
 
 
-          for (i=1; i <= nbDiag; i++) {
+          for (i=1; i <= ((m+n)-1); i++) {
 
           if(i>= (m-1)) {
               i = (m-1);
