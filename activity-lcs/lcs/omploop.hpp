@@ -61,7 +61,7 @@ public:
 
               //k = i -(j-1);
 
-              int b = j+1;
+              int b = j;
               if(i> (m)) {
                   b += 1;
               }
