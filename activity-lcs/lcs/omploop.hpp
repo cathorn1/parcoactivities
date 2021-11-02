@@ -64,6 +64,9 @@ public:
               int b = j;
               if(i> (m)) {
                   b += 1;
+                  if(i == (m+n)-1){
+                      b = m;
+                  }
               }
               f(a, b, U, W, C_arr);
 
