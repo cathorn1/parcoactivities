@@ -40,6 +40,7 @@ public:
     {
       C C_arr;
       before(C_arr);
+      count = m;
 
 
 #pragma omp for schedule(static)
@@ -48,9 +49,11 @@ public:
       for (int i=1; i <= ((m+n)-1); i++) {
           int a = i;
           nbTaskDiag = a;
+
           if(i> (m)) {
               a = (m);
-              nbTaskDiag -= 1;
+              count--;
+              nbTaskDiag = count;
           }
 
 
