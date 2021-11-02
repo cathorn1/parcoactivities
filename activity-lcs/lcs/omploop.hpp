@@ -53,7 +53,7 @@ public:
 
               for(int j = 1; j <=i; j++) {
 
-                  int b = i -(j-1);
+                  int b = a -(j-1);
                   f(a, b, U, W, C_arr);
                   a--;
               }
