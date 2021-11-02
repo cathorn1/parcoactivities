@@ -47,16 +47,19 @@ int main (int argc, char* argv[]) {
 
     om.setNbThread(nbthreads);
     std::vector<std::vector<int>> C_a;
+    std::vector<int> parent;
 //    int i =0;
 //    int j =0;
 //    int k =0;
-//    int s=0;
-//    int count =0;
-//    int LCSmax =0;
+    int s=0;
+    int count =0;
+    int Lmax =0;
+
 
     for (int i = 0; i <=m; ++i) {
         std::vector<int> vec(1, 0);
         C_a.push_back(vec);
+        parent.push_back(0);
         //C_a[i][0] = 0;
         //printf("%s %d\n", "howdy 1", i);
     }
@@ -76,11 +79,26 @@ int main (int argc, char* argv[]) {
                 if (X[k - 1] == Y[j - 1]) {
 //                    printf("%s a: %d b: %d\n", "howdy 4", a, b);
                     C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
-                } else {
+                    {
+
+                        if (C_a[k][j] > Lmax) {
+                            Lmax = C_a[k][j];
+                            parent[s] = k - 1;
+                            s++;
+                            count++;
+                        }
+                    }
+                }
+                else if (C_a[k-1][j] >= C_a[k][j-1]) {
 //                    printf("%s a: %d b: %d\n", "howdy 5", a, b);
 //                    printf("tls: %d\n", tls[a][b]);
 
-                    C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
+                    C_a[k][j] = C_a[k - 1][j];
+
+                }
+                else{
+                    C_a[k][j] = C_a[k][j-1];
+                    //C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
                 }
                 printf("%s %d\n", "from middle ", C_a[k][j]);
 
