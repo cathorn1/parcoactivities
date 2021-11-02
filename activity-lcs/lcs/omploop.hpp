@@ -56,14 +56,13 @@ public:
               nbTaskDiag = count;
           }
 
-
           for(int j = 1; j <= nbTaskDiag; j++) {
 
               //k = i -(j-1);
 
               int b = j;
               if(i> (m)) {
-                  b = j+1;
+                  b = i - (j+1);
                   if(i == (m+n)-1){
                       b = m;
                   }
