@@ -104,7 +104,10 @@ int main (int argc, char* argv[]) {
                   answer = C[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
-
+                for (int i=0; i<=m; ++i) {
+                    delete[] &C[i];
+                }
+                delete[] &C;
             });
 
     //int result = answer; // length of common subsequence
