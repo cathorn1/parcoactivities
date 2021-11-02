@@ -107,8 +107,8 @@ int main (int argc, char* argv[]) {
             });
 
     //int result = answer; // length of common subsequence
-    printf("%s\n", "made bottom");
-    printf("%s %d\n", "from end", answer);
+    //printf("%s\n", "made bottom");
+    //printf("%s %d\n", "from end", answer);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
