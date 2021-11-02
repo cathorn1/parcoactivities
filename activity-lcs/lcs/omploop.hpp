@@ -46,14 +46,14 @@ public:
 
 
       for (int i=1; i <= ((m+n)-1); i++) {
-          int a = i-1;
+          int a = i;
           if(i>= (m-1)) {
               a = (m-1);
           }
 
               for(int j = 1; j <i+1; j++) {
 
-                  int b = j -1;
+                  int b = j;
                   f(a, b, U, W, C_arr);
                   a--;
               }
