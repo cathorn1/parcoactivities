@@ -45,17 +45,15 @@ public:
 #pragma omp for schedule(static)
 
 
-      for (int i=1; i < ((m+n)-1); i++) {
+      for (int i=1; i <= ((m+n)-1); i++) {
+          int a = i;
+          if(i> (m)) {
+              a = (m);
+          }
 
-          for(int j = 1; j <= i; j++) {
+              for(int j = 0; j <i; j++) {
 
-              int a = i;
-
-              if(i >= m) {
-                  a = m;
-                  j -= 1;
-              }
-              int b = j;
+                  int b = j+1;
                   f(a, b, U, W, C_arr);
 
                   if (a !=0)
