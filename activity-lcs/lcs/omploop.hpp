@@ -19,9 +19,9 @@ public:
     nbthread = t;
   }
 
-  int i = 0;
-  int j = 0;
-  int k = 0;
+//  int i = 0;
+//  int j = 0;
+//  int k = 0;
   int diag= 0;
   int nbDiag= 0;
   int taskDiag =0;
@@ -45,19 +45,19 @@ public:
 #pragma omp for schedule(static)
 
 
-          for (i=1; i <= ((m+n)-1); i++) {
+      for (int i=1; i <= ((m+n)-1); i++) {
 
           if(i>= (m-1)) {
               i = (m-1);
           }
 
-          for(j = 1; j <=i; j++) {
+              for(int j = 1; j <=i; j++) {
 
-              k = i -(j-1);
-              f(i, j, k, U, W, C_arr);
-              i--;
-          }
-      }
+                  int k = i -(j-1);
+                  f(i, j, k, U, W, C_arr);
+                  i--;
+              }
+  }
 #pragma omp critical
       after(C_arr);
     }
