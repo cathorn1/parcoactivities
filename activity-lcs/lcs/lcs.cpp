@@ -73,7 +73,7 @@ int main (int argc, char* argv[]) {
                 //C = C_a;
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                printf("%s\n", "howdy 3");
+                printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
                 //printf("%d\n", C[k][j]);
 
                 if (X[k - 1] == Y[j - 1]) {
