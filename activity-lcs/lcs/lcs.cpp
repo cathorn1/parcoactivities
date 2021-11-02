@@ -54,24 +54,34 @@ int main (int argc, char* argv[]) {
     int s=0;
     int count =0;
     int Lmax =0;
+    //std::array C_arr = new int[m];
 
     //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
 
+    int** C_arr = new int*[m+1];
 
-    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, std::ref(C_a),
+    for (int i=0; i<=m; ++i) {
+        C_arr[i] = new int[n+1];
+        C_arr[i][0] = 0;
+    }
+    for (int j=0; j<=n; ++j) {
+        C_arr[0][j] = 0;
+    }
+
+    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y,
             [&](std::vector<std::vector<int>> &C) -> void {
                 printf("%s\n", "howdy 1");
-                for (int i = 0; i <=m; ++i) {
-                    std::vector<int> vec(1, 0);
-                    C.push_back(vec);
-                    parent.push_back(0);
-                    //C[i][0] = 0;
-//                    printf("%s %d\n", "howdy 1", i);
-                }
-                for (int j = 0; j <=n; ++j) {
-                    //printf("%s %d\n", "howdy 2", j);
-                    C[0][j] = 0;
-                }
+//                for (int i = 0; i <=m; ++i) {
+//                    std::vector<int> vec(1, 0);
+//                    C.push_back(vec);
+//                    parent.push_back(0);
+//                    //C[i][0] = 0;
+////                    printf("%s %d\n", "howdy 1", i);
+//                }
+//                for (int j = 0; j <=n; ++j) {
+//                    //printf("%s %d\n", "howdy 2", j);
+//                    C[0][j] = 0;
+//                }
                 printf("%s\n", "howdy 2");
             },
             [&](int a, int b, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
@@ -81,12 +91,12 @@ int main (int argc, char* argv[]) {
 
                     if (U[a - 1] == W[b - 1]) {
                         printf("%s\n", "howdy 4");
-                        C[a][b] = (C[a - 1][b - 1]) + 1;
+                        C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
 
                     }
                     else{
 
-                        C[a][b] = std::max(C[a - 1][b], C[a][b - 1]);
+                        C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
                     }
                     printf("%s %d\n", "from middle ", C[m][n]);
 
@@ -95,7 +105,7 @@ int main (int argc, char* argv[]) {
             [&](std::vector<std::vector<int>> &C) -> void {
 
                 printf("%s\n", "howdy 6");
-                  answer = C[m][n];
+                  answer = C_arr[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
                 printf("%s\n", "howdy 77");
 //                for (int i=0; i<=m; ++i) {

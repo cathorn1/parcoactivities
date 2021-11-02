@@ -31,7 +31,6 @@ public:
 
   template<typename C>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
-               std::vector<std::vector<int>>,
                std::function<void(C&)> before,
                std::function<void(int, int, char*, char*, C&)> f,
                std::function<void(C&)> after
