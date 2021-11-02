@@ -54,13 +54,13 @@ int main (int argc, char* argv[]) {
 //    int count =0;
 //    int LCSmax =0;
 
-    for (int i = 0; i < m; ++i) {
+    for (int i = 0; i <=m; ++i) {
         std::vector<int> vec(1, 0);
         C_a.push_back(vec);
         //C_a[i][0] = 0;
         //printf("%s %d\n", "howdy 1", i);
     }
-    for (int j = 0; j < n; ++j) {
+    for (int j = 0; j <=n; ++j) {
         //printf("%s %d\n", "howdy 2", j);
         C_a[0][j] = 0;
     }
