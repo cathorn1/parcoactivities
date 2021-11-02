@@ -54,6 +54,9 @@ public:
               for(int j = 0; j <i; j++) {
 
                   int b = j+1;
+                  if(i> (m)) {
+                      b += 1;
+                  }
                   f(a, b, U, W, C_arr);
 
                   if (a !=0)
