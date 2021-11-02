@@ -32,7 +32,7 @@ public:
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
                std::vector<std::vector<int>>,
                std::function<void(C&)> before,
-               std::function<void(int, int, int, char*, char*, C&)> f,
+               std::function<void(int, int, char*, char*, C&)> f,
                std::function<void(C&)> after
                ) {
 
@@ -46,18 +46,18 @@ public:
 
 
       for (int i=1; i <= ((m+n)-1); i++) {
-
+          int a = i;
           if(i>= (m-1)) {
-              i = (m-1);
+              a = (m-1);
           }
 
               for(int j = 1; j <=i; j++) {
 
-                  int k = i -(j-1);
-                  f(i, j, k, U, W, C_arr);
-                  i--;
+                  int b = i -(j-1);
+                  f(a, b, U, W, C_arr);
+                  a--;
               }
-  }
+      }
 #pragma omp critical
       after(C_arr);
     }

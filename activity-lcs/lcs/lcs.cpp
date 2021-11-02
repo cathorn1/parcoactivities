@@ -74,14 +74,14 @@ int main (int argc, char* argv[]) {
                 }
                 printf("%s\n", "howdy 2");
             },
-            [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
+            [&](int a, int b, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
+                printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
 
-                    if (U[i - 1] == W[k - 1]) {
+                    if (U[a - 1] == W[b - 1]) {
                         printf("%s\n", "howdy 4");
-                        C[i][k] = (C[i - 1][k - 1]) + 1;
+                        C[a][b] = (C[a - 1][b - 1]) + 1;
 
 
 //                        if (C[k][j] > Lmax) {
@@ -94,9 +94,9 @@ int main (int argc, char* argv[]) {
                     }
                     else{
 
-                        C[i][k] = std::max(C[i - 1][k], C[i][k - 1]);
+                        C[a][b] = std::max(C[a - 1][b], C[a][b - 1]);
                     }
-                    printf("%s %d\n", "from middle ", C[i][k]);
+                    printf("%s %d\n", "from middle ", C[m][n]);
 
 
             },
