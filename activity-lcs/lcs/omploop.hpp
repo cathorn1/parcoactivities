@@ -41,30 +41,21 @@ public:
       C C_arr;
       before(C_arr);
 
-      for (i=1; i <= m; i++) {
+
 #pragma omp for schedule(static)
-      //nbDiag = (m+n)-1;
+          nbDiag = (m+n)-1;
 
+          for (i=1; i <= nbDiag; i++) {
 
-          //a = diag;
-          //nbTaskDiag = a;
-
-//          if(i>= (m-1)) {
-//              i = (m-1);
-//          }
-//          if (nbTaskDiag > m){
-//              //HOW DO DETERMINE nbTaskDiag?
-//              nbTaskDiag -= m+count;
-//              count++;
-//          }
+          if(i>= (m-1)) {
+              i = (m-1);
+          }
 
           for(j = 1; j <=i; j++) {
 
               k = i -(j-1);
               f(i, j, k, U, W, C_arr);
-
-              //i--;
-
+              i--;
           }
       }
 #pragma omp critical
@@ -75,3 +66,28 @@ public:
 };
 
 #endif
+
+//nbDiag = (m+n)-1;
+//
+//          for (i=1; i <= m; i++) {
+//          //a = diag;
+//          //nbTaskDiag = a;
+//
+////          if(i>= (m-1)) {
+////              i = (m-1);
+////          }
+////          if (nbTaskDiag > m){
+////              //HOW DO DETERMINE nbTaskDiag?
+////              nbTaskDiag -= m+count;
+////              count++;
+////          }
+//
+//          for(j = 1; j <=i; j++) {
+//
+//              k = i -(j-1);
+//              f(i, j, k, U, W, C_arr);
+//
+//              //i--;
+//
+//          }
+//      }

@@ -13,7 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08845e5b-1d80-49d8-b8cc-c2c0f82f1ed0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lcs/lcs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lcs/lcs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lcs/omploop.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/lcs/omploop.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1635605117463</updated>
-      <workItem from="1635605119046" duration="44151000" />
+      <workItem from="1635605119046" duration="45840000" />
     </task>
     <servers />
   </component>

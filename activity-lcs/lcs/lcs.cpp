@@ -77,9 +77,9 @@ int main (int argc, char* argv[]) {
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
 
-                    if (X[k - 1] == Y[j - 1]) {
+                    if (X[i - 1] == Y[k - 1]) {
                         printf("%s\n", "howdy 4");
-                        C[k][j] = (C[k - 1][j - 1]) + 1;
+                        C[i][k] = (C[i - 1][k - 1]) + 1;
 
 
 //                        if (C[k][j] > Lmax) {
@@ -92,9 +92,9 @@ int main (int argc, char* argv[]) {
                     }
                     else{
 
-                        C[k][j] = std::max(C[k - 1][j], C[k][j - 1]);
+                        C[i][k] = std::max(C[i - 1][k], C[i][k - 1]);
                     }
-                    printf("%s %d\n", "from middle ", C[k][j]);
+                    printf("%s %d\n", "from middle ", C[i][k]);
 
 
             },
@@ -104,10 +104,10 @@ int main (int argc, char* argv[]) {
                   answer = C[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
-                for (int i=0; i<=m; ++i) {
-                    delete[] &C[i];
-                }
-                delete[] &C;
+//                for (int i=0; i<=m; ++i) {
+//                    delete[] &C[i];
+//                }
+//                delete[] &C;
             });
 
     //int result = answer; // length of common subsequence
