@@ -56,21 +56,21 @@ int main (int argc, char* argv[]) {
     int Lmax =0;
 
 
-    for (int i = 0; i <=m; ++i) {
-        std::vector<int> vec(1, 0);
-        C_a.push_back(vec);
-        parent.push_back(0);
-        //C_a[i][0] = 0;
-        //printf("%s %d\n", "howdy 1", i);
-    }
-    for (int j = 0; j <=n; ++j) {
-        //printf("%s %d\n", "howdy 2", j);
-        C_a[0][j] = 0;
-    }
+
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y, std::ref(C_a),
             [&](std::vector<std::vector<int>> &C) -> void {
-                //C = C_a;
+                for (int i = 0; i <=m; ++i) {
+                    std::vector<int> vec(1, 0);
+                    C.push_back(vec);
+                    parent.push_back(0);
+                    //C_a[i][0] = 0;
+                    //printf("%s %d\n", "howdy 1", i);
+                }
+                for (int j = 0; j <=n; ++j) {
+                    //printf("%s %d\n", "howdy 2", j);
+                    C[0][j] = 0;
+                }
             },
             [&](int i, int j, int k, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
                 printf("%s, i: %d, j: %d, k: %d\n", "howdy 3", i, j, k);
@@ -79,12 +79,12 @@ int main (int argc, char* argv[]) {
                // if ((k-1) < sizeof(U) && ((j-1) < sizeof W)) {
                     if (U[k - 1] == W[j - 1]) {
                         printf("%s\n", "howdy 4");
-                        C_a[k][j] = (C_a[k - 1][j - 1]) + 1;
+                        C[k][j] = (C[k - 1][j - 1]) + 1;
 
 
-                        if (C_a[k][j] > Lmax) {
+                        if (C[k][j] > Lmax) {
                             printf("%s\n", "howdy 5");
-                            Lmax = C_a[k][j];
+                            Lmax = C[k][j];
                             parent[s] = k - 1;
                             s++;
                             count++;
@@ -92,16 +92,16 @@ int main (int argc, char* argv[]) {
                     }
                     else{
 
-                        C_a[k][j] = std::max(C_a[k - 1][j], C_a[k][j - 1]);
+                        C[k][j] = std::max(C[k - 1][j], C[k][j - 1]);
                     }
-                    printf("%s %d\n", "from middle ", C_a[k][j]);
-                        answer = C_a[k][j];
+                    printf("%s %d\n", "from middle ", C[k][j]);
+
 
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
 //                printf("%s\n", "howdy 6");
-                  //answer = C_a[k][j];
+                  answer = C_a[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
 //                printf("%s\n", "howdy 77");
 
@@ -124,29 +124,6 @@ int main (int argc, char* argv[]) {
 }
 
 
-//                for (i = 1; i <= m; i++){
-//                    for (j =1; j<=i; j++){
-//                        k = i-(j-1);
-//
-//                        if(X[k-1]==Y[j-1]){
-//                            C[k][j]=C[k-1][j-1]+1; {
-//                                if(C[k][j]>LCSmax){
-//                                    LCSmax =C[k][j];
-//                                    //parent[s]=k-1;
-//                                    s++;
-//                                    count++;
-//                                }
-//                            }
-//
-//                        }
-//                        else if(C[k-1][j] >= C[k][j-1]){
-//                            C[k][j]=C[k-1][j];
-//                        }
-//                        else{
-//                            C[k][j]=C[k][j-1];
-//                        }
-//                    }
-//                }
 
 
 //om.parfor< std::vector < std::vector < int>>>(0, end, 1, m, n, X, Y,
