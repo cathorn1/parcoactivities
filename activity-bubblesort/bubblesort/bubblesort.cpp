@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <iostream>
 #include <unistd.h>
+#include <chrono>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
