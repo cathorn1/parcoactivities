@@ -24,7 +24,7 @@ extern "C" {
 int LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
 
     if (U[a - 1] == W[b - 1]) {
-        printf("%s\n", "howdy 4");
+        //printf("%s\n", "howdy 4");
         C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
 
     }
@@ -81,22 +81,10 @@ int main (int argc, char* argv[]) {
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y,
             [&](std::vector<std::vector<int>> &C) -> void {
-                printf("%s\n", "howdy 1");
-//                for (int i = 0; i <=m; ++i) {
-//                    std::vector<int> vec(1, 0);
-//                    C.push_back(vec);
-//                    parent.push_back(0);
-//                    //C[i][0] = 0;
-////                    printf("%s %d\n", "howdy 1", i);
-//                }
-//                for (int j = 0; j <=n; ++j) {
-//                    //printf("%s %d\n", "howdy 2", j);
-//                    C[0][j] = 0;
-//                }
-                printf("%s\n", "howdy 2");
+
             },
             [&](int a, int b, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
+                //printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
                   answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
@@ -107,10 +95,10 @@ int main (int argc, char* argv[]) {
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
-                printf("%s\n", "howdy 6");
+                //printf("%s\n", "howdy 6");
 //                  answer = &C_arr[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
-                printf("%s\n", "howdy 77");
+               // printf("%s\n", "howdy 77");
 //                for (int i=0; i<=m; ++i) {
 //                    delete[] &C[i];
 //                }
