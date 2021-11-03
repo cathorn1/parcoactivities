@@ -21,7 +21,27 @@ extern "C" {
 }
 #endif
 
+int LCS (int a, int b, int m, int n, char* U, char* W) {
+    int **C_arr = new int *[m + 1];
 
+    for (int i = 0; i <= m; ++i) {
+        C_arr[i] = new int[n + 1];
+        C_arr[i][0] = 0;
+    }
+    for (int j = 0; j <= n; ++j) {
+        C_arr[0][j] = 0;
+    }
+
+    if (U[a - 1] == W[b - 1]) {
+        printf("%s\n", "howdy 4");
+        C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
+
+    }
+    else{
+        C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
+    }
+    return C_arr[a][b];
+}
 
 int main (int argc, char* argv[]) {
 
@@ -58,15 +78,6 @@ int main (int argc, char* argv[]) {
 
     //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
 
-    int** C_arr = new int*[m+1];
-
-    for (int i=0; i<=m; ++i) {
-        C_arr[i] = new int[n+1];
-        C_arr[i][0] = 0;
-    }
-    for (int j=0; j<=n; ++j) {
-        C_arr[0][j] = 0;
-    }
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y,
             [&](std::vector<std::vector<int>> &C) -> void {
@@ -88,16 +99,8 @@ int main (int argc, char* argv[]) {
                 printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
+                    answer = LCS(a, b, m, n, U, W);
 
-                    if (U[a - 1] == W[b - 1]) {
-                        printf("%s\n", "howdy 4");
-                        C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
-
-                    }
-                    else{
-
-                        C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
-                    }
                     printf("%s %d\n", "from middle ", C[m][n]);
 
 
@@ -105,7 +108,7 @@ int main (int argc, char* argv[]) {
             [&](std::vector<std::vector<int>> &C) -> void {
 
                 printf("%s\n", "howdy 6");
-                  answer = C_arr[m][n];
+//                  answer = &C_arr[m][n];
 //                printf("%s %d\n", "from last ", tls[m][n]);
                 printf("%s\n", "howdy 77");
 //                for (int i=0; i<=m; ++i) {
