@@ -106,13 +106,14 @@ int main (int argc, char* argv[]) {
                 }
             },
             [&](int &C) -> void {
-
+                    C =0;
             });
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
 
-    checkLCS(X, m, Y, n, answer);
+    int result = C_arr[m][n];
+    checkLCS(X, m, Y, n, result);
 
     std::cerr<<elpased_seconds.count()<<std::endl;
     //std::cout<<answer<<std::endl;
