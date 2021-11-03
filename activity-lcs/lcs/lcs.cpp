@@ -88,7 +88,7 @@ int main (int argc, char* argv[]) {
 
                 answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
 
-                printf("%s %d\n", "from middle ", answer);
+                //printf("%s %d\n", "from middle ", answer);
 
 
             },
