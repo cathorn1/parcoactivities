@@ -45,6 +45,7 @@ int main (int argc, char* argv[]) {
     for (int i =0; i < n; i++) {
         std::cout << arr[i] << " ";
     }
+    std::cout << "\n";
 
     omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
