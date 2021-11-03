@@ -21,7 +21,7 @@ extern "C" {
 }
 #endif
 
-int LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
+void LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
 
     if (U[a - 1] == W[b - 1]) {
         //printf("%s\n", "howdy 4");
@@ -30,7 +30,7 @@ int LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
     else{
         C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
     }
-    return C_arr[a][b];
+    //return C_arr[a][b];
 }
 
 int main (int argc, char* argv[]) {
