@@ -25,15 +25,14 @@ void swap(std::vector<int>& arr, int i, int j) {
     arr.at(j) = temp;
 }
 
-void OEsort(int arr[], int n){
+void OEsort(std::vector<int>& arr, int n){
     bool isSorted = false;
 
     while(!isSorted) {
         isSorted = true;
         int temp = 0;
-        //for(int k = 0; k <= (n-2); k++) {
-        //    if (k % 2 == 0) {
-        for (int i = 1; i <= n - 2; i = i + 2) {
+
+        for (int i = 1; i <= (n-2); i =(i+2)) {
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -41,8 +40,8 @@ void OEsort(int arr[], int n){
                 isSorted = false;
             }
         }
-        //    } else {
-        for (int i = 0; i <= n - 2; i += 2) {
+
+        for (int i = 0; i <= (n-2); i =(i+2)) {
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -50,8 +49,7 @@ void OEsort(int arr[], int n){
                 isSorted = false;
             }
         }
-        //  }
-        //}
+
     }
     return;
 }
@@ -78,30 +76,28 @@ int main (int argc, char* argv[]) {
     }
     std::cout << "\n";
 
-    OEsort(std::ref(arr), n);
+    omp.parfor<std::vector<int>>(0, n, 1,
+                   [&](std::vector<int> &C) -> void {
+                        for(int i = 0; i < n; i++){
+                            C.push_back(arr[i]);
+                        }
+                   },
+                   [&](int i, std::vector<int> &C) -> void {
 
-//    omp.parfor<std::vector<int>>(0, n, 1,
-//                   [&](std::vector<int> &C) -> void {
-//                        for(int i = 0; i < n; i++){
-//                            C.push_back(arr[i]);
-//                        }
-//                   },
-//                   [&](int i, std::vector<int> &C) -> void {
-//
-//                        OEsort(std::ref(arr), n);
-//
-//                   },
-//                   [&](std::vector<int> &C) -> void {
-//                       for(int i = 0; i < n; i++){
-//                           arr[i] = C[i];
-//                       }
-//
-//                       std::cout << "test C\n";
-//                       for (int i =0; i < n; i++) {
-//                           std::cout << C[i] << " ";
-//                       }
-//                       std::cout << "\n";
-//                   });
+                        OEsort(std::ref(C), n);
+
+                   },
+                   [&](std::vector<int> &C) -> void {
+                       for(int i = 0; i < n; i++){
+                           arr[i] = C[i];
+                       }
+
+                       std::cout << "test C\n";
+                       for (int i =0; i < n; i++) {
+                           std::cout << C[i] << " ";
+                       }
+                       std::cout << "\n";
+                   });
 
 
 
