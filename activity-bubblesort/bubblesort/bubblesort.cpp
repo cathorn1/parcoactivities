@@ -41,14 +41,14 @@ int main (int argc, char* argv[]) {
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
   //insert sorting code here.
 
-    for(int k = 0; k <=n-2; k++) {
+    for(int k = 0; k <n-2; k++) {
         if (k % 2 == 0) {
-            for (int i = 0; i <= (n / 2) - 1; i++) {
+            for (int i = 0; i < (n / 2) - 1; i++) {
                 if (arr[2 * i] > arr[(2 * i) + 1])
                     swap(arr, 2 * i, (2 * i) + 1);
             }
         } else {
-            for (int i = 0; i <= (n / 2) - 2; i++) {
+            for (int i = 0; i < (n / 2) - 2; i++) {
                 if (arr[(2 * i) + 1] > arr[(2 * i) + 2])
                     swap(arr, (2 * i) + 1, (2 * i) + 2);
 
