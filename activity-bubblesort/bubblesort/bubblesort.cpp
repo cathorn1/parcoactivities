@@ -31,9 +31,9 @@ void OEsort(std::vector<int>& arr, int n){
     while(!isSorted) {
         isSorted = true;
         int temp = 0;
-        std::cout << "top\n";
+        //std::cout << "top\n";
         for (int i = 1; i <= (n-2); i =(i+2)) {
-            std::cout << "for1\n";
+            //std::cout << "for1\n";
             if(arr[i] > arr[i+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -43,7 +43,7 @@ void OEsort(std::vector<int>& arr, int n){
         }
 
         for (int i = 0; i <= (n-2); i =(i+2)) {
-            std::cout << "for2\n";
+            //std::cout << "for2\n";
             if(arr[i] > arr[i+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -73,34 +73,34 @@ int main (int argc, char* argv[]) {
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
   //insert sorting code here.
 
-    for (int i =0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << "\n";
+//    for (int i =0; i < n; i++) {
+//        std::cout << arr[i] << " ";
+//    }
+//    std::cout << "\n";
 
     omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
                         for(int i = 0; i < n; i++){
-                            std::cout << "p1\n";
+                            //std::cout << "p1\n";
                             C.push_back(arr[i]);
                         }
                    },
                    [&](int i, std::vector<int> &C) -> void {
-                       std::cout << "p2\n";
+                       //std::cout << "p2\n";
                         OEsort(std::ref(C), n);
 
                    },
                    [&](std::vector<int> &C) -> void {
                        for(int i = 0; i < n; i++){
-                           std::cout << "p3\n";
+                           //std::cout << "p3\n";
                            arr[i] = C[i];
                        }
 
-                       std::cout << "test C\n";
-                       for (int i =0; i < n; i++) {
-                           std::cout << C[i] << " ";
-                       }
-                       std::cout << "\n";
+//                       std::cout << "test C\n";
+//                       for (int i =0; i < n; i++) {
+//                           std::cout << C[i] << " ";
+//                       }
+//                       std::cout << "\n";
                    });
 
 
@@ -110,10 +110,10 @@ int main (int argc, char* argv[]) {
 
   checkMergeSortResult (arr, n);
 
-  for (int i =0; i < n; i++) {
-      std::cout << arr[i] << " ";
-  }
-  std::cout << "\n";
+//  for (int i =0; i < n; i++) {
+//      std::cout << arr[i] << " ";
+//  }
+//  std::cout << "\n";
 
   std::cerr<<elpased_seconds.count()<<std::endl;
 
