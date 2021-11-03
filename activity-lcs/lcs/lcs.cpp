@@ -65,6 +65,8 @@ int main (int argc, char* argv[]) {
     int s=0;
     int count =0;
     int Lmax =0;
+    int indA =0;
+    int indB= 0;
     //std::array C_arr = new int[m];
 
     //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
@@ -99,12 +101,13 @@ int main (int argc, char* argv[]) {
 
                 //printf("%s %d\n", "from middle ", answer);
 
-
+                indA = a;
+                indB = b;
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
                 //printf("%s\n", "howdy 6");
-                  answer = C_arr[m][n];
+                  answer = C_arr[indA][indB];
 //                printf("%s %d\n", "from last ", tls[m][n]);
                // printf("%s\n", "howdy 77");
 //                for (int i=0; i<=m; ++i) {
