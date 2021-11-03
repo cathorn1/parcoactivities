@@ -31,7 +31,7 @@ public:
       before(tls);
       
 #pragma omp for schedule(static) 
-          for(int k = 0; k <= (end-1); k++) {
+          for(int k = 0; k <= (end); k++) {
               if (k % 2 == 0) {
                   for (int i = 0; i <= (end / 2) - 1; i++) {
                       int a = 2*i;
