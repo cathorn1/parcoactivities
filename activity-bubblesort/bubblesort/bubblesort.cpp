@@ -21,8 +21,8 @@ extern "C" {
 
 void swap(std::vector<int> arr, int i, int j) {
     int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+    arr.at(i) = arr[j];
+    arr.at(j) = temp;
 }
 
 int main (int argc, char* argv[]) {
@@ -76,9 +76,11 @@ int main (int argc, char* argv[]) {
   std::chrono::duration<double> elpased_seconds = end-start;
 
   checkMergeSortResult (arr, n);
+
   for (int i =0; i < n; i++) {
       std::cout << arr[i] << " ";
   }
+  std::cout << "\n";
 
   std::cerr<<elpased_seconds.count()<<std::endl;
 
