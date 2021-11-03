@@ -46,37 +46,10 @@ public:
 
 #pragma omp for schedule(static)
 
+for (int i = beg; i < end; i+=increment){
 
-      for (int i=1; i <= ((m+n)-1); i++) {
-          int a = i;
-          nbTaskDiag = a;
+}
 
-          if(i> (m)) {
-              a = (m);
-              count--;
-              nbTaskDiag = count;
-              bCount++;
-          }
-
-          for(int j = 1; j <= nbTaskDiag; j++) {
-
-              //k = i -(j-1);
-
-              int b = j;
-              if(i> (m)) {
-                  b = (j+bCount);
-
-                  if(i == (m+n)-1){
-                      b = m;
-                  }
-              }
-              f(a, b, U, W, C_arr);
-
-              if (a !=0) {
-                  a--;
-              }
-          }
-      }
 #pragma omp critical
       after(C_arr);
     }
@@ -85,6 +58,37 @@ public:
 };
 
 #endif
+
+//      for (int i=1; i <= ((m+n)-1); i++) {
+//          int a = i;
+//          nbTaskDiag = a;
+//
+//          if(i> (m)) {
+//              a = (m);
+//              count--;
+//              nbTaskDiag = count;
+//              bCount++;
+//          }
+//
+//          for(int j = 1; j <= nbTaskDiag; j++) {
+//
+//              //k = i -(j-1);
+//
+//              int b = j;
+//              if(i> (m)) {
+//                  b = (j+bCount);
+//
+//                  if(i == (m+n)-1){
+//                      b = m;
+//                  }
+//              }
+//              f(a, b, U, W, C_arr);
+//
+//              if (a !=0) {
+//                  a--;
+//              }
+//          }
+//      }
 
 //nbDiag = (m+n)-1;
 //

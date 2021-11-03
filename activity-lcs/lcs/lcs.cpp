@@ -80,45 +80,34 @@ int main (int argc, char* argv[]) {
         C_arr[0][j] = 0;
     }
 
-    om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y,
+    om.parfor<std::vector<std::vector<int>>>(0, nbthreads, 1, m, n, X, Y,
             [&](std::vector<std::vector<int>> &C) -> void {
 
             },
             [&](int a, int b, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
-                //printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
-                //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
+                for(int a =1; a <= n; a++){
+                    int diagA =a;
+                    for(int b =1; b<=m; b++){
+                        LCS(diagA, b, m, n, U, W, std::ref(C_arr));
+                        diagA--;
+                        if(diagA < 1)
+                            break;
+                    }
+                }
 
-//                if (U[a - 1] == W[b - 1]) {
-//                    //printf("%s\n", "howdy 4");
-//                    C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
-//                }
-//                else{
-//                    C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
-//                }
-
-                //answer = C_arr[a][b];
-                answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
-
-                //printf("%s %d\n", "from middle ", answer);
-
-//                indA = a;
-//                indB = b;
+                for (int b = 2; b <=n; b++){
+                    int diagB = b;
+                    for(int a =m; a > 0; a--){
+                        LCS(a, diagB, m, n, U, W, std::ref(C_arr));
+                        diagB++;
+                        if(diagB > n)
+                            break;
+                    }
+                }
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
-                //printf("%s\n", "howdy 6");
-                  //answer = C_arr[indA][indB];
-//                printf("%s %d\n", "from last ", tls[m][n]);
-               // printf("%s\n", "howdy 77");
-//                for (int i=0; i<=m; ++i) {
-//                    delete[] &C[i];
-//                }
-//                delete[] &C;
             });
-
-    //int result = answer; // length of common subsequence
-    //printf("%s\n", "made bottom");
-    //printf("%s %d\n", "from end", answer);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
