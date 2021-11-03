@@ -96,18 +96,18 @@ int main (int argc, char* argv[]) {
                     C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
                 }
 
-//                answer = C_arr[a][b];
+                answer = C_arr[a][b];
                 //answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
 
                 //printf("%s %d\n", "from middle ", answer);
 
-                indA = a;
-                indB = b;
+                //indA = a;
+                //indB = b;
             },
             [&](std::vector<std::vector<int>> &C) -> void {
 
                 //printf("%s\n", "howdy 6");
-                  answer = C_arr[indA][indB];
+                  //answer = C_arr[indA][indB];
 //                printf("%s %d\n", "from last ", tls[m][n]);
                // printf("%s\n", "howdy 77");
 //                for (int i=0; i<=m; ++i) {
