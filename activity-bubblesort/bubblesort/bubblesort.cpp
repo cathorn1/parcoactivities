@@ -42,28 +42,16 @@ int main (int argc, char* argv[]) {
   //insert sorting code here.
 
 
-    omp.parfor<int>(0, n, 1,
-                   [&](int &C) -> void {
+    omp.parfor<int*>(0, n, 1,
+                   [&](int *C) -> void {
+                        C = new int[n];
+                   },
+                   [&](int a, int b, int *C) -> void {
+
+                       swap(std::ref(C), a, b);
 
                    },
-                   [&](int i, int &C) -> void {
-
-                       for(int k = 0; k < (n-2); k++) {
-                           if (k % 2 == 0) {
-                               for (int i = 0; i <= (n / 2) - 1; i++) {
-                                   if (arr[2 * i] > arr[((2*i)+1)])
-                                       swap(std::ref(arr), (2*i), ((2*i)+1));
-                               }
-                           } else {
-                               for (int i = 0; i <= (n / 2) - 2; i++) {
-                                   if (arr[(2 * i) + 1] > arr[(2 * i) + 2])
-                                       swap(std::ref(arr), ((2 * i)+1), ((2 * i)+2));
-
-                               }
-                           }
-                       }
-                   },
-                   [&](int &C) -> void {
+                   [&](int *C) -> void {
 
                    });
 
@@ -79,3 +67,18 @@ int main (int argc, char* argv[]) {
 
   return 0;
 }
+
+//                      for(int k = 0; k < (n-2); k++) {
+//                           if (k % 2 == 0) {
+//                               for (int i = 0; i <= (n / 2) - 1; i++) {
+//                                   if (arr[2 * i] > arr[((2*i)+1)])
+//                                       swap(std::ref(arr), (2*i), ((2*i)+1));
+//                               }
+//                           } else {
+//                               for (int i = 0; i <= (n / 2) - 2; i++) {
+//                                   if (arr[(2 * i) + 1] > arr[(2 * i) + 2])
+//                                       swap(std::ref(arr), ((2 * i)+1), ((2 * i)+2));
+//
+//                               }
+//                           }
+//                       }
