@@ -53,9 +53,22 @@ int main (int argc, char* argv[]) {
                             C.push_back(arr[i]);
                         }
                    },
-                   [&](int a, int b, std::vector<int> &C) -> void {
+                   [&](int i, std::vector<int> &C) -> void {
 
-                       swap(std::ref(C), a, b);
+                       for(int k = 0; k < (n-2); k++) {
+                           if (k % 2 == 0) {
+                               for (int i = 0; i <= (n / 2) - 1; i++) {
+                                   if (C[2 * i] > C[((2*i)+1)])
+                                       swap(std::ref(C), (2*i), ((2*i)+1));
+                               }
+                           } else {
+                               for (int i = 0; i <= (n / 2) - 2; i++) {
+                                   if (C[(2 * i) + 1] > C[(2 * i) + 2])
+                                       swap(std::ref(C), ((2 * i)+1), ((2 * i)+2));
+
+                               }
+                           }
+                       }
 
                    },
                    [&](std::vector<int> &C) -> void {
