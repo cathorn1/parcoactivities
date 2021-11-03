@@ -33,7 +33,7 @@ void OEsort(std::vector<int>& arr, int n){
         int temp = 0;
         //for(int k = 0; k <= (n-2); k++) {
         //    if (k % 2 == 0) {
-        for (int i = 0; i <= n - 2; i = i + 2) {
+        for (int i = 1; i <= n - 2; i = i + 2) {
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -42,7 +42,7 @@ void OEsort(std::vector<int>& arr, int n){
             }
         }
         //    } else {
-        for (int i = 1; i <= n - 2; i += 2) {
+        for (int i = 0; i <= n - 2; i += 2) {
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
