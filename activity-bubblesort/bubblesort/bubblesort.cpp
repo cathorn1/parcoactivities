@@ -47,7 +47,7 @@ int main (int argc, char* argv[]) {
 //    }
 //    std::cout << "\n";
 
-    omp.parfor<std::vector<int>>(0, nbthreads, 1,
+    omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
                         for(int i = 0; i < n; i++){
                             C.push_back(arr[i]);
