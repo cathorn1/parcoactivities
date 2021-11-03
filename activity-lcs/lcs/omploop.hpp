@@ -22,6 +22,12 @@ public:
 //  int i = 0;
 //  int j = 0;
 //  int k = 0;
+    int diag= 0;
+    int nbDiag= 0;
+    int taskDiag =0;
+    int nbTaskDiag= 0;
+    int count = 0;
+    int bCount = 0;
 
   template<typename C>
   void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
@@ -29,12 +35,7 @@ public:
                std::function<void(int, int, char*, char*, C&)> f,
                std::function<void(C&)> after
                ) {
-      int diag= 0;
-      int nbDiag= 0;
-      int taskDiag =0;
-      int nbTaskDiag= 0;
-      int count = 0;
-      int bCount = 0;
+
 
 #pragma omp parallel num_threads(nbthread)
     {
