@@ -31,8 +31,9 @@ void OEsort(std::vector<int>& arr, int n){
     while(!isSorted) {
         isSorted = true;
         int temp = 0;
-
+        std::cout << "top\n";
         for (int i = 1; i <= (n-2); i =(i+2)) {
+            std::cout << "for1\n";
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
@@ -42,6 +43,7 @@ void OEsort(std::vector<int>& arr, int n){
         }
 
         for (int i = 0; i <= (n-2); i =(i+2)) {
+            std::cout << "for2\n";
             if(arr[i] > arr[+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
