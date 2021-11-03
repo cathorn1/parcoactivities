@@ -30,8 +30,9 @@ public:
       TLS tls;
       before(tls);
       
-#pragma omp for schedule(static) 
-          for(int k = 0; k <= (end); k++) {
+//#pragma omp for schedule(static)
+#pragma omp parallel
+          for(int k = 0; k <= (end-2); k++) {
               if (k % 2 == 0) {
                   for (int i = 0; i <= (end / 2) - 1; i++) {
                       int a = 2*i;
