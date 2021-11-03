@@ -87,7 +87,7 @@ int main (int argc, char* argv[]) {
                 printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                answer += LCS(a, b, m, n, U, W, std::ref(C_arr));
+                answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
 
                     //printf("%s %d\n", "from middle ", C[m][n]);
 
