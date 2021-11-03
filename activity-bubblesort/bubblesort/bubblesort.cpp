@@ -25,7 +25,7 @@ void swap(std::vector<int>& arr, int i, int j) {
     arr.at(j) = temp;
 }
 
-void OEsort(std::vector<int>& arr, int n){
+static void OEsort(std::vector<int>& arr, int n){
     bool isSorted = false;
 
     while(!isSorted) {
