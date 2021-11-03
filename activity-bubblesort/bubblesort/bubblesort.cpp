@@ -25,6 +25,36 @@ void swap(std::vector<int>& arr, int i, int j) {
     arr.at(j) = temp;
 }
 
+void OEsort(std::vector<int>& arr, int n){
+    bool isSorted = false;
+
+    while(!isSorted) {
+        isSorted = true;
+        int temp = 0;
+        //for(int k = 0; k <= (n-2); k++) {
+        //    if (k % 2 == 0) {
+        for (int i = 0; i <= n - 2; i = i + 2) {
+            if(arr[i] > arr[+1]){
+                int temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+                isSorted = false;
+            }
+        }
+        //    } else {
+        for (int i = 1; i <= n - 2; i += 2) {
+            if(arr[i] > arr[+1]){
+                int temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+                isSorted = false;
+            }
+        }
+        //  }
+        //}
+    }
+}
+
 int main (int argc, char* argv[]) {
   if (argc < 3) { std::cerr<<"usage: "<<argv[0]<<" <n> <nbthreads>"<<std::endl;
     return -1;
@@ -55,20 +85,7 @@ int main (int argc, char* argv[]) {
                    },
                    [&](int i, std::vector<int> &C) -> void {
 
-                       for(int k = 0; k <= (n-2); k++) {
-                           if (k % 2 == 0) {
-                               for (int i = 0; i <= (n / 2) - 1; i++) {
-                                   if (C[2 * i] > C[((2*i)+1)])
-                                       swap(std::ref(C), (2*i), ((2*i)+1));
-                               }
-                           } else {
-                               for (int i = 0; i <= (n / 2) - 2; i++) {
-                                   if (C[(2 * i) + 1] > C[(2 * i) + 2])
-                                       swap(std::ref(C), ((2 * i)+1), ((2 * i)+2));
-
-                               }
-                           }
-                       }
+                        OEsort(std::ref(C), n);
 
                    },
                    [&](std::vector<int> &C) -> void {
