@@ -42,7 +42,7 @@ int main (int argc, char* argv[]) {
   //insert sorting code here.
 
 
-    omp.parfor<int>(0, nbthreads, 1,
+    omp.parfor<int>(0, n, 1,
                    [&](int &C) -> void {
 
                    },
