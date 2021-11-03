@@ -100,7 +100,7 @@ int main (int argc, char* argv[]) {
 
                     LCS(a, b, m, n, U, W, C_arr);
 
-                    printf("%s %d\n", "from middle ", C[m][n]);
+                    //printf("%s %d\n", "from middle ", C[m][n]);
 
 
             },
