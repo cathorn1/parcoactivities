@@ -78,28 +78,30 @@ int main (int argc, char* argv[]) {
     }
     std::cout << "\n";
 
-    omp.parfor<std::vector<int>>(0, n, 1,
-                   [&](std::vector<int> &C) -> void {
-                        for(int i = 0; i < n; i++){
-                            C.push_back(arr[i]);
-                        }
-                   },
-                   [&](int i, std::vector<int> &C) -> void {
+    OEsort(std::ref(arr), n);
 
-                        OEsort(std::ref(arr), n);
-
-                   },
-                   [&](std::vector<int> &C) -> void {
-                       for(int i = 0; i < n; i++){
-                           arr[i] = C[i];
-                       }
-
-                       std::cout << "test C\n";
-                       for (int i =0; i < n; i++) {
-                           std::cout << C[i] << " ";
-                       }
-                       std::cout << "\n";
-                   });
+//    omp.parfor<std::vector<int>>(0, n, 1,
+//                   [&](std::vector<int> &C) -> void {
+//                        for(int i = 0; i < n; i++){
+//                            C.push_back(arr[i]);
+//                        }
+//                   },
+//                   [&](int i, std::vector<int> &C) -> void {
+//
+//                        OEsort(std::ref(arr), n);
+//
+//                   },
+//                   [&](std::vector<int> &C) -> void {
+//                       for(int i = 0; i < n; i++){
+//                           arr[i] = C[i];
+//                       }
+//
+//                       std::cout << "test C\n";
+//                       for (int i =0; i < n; i++) {
+//                           std::cout << C[i] << " ";
+//                       }
+//                       std::cout << "\n";
+//                   });
 
 
 
