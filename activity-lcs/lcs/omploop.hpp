@@ -32,8 +32,6 @@ public:
       C C_arr;
       before(C_arr);
 
-
-
 #pragma omp for schedule(static)
 
 for (int i = beg; i < end; i+=increment){

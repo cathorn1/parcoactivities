@@ -85,9 +85,9 @@ int main (int argc, char* argv[]) {
 
             },
             [&](int i, int &C) -> void {
-                for(int a =1; a <= n; a++){
+                for(int a =1; a <= m; a++){
                     int diagA =a;
-                    for(int b =1; b<=m; b++){
+                    for(int b =1; b<=n; b++){
                         LCS(diagA, b, m, n, X, Y, std::ref(C_arr));
                         diagA--;
                         if(diagA < 1)
