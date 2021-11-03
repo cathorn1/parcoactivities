@@ -115,7 +115,7 @@ int main (int argc, char* argv[]) {
     checkLCS(X, m, Y, n, answer);
 
     std::cerr<<elpased_seconds.count()<<std::endl;
-    std::cout<<answer<<std::endl;
+    //std::cout<<answer<<std::endl;
 
     return 0;
 
