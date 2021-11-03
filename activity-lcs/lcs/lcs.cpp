@@ -80,15 +80,15 @@ int main (int argc, char* argv[]) {
         C_arr[0][j] = 0;
     }
 
-    om.parfor<std::vector<std::vector<int>>>(0, nbthreads, 1, m, n, X, Y,
-            [&](std::vector<std::vector<int>> &C) -> void {
+    om.parfor<int>(0, nbthreads, 1,
+            [&](int &C) -> void {
 
             },
-            [&](int a, int b, char* U, char* W, std::vector<std::vector<int>> &C) -> void {
+            [&](int i, int &C) -> void {
                 for(int a =1; a <= n; a++){
                     int diagA =a;
                     for(int b =1; b<=m; b++){
-                        LCS(diagA, b, m, n, U, W, std::ref(C_arr));
+                        LCS(diagA, b, m, n, X, Y, std::ref(C_arr));
                         diagA--;
                         if(diagA < 1)
                             break;
@@ -98,14 +98,14 @@ int main (int argc, char* argv[]) {
                 for (int b = 2; b <=n; b++){
                     int diagB = b;
                     for(int a =m; a > 0; a--){
-                        LCS(a, diagB, m, n, U, W, std::ref(C_arr));
+                        LCS(a, diagB, m, n, X, Y, std::ref(C_arr));
                         diagB++;
                         if(diagB > n)
                             break;
                     }
                 }
             },
-            [&](std::vector<std::vector<int>> &C) -> void {
+            [&](int &C) -> void {
 
             });
 

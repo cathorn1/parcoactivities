@@ -19,20 +19,10 @@ public:
     nbthread = t;
   }
 
-//  int i = 0;
-//  int j = 0;
-//  int k = 0;
-    int diag= 0;
-    int nbDiag= 0;
-    int taskDiag =0;
-    int nbTaskDiag= 0;
-    int count = 0;
-    int bCount = 0;
-
   template<typename C>
-  void parfor (size_t beg, size_t end, size_t increment, size_t m, size_t n, char* U, char* W,
+  void parfor (size_t beg, size_t end, size_t increment,
                std::function<void(C&)> before,
-               std::function<void(int, int, char*, char*, C&)> f,
+               std::function<void(int, C&)> f,
                std::function<void(C&)> after
                ) {
 
@@ -41,13 +31,13 @@ public:
     {
       C C_arr;
       before(C_arr);
-      count = m;
+
 
 
 #pragma omp for schedule(static)
 
 for (int i = beg; i < end; i+=increment){
-
+    f(i, C_arr);
 }
 
 #pragma omp critical
