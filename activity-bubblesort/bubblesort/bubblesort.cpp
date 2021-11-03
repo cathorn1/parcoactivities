@@ -37,6 +37,7 @@ int main (int argc, char* argv[]) {
   int * arr = new int [n];
   generateMergeSortData (arr, n);
 
+  std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
   //insert sorting code here.
 
     for(int k = 0; k <=n-2; k++) {
@@ -56,9 +57,12 @@ int main (int argc, char* argv[]) {
 
 
 
-  
+  std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
+  std::chrono::duration<double> elpased_seconds = end-start;
+
   checkMergeSortResult (arr, n);
-  
+  std::cerr<<elpased_seconds.count()<<std::endl;
+
   delete[] arr;
 
   return 0;
