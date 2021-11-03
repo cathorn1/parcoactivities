@@ -79,16 +79,18 @@ int main (int argc, char* argv[]) {
     omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
                         for(int i = 0; i < n; i++){
+                            std::cout << "p1\n";
                             C.push_back(arr[i]);
                         }
                    },
                    [&](int i, std::vector<int> &C) -> void {
-
+                       std::cout << "p2\n";
                         OEsort(std::ref(C), n);
 
                    },
                    [&](std::vector<int> &C) -> void {
                        for(int i = 0; i < n; i++){
+                           std::cout << "p3\n";
                            arr[i] = C[i];
                        }
 
