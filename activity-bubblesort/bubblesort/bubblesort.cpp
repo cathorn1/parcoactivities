@@ -55,7 +55,9 @@ int main (int argc, char* argv[]) {
 
                    },
                    [&](std::vector<int> &C) -> void {
-
+                       for(int i = 0; i < n; i++){
+                           arr[i] = C[i];
+                       }
                    });
 
 
@@ -65,7 +67,7 @@ int main (int argc, char* argv[]) {
 
   checkMergeSortResult (arr, n);
   for (int i =0; i < n; i++) {
-      std::cout << arr[i] << " " << std::endl;
+      std::cout << arr[i] << " ";
   }
   std::cout << *arr << std::endl;
   std::cerr<<elpased_seconds.count()<<std::endl;
