@@ -25,7 +25,7 @@ void swap(std::vector<int>& arr, int i, int j) {
     arr.at(j) = temp;
 }
 
-static void OEsort(std::vector<int>& arr, int n){
+void OEsort(std::vector<int>& arr, int n){
     bool isSorted = false;
 
     while(!isSorted) {
@@ -34,7 +34,7 @@ static void OEsort(std::vector<int>& arr, int n){
         std::cout << "top\n";
         for (int i = 1; i <= (n-2); i =(i+2)) {
             std::cout << "for1\n";
-            if(arr[i] > arr[+1]){
+            if(arr[i] > arr[i+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
                 arr[i+1] = temp;
@@ -44,7 +44,7 @@ static void OEsort(std::vector<int>& arr, int n){
 
         for (int i = 0; i <= (n-2); i =(i+2)) {
             std::cout << "for2\n";
-            if(arr[i] > arr[+1]){
+            if(arr[i] > arr[i+1]){
                 temp = arr[i];
                 arr[i] = arr[i+1];
                 arr[i+1] = temp;
