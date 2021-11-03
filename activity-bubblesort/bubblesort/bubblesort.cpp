@@ -17,6 +17,11 @@ extern "C" {
 }
 #endif
 
+void swap(int* arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
 
 int main (int argc, char* argv[]) {
   if (argc < 3) { std::cerr<<"usage: "<<argv[0]<<" <n> <nbthreads>"<<std::endl;
@@ -24,12 +29,31 @@ int main (int argc, char* argv[]) {
   }
 
   int n = atoi(argv[1]);
-  
+  int nbthreads = atoi(argv[2]);
+  OmpLoop omp;
+  omp.setNbThread(nbthreads);
+
   // get arr data
   int * arr = new int [n];
   generateMergeSortData (arr, n);
 
   //insert sorting code here.
+
+    for(int k = 0; k <=n-2; k++) {
+        if (k % 2 == 0) {
+            for (int i = 0; i <= (n / 2) - 1; i++) {
+                if (arr[2 * i] > arr[(2 * i) + 1])
+                    swap(arr, 2 * i, (2 * i) + 1);
+            }
+        } else {
+            for (int i = 0; i <= (n / 2) - 2; i++) {
+                if (arr[(2 * i) + 1] > arr[(2 * i) + 2])
+                    swap(arr, (2 * i) + 1, (2 * i) + 2);
+
+            }
+        }
+    }
+
 
 
   
