@@ -42,10 +42,10 @@ int main (int argc, char* argv[]) {
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
   //insert sorting code here.
 
-//    for (int i =0; i < n; i++) {
-//        std::cout << arr[i] << " ";
-//    }
-//    std::cout << "\n";
+    for (int i =0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
 
     omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
@@ -63,11 +63,11 @@ int main (int argc, char* argv[]) {
                            arr[i] = C[i];
                        }
 
-//                       std::cout << "test C\n";
-//                       for (int i =0; i < n; i++) {
-//                           std::cout << C[i] << " ";
-//                       }
-//                       std::cout << "\n";
+                       std::cout << "test C\n";
+                       for (int i =0; i < n; i++) {
+                           std::cout << C[i] << " ";
+                       }
+                       std::cout << "\n";
                    });
 
 
@@ -77,10 +77,10 @@ int main (int argc, char* argv[]) {
 
   checkMergeSortResult (arr, n);
 
-//  for (int i =0; i < n; i++) {
-//      std::cout << arr[i] << " ";
-//  }
-//  std::cout << "\n";
+  for (int i =0; i < n; i++) {
+      std::cout << arr[i] << " ";
+  }
+  std::cout << "\n";
 
   std::cerr<<elpased_seconds.count()<<std::endl;
 
