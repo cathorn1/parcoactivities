@@ -62,6 +62,11 @@ int main (int argc, char* argv[]) {
                        for(int i = 0; i < n; i++){
                            arr[i] = C[i];
                        }
+
+                       for (int i =0; i < n; i++) {
+                           std::cout << "test C\n" << C[i] << " ";
+                       }
+                       std::cout << "\n";
                    });
 
 
