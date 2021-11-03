@@ -21,16 +21,7 @@ extern "C" {
 }
 #endif
 
-int LCS (int a, int b, int m, int n, char* U, char* W) {
-    int **C_arr = new int *[m + 1];
-
-    for (int i = 0; i <= m; ++i) {
-        C_arr[i] = new int[n + 1];
-        C_arr[i][0] = 0;
-    }
-    for (int j = 0; j <= n; ++j) {
-        C_arr[0][j] = 0;
-    }
+void LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
 
     if (U[a - 1] == W[b - 1]) {
         printf("%s\n", "howdy 4");
@@ -40,7 +31,7 @@ int LCS (int a, int b, int m, int n, char* U, char* W) {
     else{
         C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
     }
-    return C_arr[a][b];
+    //return C_arr[a][b];
 }
 
 int main (int argc, char* argv[]) {
@@ -77,7 +68,15 @@ int main (int argc, char* argv[]) {
     //std::array C_arr = new int[m];
 
     //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
+    int **C_arr = new int *[m + 1];
 
+    for (int i = 0; i <= m; ++i) {
+        C_arr[i] = new int[n + 1];
+        C_arr[i][0] = 0;
+    }
+    for (int j = 0; j <= n; ++j) {
+        C_arr[0][j] = 0;
+    }
 
     om.parfor<std::vector<std::vector<int>>>(0, m, 1, m, n, X, Y,
             [&](std::vector<std::vector<int>> &C) -> void {
@@ -99,7 +98,7 @@ int main (int argc, char* argv[]) {
                 printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                    answer = LCS(a, b, m, n, U, W);
+                    LCS(a, b, m, n, U, W, C_arr);
 
                     printf("%s %d\n", "from middle ", C[m][n]);
 
