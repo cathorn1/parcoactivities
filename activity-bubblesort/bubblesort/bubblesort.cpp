@@ -48,7 +48,7 @@ int main (int argc, char* argv[]) {
                     swap(arr, 2 * i, (2 * i) + 1);
             }
         } else {
-            for (int i = 0; i <= (n / 2) - 2; i++) {
+            for (int i = 0; i < (n / 2) - 2; i++) {
                 if (arr[(2 * i) + 1] > arr[(2 * i) + 2])
                     swap(arr, (2 * i) + 1, (2 * i) + 2);
 
