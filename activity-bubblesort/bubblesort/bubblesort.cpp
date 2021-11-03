@@ -42,6 +42,9 @@ int main (int argc, char* argv[]) {
   std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
   //insert sorting code here.
 
+    for (int i =0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
 
     omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
