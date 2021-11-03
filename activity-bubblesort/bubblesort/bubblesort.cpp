@@ -55,7 +55,7 @@ int main (int argc, char* argv[]) {
                    },
                    [&](int i, std::vector<int> &C) -> void {
 
-                       for(int k = 0; k < (n-2); k++) {
+                       for(int k = 0; k <= (n-2); k++) {
                            if (k % 2 == 0) {
                                for (int i = 0; i <= (n / 2) - 1; i++) {
                                    if (C[2 * i] > C[((2*i)+1)])
