@@ -63,8 +63,9 @@ int main (int argc, char* argv[]) {
                            arr[i] = C[i];
                        }
 
+                       std::cout << "test C\n";
                        for (int i =0; i < n; i++) {
-                           std::cout << "test C\n" << C[i] << " ";
+                           std::cout << C[i] << " ";
                        }
                        std::cout << "\n";
                    });
@@ -78,7 +79,7 @@ int main (int argc, char* argv[]) {
   for (int i =0; i < n; i++) {
       std::cout << arr[i] << " ";
   }
-  std::cout << *arr << std::endl;
+
   std::cerr<<elpased_seconds.count()<<std::endl;
 
   delete[] arr;
