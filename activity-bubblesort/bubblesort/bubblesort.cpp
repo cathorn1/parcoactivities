@@ -25,7 +25,7 @@ void swap(std::vector<int>& arr, int i, int j) {
     arr.at(j) = temp;
 }
 
-void OEsort(std::vector<int>& arr, int n){
+void OEsort(int arr[], int n){
     bool isSorted = false;
 
     while(!isSorted) {
@@ -78,7 +78,7 @@ int main (int argc, char* argv[]) {
     }
     std::cout << "\n";
 
-    omp.parfor<std::vector<int>>(0, nbthreads, 1,
+    omp.parfor<std::vector<int>>(0, n, 1,
                    [&](std::vector<int> &C) -> void {
                         for(int i = 0; i < n; i++){
                             C.push_back(arr[i]);
@@ -86,7 +86,7 @@ int main (int argc, char* argv[]) {
                    },
                    [&](int i, std::vector<int> &C) -> void {
 
-                        OEsort(std::ref(C), n);
+                        OEsort(std::ref(arr), n);
 
                    },
                    [&](std::vector<int> &C) -> void {
