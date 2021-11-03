@@ -19,7 +19,7 @@ extern "C" {
 }
 #endif
 
-void swap(std::vector<int> arr, int i, int j) {
+void swap(std::vector<int>& arr, int i, int j) {
     int temp = arr[i];
     arr.at(i) = arr[j];
     arr.at(j) = temp;
