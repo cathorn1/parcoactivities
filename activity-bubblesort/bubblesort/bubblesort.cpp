@@ -64,6 +64,9 @@ int main (int argc, char* argv[]) {
   std::chrono::duration<double> elpased_seconds = end-start;
 
   checkMergeSortResult (arr, n);
+  for (int i =0; i < n; i++) {
+      std::cout << arr[i] << " " << std::endl;
+  }
   std::cout << *arr << std::endl;
   std::cerr<<elpased_seconds.count()<<std::endl;
 
