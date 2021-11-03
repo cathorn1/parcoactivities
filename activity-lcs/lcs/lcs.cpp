@@ -21,17 +21,17 @@ extern "C" {
 }
 #endif
 
-int LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
-
-    if (U[a - 1] == W[b - 1]) {
-        //printf("%s\n", "howdy 4");
-        C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
-    }
-    else{
-        C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
-    }
-    return C_arr[a][b];
-}
+//int LCS (int a, int b, int m, int n, char* U, char* W, int** C_arr) {
+//
+//    if (U[a - 1] == W[b - 1]) {
+//        //printf("%s\n", "howdy 4");
+//        C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
+//    }
+//    else{
+//        C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
+//    }
+//    return C_arr[a][b];
+//}
 
 int main (int argc, char* argv[]) {
 
@@ -86,7 +86,16 @@ int main (int argc, char* argv[]) {
                 //printf("%s, a: %d, b: %d,\n", "howdy 3", a, b);
                 //printf("X size: %ld, Y size: %ld\n", sizeof(X), sizeof(Y));
 
-                answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
+                if (U[a - 1] == W[b - 1]) {
+                    //printf("%s\n", "howdy 4");
+                    C_arr[a][b] = (C_arr[a - 1][b - 1]) + 1;
+                }
+                else{
+                    C_arr[a][b] = std::max(C_arr[a - 1][b], C_arr[a][b - 1]);
+                }
+
+                answer = C_arr[a][b];
+                //answer = LCS(a, b, m, n, U, W, std::ref(C_arr));
 
                 //printf("%s %d\n", "from middle ", answer);
 
