@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <chrono>
+#include <vector>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -18,7 +19,7 @@ extern "C" {
 }
 #endif
 
-void swap(int* arr, int i, int j) {
+void swap(std::vector<int> arr, int i, int j) {
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
@@ -42,16 +43,18 @@ int main (int argc, char* argv[]) {
   //insert sorting code here.
 
 
-    omp.parfor<int*>(0, n, 1,
-                   [&](int *C) -> void {
-                        C = new int[n];
+    omp.parfor<std::vector<int>>(0, n, 1,
+                   [&](std::vector<int> &C) -> void {
+                        for(int i = 0; i < n; i++){
+                            C.push_back(arr[i]);
+                        }
                    },
-                   [&](int a, int b, int *C) -> void {
+                   [&](int a, int b, std::vector<int> &C) -> void {
 
                        swap(std::ref(C), a, b);
 
                    },
-                   [&](int *C) -> void {
+                   [&](std::vector<int> &C) -> void {
 
                    });
 
