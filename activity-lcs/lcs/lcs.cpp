@@ -59,17 +59,7 @@ int main (int argc, char* argv[]) {
 
     std::vector<std::vector<int>> C_a;
     std::vector<int> parent;
-//    int i =0;
-//    int j =0;
-//    int k =0;
-    int s=0;
-    int count =0;
-    int Lmax =0;
-    int indA =0;
-    int indB= 0;
-    //std::array C_arr = new int[m];
 
-    //printf("X size: %ld, Y size: %ld\n", (sizeof(*X)/sizeof(X[0])), (sizeof(*Y)/sizeof(Y[0])));
     int **C_arr = new int *[m + 1];
 
     for (int i = 0; i <= m; ++i) {
@@ -121,9 +111,6 @@ int main (int argc, char* argv[]) {
     return 0;
 
 }
-
-
-
 
 //om.parfor< std::vector < std::vector < int>>>(0, end, 1, m, n, X, Y,
 //            [&](std::vector <std::vector<int>> &tls) -> void {
