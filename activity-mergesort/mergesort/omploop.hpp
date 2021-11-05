@@ -32,7 +32,7 @@ public:
       
 #pragma omp for schedule(static) 
       for (size_t i=beg; i<end; i+= increment) {
-	f(i, tls);
+          f(i, tls);
       }
 #pragma omp critical
       after(tls);
