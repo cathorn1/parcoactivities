@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <vector>
+#include <chrono>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
