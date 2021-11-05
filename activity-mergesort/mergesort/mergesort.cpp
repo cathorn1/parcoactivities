@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <vector>
 #include <chrono>
+#include <mutex>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -17,6 +18,7 @@ extern "C" {
 }
 #endif
 
+std::mutex mut;
 
 void merge(int * arr, int l, int mid, int r) {
 
@@ -68,6 +70,7 @@ void merge(int * arr, int l, int mid, int r) {
 
 void mergeSort(int arr[], int n)
 {
+
     int curr_size;  // For current size of subarrays to be merged
     // curr_size varies from 1 to n/2
     int left_start; // For picking starting index of left subarray
@@ -88,6 +91,7 @@ void mergeSort(int arr[], int n)
             int right_end = std::min(left_start + 2*curr_size - 1, n-1);
 
             // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
+            std::lock_guard<std::mutex> lck (mut);
             merge(std::ref(arr), left_start, (mid+1), right_end);
         }
     }
