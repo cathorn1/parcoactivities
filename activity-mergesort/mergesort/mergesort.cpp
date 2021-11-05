@@ -109,32 +109,43 @@ int main (int argc, char* argv[]) {
   int* arr = new int [n];
   generateMergeSortData (arr, n);
 
-//    #if DEBUG
-//        for (int i=0; i<n; ++i)
-//            std::cout<<arr[i]<<" ";
-//    std::cout<<std::endl;
-//    #endif
+    for (int i =0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
+
+
+    #if DEBUG
+        for (int i=0; i<n; ++i)
+            std::cout<<arr[i]<<" ";
+    std::cout<<std::endl;
+    #endif
 
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
     omp.parfor<std::vector<int>>(0, n, 1,
             [&](std::vector<int> &C) -> void {
-                for(int i = 0; i < n; i++){
-                    //std::cout << "p1\n";
-                    C.push_back(arr[i]);
-                }
+//                for(int i = 0; i < n; i++){
+//                    //std::cout << "p1\n";
+//                    C.push_back(arr[i]);
+//                }
             },
             [&](int i, std::vector<int> &C) -> void {
-                //std::cout << "p2\n";
+
                 mergeSort(std::ref(arr), n);
+                std::cout << "middle test\n";
+                for (int i =0; i < n; i++) {
+                    std::cout << arr[i] << " ";
+                }
+                std::cout << "\n";
 
             },
             [&](std::vector<int> &C) -> void {
-                for(int i = 0; i < n; i++){
-                    //std::cout << "p3\n";
-                    arr[i] = C[i];
-                }
+//                for(int i = 0; i < n; i++){
+//                    //std::cout << "p3\n";
+//                    arr[i] = C[i];
+//                }
 
 //                       std::cout << "test C\n";
 //                       for (int i =0; i < n; i++) {
@@ -151,11 +162,11 @@ int main (int argc, char* argv[]) {
     std::cerr<<elpased_seconds.count()<<std::endl;
     checkMergeSortResult (arr, n);
 
-//  #if DEBUG
-//        for (int i=0; i<n; ++i)
-//        std::cout<<arr[i]<<" ";
-//      std::cout<<std::endl;
-//  #endif
+  #if DEBUG
+        for (int i=0; i<n; ++i)
+        std::cout<<arr[i]<<" ";
+      std::cout<<std::endl;
+  #endif
 
   delete[] arr;
 
