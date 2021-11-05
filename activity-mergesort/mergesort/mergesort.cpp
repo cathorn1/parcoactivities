@@ -88,7 +88,7 @@ void mergeSort(int arr[], int n)
             int right_end = std::min(left_start + 2*curr_size - 1, n-1);
 
             // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-            merge(std::ref(arr), left_start, mid, right_end);
+            merge(std::ref(arr), left_start, (mid+1), right_end);
         }
     }
 }
