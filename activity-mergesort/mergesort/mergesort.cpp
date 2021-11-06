@@ -50,6 +50,7 @@ void merge(int arr[], int l, int mid, int r) {
     k = l;    // write to
 
     // merge
+    mut.lock();
     while (i<n && j<=r) {
         if (temp[i] <= arr[j] ) {
             arr[k++] = temp[i++];
@@ -57,6 +58,7 @@ void merge(int arr[], int l, int mid, int r) {
             arr[k++] = arr[j++];
         }
     }
+    mut.unlock();
 
     // exhaust temp
     while (i<n) {
