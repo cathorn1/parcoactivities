@@ -20,7 +20,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(std::vector<int> arr, int l, int mid, int r) {
+void merge(std::vector<int>& arr, int l, int mid, int r) {
 
 #if DEBUG
     std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
@@ -68,7 +68,7 @@ void merge(std::vector<int> arr, int l, int mid, int r) {
 
 }
 
-void mergeSort(std::vector<int> arr, int n)
+void mergeSort(std::vector<int>& arr, int n)
 {
 
     int curr_size;  // For current size of subarrays to be merged
@@ -138,6 +138,7 @@ int main (int argc, char* argv[]) {
             [&](int i, std::vector<int> &C) -> void {
 
                 mergeSort(std::ref(C), n);
+
                 std::cout << "middle test\n";
                 for (int i =0; i < n; i++) {
                     std::cout << arr[i] << " ";
