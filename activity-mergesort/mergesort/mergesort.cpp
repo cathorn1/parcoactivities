@@ -128,12 +128,12 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    omp.parfor<std::vector<int>>(0, n, n/nbthreads,
+    omp.parfor<std::vector<int>>(0, n, 1,
             [&](std::vector<int> &C) -> void {
-                for(int i = 0; i < n; i++){
-                    //std::cout << "p1\n";
-                    C.push_back(arr[i]);
-                }
+//                for(int i = 0; i < n; i++){
+//                    //std::cout << "p1\n";
+//                    C.push_back(arr[i]);
+//                }
             },
             [&](int i, std::vector<int> &C) -> void {
 
