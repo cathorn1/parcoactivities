@@ -31,7 +31,7 @@ public:
       before(tls);
       
 #pragma omp for schedule(static, end/nbthread)
-      for (size_t i=beg; i<end; i+= increment) {
+      for (size_t i=beg; i<end/nbthread; i+= increment) {
           f(i, tls);
       }
 #pragma omp critical
