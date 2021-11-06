@@ -32,9 +32,9 @@ public:
       
 #pragma omp for schedule(static, end/nbthread)
       for (size_t i=beg; i<end; i+= increment) {
-          if (i + 1 == end){
-              i += end%nbthread;
-          }
+//          if (i + 1 == end){
+//              i += end%nbthread;
+//          }
           f(i, tls);
       }
 #pragma omp critical
