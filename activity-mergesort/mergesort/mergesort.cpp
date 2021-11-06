@@ -153,7 +153,7 @@ int main (int argc, char* argv[]) {
                 for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
                 {
                     // Pick starting point of different subarrays of current size
-                    for (left_start=0; left_start<chunk-1; left_start += 2*curr_size)
+                    for (left_start=0; left_start<n-1; left_start += 2*curr_size)
                     {
                         // Find ending point of left subarray. mid+1 is starting
                         // point of right
