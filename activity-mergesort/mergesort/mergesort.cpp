@@ -20,7 +20,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(int * arr, int l, int mid, int r) {
+void merge(std::vector<int> arr, int l, int mid, int r) {
 
 #if DEBUG
     std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
@@ -68,7 +68,7 @@ void merge(int * arr, int l, int mid, int r) {
 
 }
 
-void mergeSort(int arr[], int n)
+void mergeSort(std::vector<int> arr, int n)
 {
 
     int curr_size;  // For current size of subarrays to be merged
@@ -91,7 +91,7 @@ void mergeSort(int arr[], int n)
             int right_end = std::min(left_start + 2*curr_size - 1, n-1);
 
             // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-            std::lock_guard<std::mutex> lck (mut);
+            //std::lock_guard<std::mutex> lck (mut);
             merge(std::ref(arr), left_start, (mid+1), right_end);
         }
     }
@@ -130,14 +130,14 @@ int main (int argc, char* argv[]) {
 
     omp.parfor<std::vector<int>>(0, nbthreads, 1,
             [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
-//                    //std::cout << "p1\n";
-//                    C.push_back(arr[i]);
-//                }
+                for(int i = 0; i < n; i++){
+                    //std::cout << "p1\n";
+                    C.push_back(arr[i]);
+                }
             },
             [&](int i, std::vector<int> &C) -> void {
 
-                mergeSort(std::ref(arr), n);
+                mergeSort(std::ref(C), n);
 //                std::cout << "middle test\n";
 //                for (int i =0; i < n; i++) {
 //                    std::cout << arr[i] << " ";
@@ -146,10 +146,10 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
-//                    //std::cout << "p3\n";
-//                    arr[i] = C[i];
-//                }
+                for(int i = 0; i < n; i++){
+                    //std::cout << "p3\n";
+                    arr[i] = C[i];
+                }
 
 //                       std::cout << "test C\n";
 //                       for (int i =0; i < n; i++) {
