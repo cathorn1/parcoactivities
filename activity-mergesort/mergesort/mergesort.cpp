@@ -20,7 +20,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(std::vector<int>& arr, int l, int mid, int r) {
+void merge(int arr[], int l, int mid, int r) {
 
 #if DEBUG
     std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
@@ -68,7 +68,7 @@ void merge(std::vector<int>& arr, int l, int mid, int r) {
 
 }
 
-void mergeSort(std::vector<int>& arr, int n)
+void mergeSort(int arr[], int n)
 {
 
     int curr_size;  // For current size of subarrays to be merged
@@ -130,14 +130,14 @@ int main (int argc, char* argv[]) {
 
     omp.parfor<std::vector<int>>(0, nbthreads, 1,
             [&](std::vector<int> &C) -> void {
-                for(int i = 0; i < n; i++){
-                    //std::cout << "p1\n";
-                    C.push_back(arr[i]);
-                }
+//                for(int i = 0; i < n; i++){
+//                    //std::cout << "p1\n";
+//                    C.push_back(arr[i]);
+//                }
             },
             [&](int i, std::vector<int> &C) -> void {
 
-                mergeSort(std::ref(C), n);
+                mergeSort(std::ref(arr), n);
 //
 //                std::cout << "middle test\n";
 //                for (int i =0; i < n; i++) {
@@ -147,10 +147,10 @@ int main (int argc, char* argv[]) {
 
             },
             [&](std::vector<int> &C) -> void {
-                for(int i = 0; i < n; i++){
-                    //std::cout << "p3\n";
-                    arr[i] = C[i];
-                }
+//                for(int i = 0; i < n; i++){
+//                    //std::cout << "p3\n";
+//                    arr[i] = C[i];
+//                }
 
 //                       std::cout << "test C\n";
 //                       for (int i =0; i < n; i++) {
