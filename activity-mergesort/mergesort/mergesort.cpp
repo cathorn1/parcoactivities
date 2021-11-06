@@ -50,7 +50,7 @@ void merge(int arr[], int l, int mid, int r) {
     k = l;    // write to
 
     // merge
-    mut.lock();
+
     while (i<n && j<=r) {
         if (temp[i] <= arr[j] ) {
             arr[k++] = temp[i++];
@@ -58,7 +58,7 @@ void merge(int arr[], int l, int mid, int r) {
             arr[k++] = arr[j++];
         }
     }
-    mut.unlock();
+
 
     // exhaust temp
     while (i<n) {
@@ -133,7 +133,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    omp.parfor<std::vector<int>>(0, n, chunk,
+    omp.parfor<std::vector<int>>(0, n, 1,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    //std::cout << "p1\n";
