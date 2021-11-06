@@ -163,11 +163,11 @@ int main (int argc, char* argv[]) {
                 }
 //
 
-                std::cout << "middle test\n";
-                for (int i =0; i < n; i++) {
-                    std::cout << arr[i] << " ";
-                }
-                std::cout << "\n";
+//                std::cout << "middle test\n";
+//                for (int i =0; i < n; i++) {
+//                    std::cout << arr[i] << " ";
+//                }
+//                std::cout << "\n";
 
             },
             [&](std::vector<int> &C) -> void {
@@ -176,11 +176,11 @@ int main (int argc, char* argv[]) {
 //                    arr[i] = C[i];
 //                }
 
-                       std::cout << "test C\n";
-                       for (int i =0; i < n; i++) {
-                           std::cout << arr[i] << " ";
-                       }
-                       std::cout << "\n";
+//                       std::cout << "test C\n";
+//                       for (int i =0; i < n; i++) {
+//                           std::cout << arr[i] << " ";
+//                       }
+//                       std::cout << "\n";
             });
 
     // end timing
