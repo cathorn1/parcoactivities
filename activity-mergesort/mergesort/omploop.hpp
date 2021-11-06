@@ -30,7 +30,7 @@ public:
       TLS tls;
       before(tls);
       
-#pragma omp for schedule(dynamic)
+#pragma omp for schedule(static, n/nbthread)
       for (size_t i=beg; i<end; i+= increment) {
           f(i, tls);
       }
