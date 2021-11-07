@@ -32,7 +32,7 @@ void parfor (size_t beg, size_t end, size_t increment,
 
 #pragma omp for schedule(static)
             //for (size_t i=beg; i<end; i+= increment) {
-                f(tls);
+        {   f(tls);}
             //}
 #pragma omp critical
             after(tls);
