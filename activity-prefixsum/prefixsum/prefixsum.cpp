@@ -72,8 +72,8 @@ int main (int argc, char* argv[]) {
                 int ithread = omp_get_thread_num();
                 int nthreads = omp_get_num_threads();
 
-                s += prefix[i] + arr[i];
-
+                s += arr[i];
+                prefix[i] += prefix[i] + arr[i];
                 suma[ithread + 1] = s;
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
@@ -91,9 +91,13 @@ int main (int argc, char* argv[]) {
                 for (int i=0; i<n; i++)
                     prefix[i] += offset;
 
-                std::cout << "\nprint prefix hopefully" << std::endl;
+                std::cout << "\nprint suma" << std::endl;
                 for (int i=0; i<n+1; ++i) {
                     std::cout << suma[i] << " ";
+                }
+                std::cout << "\nprint prefix" << std::endl;
+                for (int i=0; i<n+1; ++i) {
+                    std::cout << prefix[i] << " ";
                 }
             });
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
