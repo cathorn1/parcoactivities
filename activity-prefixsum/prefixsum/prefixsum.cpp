@@ -47,8 +47,9 @@ int main (int argc, char* argv[]) {
     int* prefix = new int [n+1];
     int *suma = new int[nbthreads+1]; // partial results
 
-
-    int sum = 0;
+    prefix[0] = 0;
+    int s = 0;
+    int offset = 0;
     omp.parfor <std::vector<int>> (0, n, 1,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
@@ -56,15 +57,16 @@ int main (int argc, char* argv[]) {
 //                    C.push_back(arr[i]);
 //                }
 
-                int ithread = omp_get_thread_num();
-                int nthreads = omp_get_num_threads();
+                //int ithread = omp_get_thread_num();
+                //int nthreads = omp_get_num_threads();
             },
             [&](int i, std::vector<int> &C) -> void {
                 int ithread = omp_get_thread_num();
                 int nthreads = omp_get_num_threads();
 
-                sum += prefix[i] + arr[i];
-                suma[ithread + 1] = sum;
+                s += prefix[i] + arr[i];
+
+                suma[ithread + 1] = s;
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
 //                        std::cout << arr[i] << " ";
@@ -72,9 +74,16 @@ int main (int argc, char* argv[]) {
 //                    std::cout << "\n";
                 #pragma omp barrier
 
+                for(int i=0; i<(ithread+1); i++)
+                    offset += suma[i];
+
             },
             [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
+
+                for (int i=0; i<n; i++)
+                    prefix[i] += offset;
+
+//      for(int i = 0; i < n; i++){
 //                    //std::cout << "p3\n";
 //                    arr[i] = C[i];
 //                }
