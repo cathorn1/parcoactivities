@@ -47,7 +47,7 @@ int main (int argc, char* argv[]) {
     for (int i=0; i<n; ++i) {
         pre[i+1] = pre[i] + arr[i];
     }
-    std::cout << "print sequential pre test" << std::endl;
+    std::cout << "\nprint sequential pre test" << std::endl;
     for (int i=0; i<n+1; ++i) {
         std::cout << pre[i] << " ";
     }
@@ -91,16 +91,10 @@ int main (int argc, char* argv[]) {
                 for (int i=0; i<n; i++)
                     prefix[i] += offset;
 
-//      for(int i = 0; i < n; i++){
-//                    //std::cout << "p3\n";
-//                    arr[i] = C[i];
-//                }
-
-//                       std::cout << "test C\n";
-//                       for (int i =0; i < n; i++) {
-//                           std::cout << arr[i] << " ";
-//                       }
-//                       std::cout << "\n";
+                std::cout << "\nprint prefix hopefully" << std::endl;
+                for (int i=0; i<n+1; ++i) {
+                    std::cout << prefix[i] << " ";
+                }
             });
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
