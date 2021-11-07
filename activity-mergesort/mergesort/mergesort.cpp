@@ -244,7 +244,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    omp.parfor<std::vector<int>>(0, n+1, 1,
+    omp.parfor<std::vector<int>>(0, chunk, 1,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
@@ -278,9 +278,9 @@ int main (int argc, char* argv[]) {
 
                         // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
                         //std::lock_guard<std::mutex> lck (mut);
-                        mut.lock();
+                        //mut.lock();
                         merge(std::ref(arr), left_start, mid, right_end);
-                        mut.unlock();
+                        //mut.unlock();
                     }
 
                 }
