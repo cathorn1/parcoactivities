@@ -276,6 +276,7 @@ int main (int argc, char* argv[]) {
                        // for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
                             // Find ending point of left subarray. mid+1 is starting
                             // point of right
+                            left_start += 2*curr_size;
                             int mid = std::min(left_start + curr_size - 1, n - 1);
 
                             int right_end = std::min(left_start + 2 * curr_size - 1, n - 1);
