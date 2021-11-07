@@ -247,7 +247,7 @@ int main (int argc, char* argv[]) {
     omp.parfor<std::vector<int>>(0, 1, 1,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
-//                    //std::cout << "p1\n";
+                    std::cout << "p1\n";
 //                    C.push_back(arr[i]);
 //                }
             },
