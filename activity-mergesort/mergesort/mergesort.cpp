@@ -20,72 +20,19 @@ extern "C" {
 
 std::mutex mut;
 
-//void merge(int arr[], int l, int mid, int r) {
-//
-//#if DEBUG
-//    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
-//#endif
-//
-//    // short circuits
-//    if (l == r) return;
-//    if (r-l == 1) {
-//        if (arr[l] > arr[r]) {
-//            int temp = arr[l];
-//            arr[l] = arr[r];
-//            arr[r] = temp;
-//        }
-//        return;
-//    }
-//
-//    int i, j, k;
-//    int n = mid - l;
-//
-//    // declare and init temp arrays
-//    int *temp = new int[n];
-//    for (i=0; i<n; ++i)
-//        temp[i] = arr[l+i];
-//
-//    i = 0;    // temp left half
-//    j = mid;  // right half
-//    k = l;    // write to
-//
-//    // merge
-//
-//    while (i<n && j<=r) {
-//        if (temp[i] <= arr[j] ) {
-//            arr[k++] = temp[i++];
-//        } else {
-//            arr[k++] = arr[j++];
-//        }
-//    }
-//
-//
-//    // exhaust temp
-//    while (i<n) {
-//        arr[k++] = temp[i++];
-//    }
-//
-//    // de-allocate structs used
-//    delete[] temp;
-//
-//}
-
 void merge(int arr[], int l, int m, int r)
 {
     int i, j, k;
     int n1 = m - l + 1;
     int n2 =  r - m;
 
-    /* create temp arrays */
     int L[n1], R[n2];
 
-    /* Copy data to temp arrays L[] and R[] */
     for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
     for (j = 0; j < n2; j++)
         R[j] = arr[m + 1+ j];
 
-    /* Merge the temp arrays back into arr[l..r]*/
     i = 0;
     j = 0;
     k = l;
@@ -104,7 +51,6 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 
-    /* Copy the remaining elements of L[], if there are any */
     while (i < n1)
     {
         arr[k] = L[i];
@@ -112,7 +58,6 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 
-    /* Copy the remaining elements of R[], if there are any */
     while (j < n2)
     {
         arr[k] = R[j];
@@ -120,34 +65,23 @@ void merge(int arr[], int l, int m, int r)
         k++;
     }
 }
-void mergeSort(int arr[], int n)
-{
 
-    int curr_size;  // For current size of subarrays to be merged
-    // curr_size varies from 1 to n/2
-    int left_start; // For picking starting index of left subarray
-    // to be merged
-
-    // Merge subarrays in bottom up manner.  First merge subarrays of
-    // size 1 to create sorted subarrays of size 2, then merge subarrays
-    // of size 2 to create sorted subarrays of size 4, and so on.
-    for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
-    {
-        // Pick starting point of different subarrays of current size
-        for (left_start=0; left_start<n-1; left_start += 2*curr_size)
-        {
-            // Find ending point of left subarray. mid+1 is starting
-            // point of right
-            int mid = std::min(left_start + curr_size - 1, n-1);
-
-            int right_end = std::min(left_start + 2*curr_size - 1, n-1);
-
-            // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-            //std::lock_guard<std::mutex> lck (mut);
-            merge(std::ref(arr), left_start, mid, right_end);
-        }
-    }
-}
+//void mergeSort(int arr[], int n) {
+//    int curr_size;
+//    int left_start;
+//    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
+//
+//        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+//
+//            int mid = std::min(left_start + curr_size - 1, i - 1);
+//
+//            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+//
+//            std::lock_guard<std::mutex> lck (mut);
+//            merge(std::ref(arr), left_start, mid, right_end);
+//        }
+//    }
+//}
 
 int main (int argc, char* argv[]) {
   
@@ -167,10 +101,10 @@ int main (int argc, char* argv[]) {
   int* arr = new int [n];
   generateMergeSortData (arr, n);
 
-    for (int i =0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << "\n";
+//    for (int i =0; i < n; i++) {
+//        std::cout << arr[i] << " ";
+//    }
+//    std::cout << "\n";
 
 
     #if DEBUG
@@ -191,37 +125,26 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                 int curr_size;  // For current size of subarrays to be merged
-                    // curr_size varies from 1 to n/2
-                 int left_start; // For picking starting index of left subarray
-                    // to be merged
+                    int curr_size;
+                    int left_start;
+                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
 
-                    // Merge subarrays in bottom up manner.  First merge subarrays of
-                    // size 1 to create sorted subarrays of size 2, then merge subarrays
-                    // of size 2 to create sorted subarrays of size 4, and so on.
-
-                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size)
-                    {
-                    // Pick starting point of different subarrays of current size
                         for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-                            // Find ending point of left subarray. mid+1 is starting
-                            // point of right
+
                             int mid = std::min(left_start + curr_size - 1, i - 1);
 
                             int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                            // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
                             std::lock_guard<std::mutex> lck (mut);
                             merge(std::ref(arr), left_start, mid, right_end);
                         }
                     }
 
-
-                    std::cout << "middle test\n";
-                    for (int i = 0; i < n; i++) {
-                        std::cout << arr[i] << " ";
-                    }
-                    std::cout << "\n";
+//                    std::cout << "middle test\n";
+//                    for (int i = 0; i < n; i++) {
+//                        std::cout << arr[i] << " ";
+//                    }
+//                    std::cout << "\n";
 
                 },
                 [&](std::vector<int> &C) -> void {
@@ -256,33 +179,5 @@ int main (int argc, char* argv[]) {
 
   return 0;
 }
-
-
-
-//int curr_size;  // For current size of subarrays to be merged
-//                // curr_size varies from 1 to n/2
-//                int left_start; // For picking starting index of left subarray
-//                // to be merged
-//
-//                // Merge subarrays in bottom up manner.  First merge subarrays of
-//                // size 1 to create sorted subarrays of size 2, then merge subarrays
-//                // of size 2 to create sorted subarrays of size 4, and so on.
-//                for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
-//                {
-//                    // Pick starting point of different subarrays of current size
-//                    for (left_start=0; left_start<n-1; left_start += 2*curr_size)
-//                    {
-//                        // Find ending point of left subarray. mid+1 is starting
-//                        // point of right
-//                        int mid = std::min(left_start + curr_size - 1, n-1);
-//
-//                        int right_end = std::min(left_start + 2*curr_size - 1, n-1);
-//
-//                        // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-//                        //std::lock_guard<std::mutex> lck (mut);
-//                        merge(std::ref(arr), left_start, mid, right_end);
-//                    }
-//                }
-
 
 
