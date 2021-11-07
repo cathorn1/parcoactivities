@@ -74,8 +74,8 @@ int main (int argc, char* argv[]) {
                 [&](int i, std::vector<int> &C) -> void {
 
                     std::cout << "int k: " << k << "\n";
-                    int indA = k + pow(2, nbthreads) - 1;
-                    int indB = k +  pow(2, (nbthreads+1)) - 1;
+                    int indA = i + pow(2, nbthreads) - 1;
+                    int indB = i +  pow(2, (nbthreads+1)) - 1;
                     int temp = arr[indA];
                     arr[indA] = arr[indB];
                     arr[indB] = temp + arr[indB];
