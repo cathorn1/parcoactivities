@@ -248,9 +248,11 @@ int main (int argc, char* argv[]) {
     //for(int i =0; i < n; i++) {
 
     int curr_size = 1;
-    int left_start;
+    int left_start =0;
 
-        omp.parfor < std::vector < int >> (curr_size, n+1, 1,
+    for (curr_size = 1; curr_size <= n - 1; curr_size = 2 * curr_size) {
+
+        omp.parfor < std::vector < int >> (left_start, n-1, 2*curr_size,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
@@ -271,7 +273,7 @@ int main (int argc, char* argv[]) {
 
                     //for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
                         // Pick starting point of different subarrays of current size
-                        for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
+                       // for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
                             // Find ending point of left subarray. mid+1 is starting
                             // point of right
                             int mid = std::min(left_start + curr_size - 1, n - 1);
@@ -283,7 +285,7 @@ int main (int argc, char* argv[]) {
                             //mut.lock();
                             merge(std::ref(arr), left_start, mid, right_end);
                             //mut.unlock();
-                        }
+                      //  }
 
                     //}
 //
@@ -307,7 +309,7 @@ int main (int argc, char* argv[]) {
 //                       }
 //                       std::cout << "\n";
                 });
-   // } //close outer for
+    } //close outer for
 
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
