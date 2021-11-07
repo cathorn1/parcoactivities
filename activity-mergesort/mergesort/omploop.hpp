@@ -31,7 +31,7 @@ public:
       before(tls);
       
 #pragma omp for schedule(static)
-      for (size_t i=beg; i<end; i+= end) {
+      for (size_t i=beg; i<end; i++) {
           f(i, tls);
       }
 #pragma omp critical
