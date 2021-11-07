@@ -248,7 +248,7 @@ int main (int argc, char* argv[]) {
     //for(int i =0; i < n; i++) {
 
     int curr_size = 1;
-    int left_start = 0;
+    //int left_start = 0;
 
         omp.parfor < std::vector < int >> (curr_size, n - 1, 2*curr_size,
                 [&](std::vector<int> &C) -> void {
@@ -262,7 +262,7 @@ int main (int argc, char* argv[]) {
 
                     //int curr_size;  // For current size of subarrays to be merged
                     // curr_size varies from 1 to n/2
-                    //int left_start; // For picking starting index of left subarray
+                    int left_start; // For picking starting index of left subarray
                     // to be merged
 
                     // Merge subarrays in bottom up manner.  First merge subarrays of
