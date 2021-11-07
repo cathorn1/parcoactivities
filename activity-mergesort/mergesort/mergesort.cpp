@@ -20,106 +20,106 @@ extern "C" {
 
 std::mutex mut;
 
-//void merge(int arr[], int l, int mid, int r) {
-//
-//#if DEBUG
-//    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
-//#endif
-//
-//    // short circuits
-//    if (l == r) return;
-//    if (r-l == 1) {
-//        if (arr[l] > arr[r]) {
-//            int temp = arr[l];
-//            arr[l] = arr[r];
-//            arr[r] = temp;
-//        }
-//        return;
-//    }
-//
-//    int i, j, k;
-//    int n = mid - l;
-//
-//    // declare and init temp arrays
-//    int *temp = new int[n];
-//    for (i=0; i<n; ++i)
-//        temp[i] = arr[l+i];
-//
-//    i = 0;    // temp left half
-//    j = mid;  // right half
-//    k = l;    // write to
-//
-//    // merge
-//
-//    while (i<n && j<=r) {
-//        if (temp[i] <= arr[j] ) {
-//            arr[k++] = temp[i++];
-//        } else {
-//            arr[k++] = arr[j++];
-//        }
-//    }
-//
-//
-//    // exhaust temp
-//    while (i<n) {
-//        arr[k++] = temp[i++];
-//    }
-//
-//    // de-allocate structs used
-//    delete[] temp;
-//
-//}
+void merge(int arr[], int l, int mid, int r) {
 
-void merge(int arr[], int l, int m, int r)
-{
+#if DEBUG
+    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
+#endif
+
+    // short circuits
+    if (l == r) return;
+    if (r-l == 1) {
+        if (arr[l] > arr[r]) {
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+        }
+        return;
+    }
+
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 =  r - m;
+    int n = mid - l;
 
-    /* create temp arrays */
-    int L[n1], R[n2];
+    // declare and init temp arrays
+    int *temp = new int[n];
+    for (i=0; i<n; ++i)
+        temp[i] = arr[l+i];
 
-    /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1+ j];
+    i = 0;    // temp left half
+    j = mid;  // right half
+    k = l;    // write to
 
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0;
-    j = 0;
-    k = l;
-    while (i < n1 && j < n2)
-    {
-        if (L[i] <= R[j])
-        {
-            arr[k] = L[i];
-            i++;
+    // merge
+
+    while (i<n && j<=r) {
+        if (temp[i] <= arr[j] ) {
+            arr[k++] = temp[i++];
+        } else {
+            arr[k++] = arr[j++];
         }
-        else
-        {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
     }
 
-    /* Copy the remaining elements of L[], if there are any */
-    while (i < n1)
-    {
-        arr[k] = L[i];
-        i++;
-        k++;
+
+    // exhaust temp
+    while (i<n) {
+        arr[k++] = temp[i++];
     }
 
-    /* Copy the remaining elements of R[], if there are any */
-    while (j < n2)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
+    // de-allocate structs used
+    delete[] temp;
+
 }
+
+//void merge(int arr[], int l, int m, int r)
+//{
+//    int i, j, k;
+//    int n1 = m - l + 1;
+//    int n2 =  r - m;
+//
+//    /* create temp arrays */
+//    int L[n1], R[n2];
+//
+//    /* Copy data to temp arrays L[] and R[] */
+//    for (i = 0; i < n1; i++)
+//        L[i] = arr[l + i];
+//    for (j = 0; j < n2; j++)
+//        R[j] = arr[m + 1+ j];
+//
+//    /* Merge the temp arrays back into arr[l..r]*/
+//    i = 0;
+//    j = 0;
+//    k = l;
+//    while (i < n1 && j < n2)
+//    {
+//        if (L[i] <= R[j])
+//        {
+//            arr[k] = L[i];
+//            i++;
+//        }
+//        else
+//        {
+//            arr[k] = R[j];
+//            j++;
+//        }
+//        k++;
+//    }
+//
+//    /* Copy the remaining elements of L[], if there are any */
+//    while (i < n1)
+//    {
+//        arr[k] = L[i];
+//        i++;
+//        k++;
+//    }
+//
+//    /* Copy the remaining elements of R[], if there are any */
+//    while (j < n2)
+//    {
+//        arr[k] = R[j];
+//        j++;
+//        k++;
+//    }
+//}
 void mergeSort(int arr[], int n)
 {
 
