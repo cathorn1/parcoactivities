@@ -247,8 +247,8 @@ int main (int argc, char* argv[]) {
 
     //for(int i =0; i < n; i++) {
 
-//    int curr_size = 1;
-//    int left_start =0;
+    int curr_size = 1;
+    int left_start =0;
 //
 //    for (curr_size = 1; curr_size <= n+1; curr_size++) {
 
@@ -261,9 +261,9 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                    int curr_size;  // For current size of subarrays to be merged
+                  //  int curr_size;  // For current size of subarrays to be merged
                     // curr_size varies from 1 to n/2
-                    int left_start; // For picking starting index of left subarray
+                   // int left_start; // For picking starting index of left subarray
                     // to be merged
 
                     // Merge subarrays in bottom up manner.  First merge subarrays of
