@@ -38,11 +38,19 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
     //sequential
-//    prefix[0] = 0;
-//
-//    for (int i=0; i<n; ++i) {
-//        prefix[i+1] = prefix[i] + arr[i];
-//    }
+    int* pre = new int [n+1];
+    pre[0] = 0;
+    std::cout << "print arr" << std::endl;
+    for (int i=0; i<n; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    for (int i=0; i<n; ++i) {
+        pre[i+1] = pre[i] + arr[i];
+    }
+    std::cout << "print sequential pre test" << std::endl;
+    for (int i=0; i<n; ++i) {
+        std::cout << pre[i] << " ";
+    }
 
     int* prefix = new int [n+1];
     int *suma = new int[nbthreads+1]; // partial results
