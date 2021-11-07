@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <chrono>
+#include <omp.h>
+#include <vector>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -47,7 +49,7 @@ int main (int argc, char* argv[]) {
 
 
     int sum = 0;
-    omp.parfor < std::vector < int >> (0, n, 1,
+    omp.parfor <std::vector<int>> (0, n, 1,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
