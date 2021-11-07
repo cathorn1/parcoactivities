@@ -7,6 +7,8 @@
 #include <chrono>
 #include <omp.h>
 #include <vector>
+#include <cmath>
+#include <math.h>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -58,48 +60,39 @@ int main (int argc, char* argv[]) {
     prefix[0] = 0;
     int s = 0;
     int offset = 0;
-    omp.parfor <std::vector<int>> (0, n, 1,
-            [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
-//                    std::cout << "p1\n";
-//                    C.push_back(arr[i]);
-//                }
 
-                //int ithread = omp_get_thread_num();
-                //int nthreads = omp_get_num_threads();
-            },
-            [&](int i, std::vector<int> &C) -> void {
-                int ithread = omp_get_thread_num();
-                int nthreads = omp_get_num_threads();
+    arr[n-1] =0;
+    int k = 0;
 
-                s += arr[i];
-                prefix[i] += prefix[i] + arr[i];
-                suma[ithread + 1] = s;
-//                    std::cout << "middle test\n";
-//                    for (int i = 0; i < n; i++) {
-//                        std::cout << arr[i] << " ";
+    for (int i = log2(n)-1; i >= 0; i--) {
+
+        omp.parfor<std::vector<int>>(k, n-1, pow(2,nbthreads +1),
+                [&](std::vector<int> &C) -> void {
+
+                },
+                [&](int i, std::vector<int> &C) -> void {
+
+                    int indA = k + pow(2, nbthreads) - 1;
+                    int indB = k +  pow(2, (nbthreads+1)) - 1;
+                    int temp = arr[indA];
+                    arr[indA] = arr[indB];
+                    arr[indB] = temp + arr[indB];
+                },
+                [&](std::vector<int> &C) -> void {
+
+                    for (int i = 0; i < n; i++)
+                        prefix[i] += offset;
+
+                    std::cout << "\nprint arr" << std::endl;
+                    for (int i = 0; i < n + 1; ++i) {
+                        std::cout << arr[i] << " ";
+                    }
+//                    std::cout << "\nprint prefix" << std::endl;
+//                    for (int i = 0; i < n + 1; ++i) {
+//                        std::cout << prefix[i] << " ";
 //                    }
-//                    std::cout << "\n";
-                #pragma omp barrier
-
-                for(int i=0; i<(ithread+1); i++)
-                    offset += suma[i];
-
-            },
-            [&](std::vector<int> &C) -> void {
-
-                for (int i=0; i<n; i++)
-                    prefix[i] += offset;
-
-                std::cout << "\nprint suma" << std::endl;
-                for (int i=0; i<n+1; ++i) {
-                    std::cout << suma[i] << " ";
-                }
-                std::cout << "\nprint prefix" << std::endl;
-                for (int i=0; i<n+1; ++i) {
-                    std::cout << prefix[i] << " ";
-                }
-            });
+                });
+   }
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
     std::chrono::duration<double> elapsed_seconds = end-start;
@@ -112,3 +105,48 @@ int main (int argc, char* argv[]) {
 
   return 0;
 }
+
+
+
+//omp.parfor <std::vector<int>> (0, n, 1,
+//            [&](std::vector<int> &C) -> void {
+////                for(int i = 0; i < n; i++){
+////                    std::cout << "p1\n";
+////                    C.push_back(arr[i]);
+////                }
+//
+//                //int ithread = omp_get_thread_num();
+//                //int nthreads = omp_get_num_threads();
+//            },
+//            [&](int i, std::vector<int> &C) -> void {
+//                int ithread = omp_get_thread_num();
+//                int nthreads = omp_get_num_threads();
+//
+//                s += arr[i];
+//                prefix[i] += prefix[i] + arr[i];
+//                suma[ithread + 1] = s;
+////                    std::cout << "middle test\n";
+////                    for (int i = 0; i < n; i++) {
+////                        std::cout << arr[i] << " ";
+////                    }
+////                    std::cout << "\n";
+//                #pragma omp barrier
+//
+//                for(int i=0; i<(ithread+1); i++)
+//                    offset += suma[i];
+//
+//            },
+//            [&](std::vector<int> &C) -> void {
+//
+//                for (int i=0; i<n; i++)
+//                    prefix[i] += offset;
+//
+//                std::cout << "\nprint suma" << std::endl;
+//                for (int i=0; i<n+1; ++i) {
+//                    std::cout << suma[i] << " ";
+//                }
+//                std::cout << "\nprint prefix" << std::endl;
+//                for (int i=0; i<n+1; ++i) {
+//                    std::cout << prefix[i] << " ";
+//                }
+//            });
