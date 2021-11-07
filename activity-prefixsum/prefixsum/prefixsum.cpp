@@ -48,7 +48,7 @@ int main (int argc, char* argv[]) {
         pre[i+1] = pre[i] + arr[i];
     }
     std::cout << "print sequential pre test" << std::endl;
-    for (int i=0; i<n; ++i) {
+    for (int i=0; i<n+1; ++i) {
         std::cout << pre[i] << " ";
     }
 
