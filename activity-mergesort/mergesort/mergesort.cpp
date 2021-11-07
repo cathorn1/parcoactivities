@@ -244,7 +244,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    omp.parfor<std::vector<int>>(0, n+1, chunk,
+    omp.parfor<std::vector<int>>(0, nbthreads, chunk,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
                     std::cout << "p1\n";
@@ -280,6 +280,7 @@ int main (int argc, char* argv[]) {
                         std::lock_guard<std::mutex> lck (mut);
                         merge(std::ref(arr), left_start, mid, right_end);
                     }
+
                 }
 //
 
