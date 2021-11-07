@@ -229,10 +229,10 @@ int main (int argc, char* argv[]) {
   int* arr = new int [n];
   generateMergeSortData (arr, n);
 
-    for (int i =0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << "\n";
+//    for (int i =0; i < n; i++) {
+//        std::cout << arr[i] << " ";
+//    }
+//    std::cout << "\n";
 
 
     #if DEBUG
@@ -247,7 +247,7 @@ int main (int argc, char* argv[]) {
     omp.parfor<std::vector<int>>(0, n+1, chunk,
             [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
-                    std::cout << "p1\n";
+//                    std::cout << "p1\n";
 //                    C.push_back(arr[i]);
 //                }
             },
@@ -284,11 +284,11 @@ int main (int argc, char* argv[]) {
                 }
 //
 
-                std::cout << "middle test\n";
-                for (int i =0; i < n; i++) {
-                    std::cout << arr[i] << " ";
-                }
-                std::cout << "\n";
+//                std::cout << "middle test\n";
+//                for (int i =0; i < n; i++) {
+//                    std::cout << arr[i] << " ";
+//                }
+//                std::cout << "\n";
 
             },
             [&](std::vector<int> &C) -> void {
@@ -297,11 +297,11 @@ int main (int argc, char* argv[]) {
 //                    arr[i] = C[i];
 //                }
 
-                       std::cout << "test C\n";
-                       for (int i =0; i < n; i++) {
-                           std::cout << arr[i] << " ";
-                       }
-                       std::cout << "\n";
+//                       std::cout << "test C\n";
+//                       for (int i =0; i < n; i++) {
+//                           std::cout << arr[i] << " ";
+//                       }
+//                       std::cout << "\n";
             });
 
     // end timing
