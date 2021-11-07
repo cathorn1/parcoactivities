@@ -244,56 +244,58 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    omp.parfor<std::vector<int>>(0, n+1, 1,
-            [&](std::vector<int> &C) -> void {
+
+    //for(int i =0; i < n; i++) {
+
+    int curr_size = 1;
+    int left_start = 0;
+
+        omp.parfor < std::vector < int >> (curr_size, n - 1, 2*curr_size,
+                [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
 //                    C.push_back(arr[i]);
 //                }
-            },
-            [&](int i, std::vector<int> &C) -> void {
+                },
+                [&](int i, std::vector<int> &C) -> void {
 
 
-                //mergeSort(std::ref(arr), n);
-                //merge_sections_of_array(std::ref(arr), n, nbthreads, chunk,1);
+                    //int curr_size;  // For current size of subarrays to be merged
+                    // curr_size varies from 1 to n/2
+                    //int left_start; // For picking starting index of left subarray
+                    // to be merged
 
-                int curr_size;  // For current size of subarrays to be merged
-                // curr_size varies from 1 to n/2
-                int left_start; // For picking starting index of left subarray
-                // to be merged
+                    // Merge subarrays in bottom up manner.  First merge subarrays of
+                    // size 1 to create sorted subarrays of size 2, then merge subarrays
+                    // of size 2 to create sorted subarrays of size 4, and so on.
 
-                // Merge subarrays in bottom up manner.  First merge subarrays of
-                // size 1 to create sorted subarrays of size 2, then merge subarrays
-                // of size 2 to create sorted subarrays of size 4, and so on.
-                for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size)
-                {
-                    // Pick starting point of different subarrays of current size
-                    for (left_start=0; left_start<i-1; left_start += 2*curr_size)
-                    {
-                        // Find ending point of left subarray. mid+1 is starting
-                        // point of right
-                        int mid = std::min(left_start + curr_size - 1, i-1);
+                    //for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+                        // Pick starting point of different subarrays of current size
+                        for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
+                            // Find ending point of left subarray. mid+1 is starting
+                            // point of right
+                            int mid = std::min(left_start + curr_size - 1, n - 1);
 
-                        int right_end = std::min(left_start + 2*curr_size - 1, i-1);
+                            int right_end = std::min(left_start + 2 * curr_size - 1, n - 1);
 
-                        // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-                        std::lock_guard<std::mutex> lck (mut);
-                        //mut.lock();
-                        merge(std::ref(arr), left_start, mid, right_end);
-                        //mut.unlock();
-                    }
+                            // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
+                            //std::lock_guard <std::mutex> lck(mut);
+                            //mut.lock();
+                            merge(std::ref(arr), left_start, mid, right_end);
+                            //mut.unlock();
+                        }
 
-                }
+                    //}
 //
 
-                std::cout << "middle test\n";
-                for (int i =0; i < n; i++) {
-                    std::cout << arr[i] << " ";
-                }
-                std::cout << "\n";
+                    std::cout << "middle test\n";
+                    for (int i = 0; i < n; i++) {
+                        std::cout << arr[i] << " ";
+                    }
+                    std::cout << "\n";
 
-            },
-            [&](std::vector<int> &C) -> void {
+                },
+                [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    //std::cout << "p3\n";
 //                    arr[i] = C[i];
@@ -304,7 +306,8 @@ int main (int argc, char* argv[]) {
 //                           std::cout << arr[i] << " ";
 //                       }
 //                       std::cout << "\n";
-            });
+                });
+   // } //close outer for
 
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
