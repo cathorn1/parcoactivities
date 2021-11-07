@@ -43,8 +43,8 @@ int main (int argc, char* argv[]) {
 //    }
 
     int* prefix = new int [n+1];
-    int *suma; // partial results
-    suma = malloc((sizeof *suma) * (nbthreads+1)), suma[0]=0;
+    int *suma = new int[nbthreads+1]; // partial results
+
 
     int sum = 0;
     omp.parfor < std::vector < int >> (0, n, 1,
