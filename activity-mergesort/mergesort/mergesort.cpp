@@ -259,7 +259,7 @@ int main (int argc, char* argv[]) {
 //                    C.push_back(arr[i]);
 //                }
                 },
-                [&](std::vector<int> &C) -> void {
+                [&](int i, std::vector<int> &C) -> void {
 
                     int curr_size;  // For current size of subarrays to be merged
                     // curr_size varies from 1 to n/2
