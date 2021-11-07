@@ -282,7 +282,7 @@ int main (int argc, char* argv[]) {
 
                             // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
                             //std::lock_guard<std::mutex> lck (mut);
-                            merge(std::ref(arr), left_start, (mid + 1), right_end);
+                            merge(std::ref(arr), left_start, mid, right_end);
                         }
                     }
 
