@@ -64,7 +64,7 @@ int main (int argc, char* argv[]) {
     arr[n-1] =0;
     int k = 0;
 
-    for (int i = log2(n)-1; i >= 0; i--) {
+    for (int i = nbthreads; i >= 0; i--) {
 
         omp.parfor<std::vector<int>>(k, n-1, pow(2,nbthreads +1),
                 [&](std::vector<int> &C) -> void {
