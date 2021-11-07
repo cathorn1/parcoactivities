@@ -250,7 +250,7 @@ int main (int argc, char* argv[]) {
     int curr_size = 1;
     int left_start;
 
-        omp.parfor < std::vector < int >> (curr_size, n - 2, 2*curr_size,
+        omp.parfor < std::vector < int >> (curr_size, n - 2, chunk,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
