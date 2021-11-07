@@ -63,10 +63,11 @@ int main (int argc, char* argv[]) {
 
     arr[n-1] =0;
     int k = 0;
+    int chunk = pow(2,nbthreads +1);
 
     for (int i = nbthreads; i >= 0; i--) {
 
-        omp.parfor<std::vector<int>>(k, n-1, pow(2,nbthreads +1),
+        omp.parfor<std::vector<int>>(k, n-1, chunk,
                 [&](std::vector<int> &C) -> void {
 
                 },
