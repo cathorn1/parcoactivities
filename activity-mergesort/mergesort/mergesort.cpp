@@ -252,7 +252,7 @@ int main (int argc, char* argv[]) {
 //
 //    for (curr_size = 1; curr_size <= n+1; curr_size++) {
 
-        omp.parfor < std::vector < int >> (0, nbthreads, 1,
+        omp.parfor < std::vector < int >> (0, n+1, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
