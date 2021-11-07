@@ -182,14 +182,6 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-
-    //for(int i =0; i < n; i++) {
-
-    int curr_size = 1;
-    int left_start =0;
-//
-//    for (curr_size = 1; curr_size <= n+1; curr_size++) {
-
         omp.parfor < std::vector < int >> (0, n+1, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
@@ -199,9 +191,9 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                  //  int curr_size;  // For current size of subarrays to be merged
+                 int curr_size;  // For current size of subarrays to be merged
                     // curr_size varies from 1 to n/2
-                   // int left_start; // For picking starting index of left subarray
+                 int left_start; // For picking starting index of left subarray
                     // to be merged
 
                     // Merge subarrays in bottom up manner.  First merge subarrays of
@@ -244,7 +236,7 @@ int main (int argc, char* argv[]) {
 //                       }
 //                       std::cout << "\n";
                 });
-    //} //close outer for
+
 
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
@@ -288,7 +280,7 @@ int main (int argc, char* argv[]) {
 //
 //                        // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
 //                        //std::lock_guard<std::mutex> lck (mut);
-//                        merge(std::ref(arr), left_start, (mid+1), right_end);
+//                        merge(std::ref(arr), left_start, mid, right_end);
 //                    }
 //                }
 
