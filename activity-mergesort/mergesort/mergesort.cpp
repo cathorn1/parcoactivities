@@ -249,10 +249,10 @@ int main (int argc, char* argv[]) {
 
     int curr_size = 1;
     int left_start =0;
+//
+//    for (curr_size = 1; curr_size <= n+1; curr_size++) {
 
-    for (curr_size = 1; curr_size <= n+1; curr_size++) {
-
-        omp.parfor < std::vector < int >> (left_start, n, 1,
+        omp.parfor < std::vector < int >> (0, nbthreads, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
@@ -261,35 +261,33 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
+               // int curr_size;  // For current size of subarrays to be merged
+                // curr_size varies from 1 to n/2
+                //int left_start; // For picking starting index of left subarray
+                // to be merged
 
-                    //int curr_size;  // For current size of subarrays to be merged
-                    // curr_size varies from 1 to n/2
-                    //int left_start; // For picking starting index of left subarray
-                    // to be merged
+                // Merge subarrays in bottom up manner.  First merge subarrays of
+                // size 1 to create sorted subarrays of size 2, then merge subarrays
+                // of size 2 to create sorted subarrays of size 4, and so on.
+                while(curr_size <= n-1){
+                //for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
+                //{
+                    // Pick starting point of different subarrays of current size
+                    for (left_start=0; left_start<n-1; left_start += 2*curr_size)
+                    {
+                        // Find ending point of left subarray. mid+1 is starting
+                        // point of right
+                        int mid = std::min(left_start + curr_size - 1, n-1);
 
-                    // Merge subarrays in bottom up manner.  First merge subarrays of
-                    // size 1 to create sorted subarrays of size 2, then merge subarrays
-                    // of size 2 to create sorted subarrays of size 4, and so on.
+                        int right_end = std::min(left_start + 2*curr_size - 1, n-1);
 
-                    //for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
-                        // Pick starting point of different subarrays of current size
-                       // for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
-                            // Find ending point of left subarray. mid+1 is starting
-                            // point of right
-                            left_start += chunk;
-                            int mid = std::min(left_start + chunk - 1, n - 1);
-
-                            int right_end = std::min(left_start + 2 * chunk - 1, n - 1);
-
-                            // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-                            //std::lock_guard <std::mutex> lck(mut);
-                            //mut.lock();
-                            merge(std::ref(arr), left_start, mid, right_end);
-                            //mut.unlock();
-                      //  }
-
-                    //}
-//
+                        // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
+                        //std::lock_guard<std::mutex> lck (mut);
+                        merge(std::ref(arr), left_start, (mid+1), right_end);
+                    }
+                    curr_size = 2*curr_size;
+                //}
+                }
 
                     std::cout << "middle test\n";
                     for (int i = 0; i < n; i++) {
@@ -310,7 +308,7 @@ int main (int argc, char* argv[]) {
 //                       }
 //                       std::cout << "\n";
                 });
-    } //close outer for
+    //} //close outer for
 
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
