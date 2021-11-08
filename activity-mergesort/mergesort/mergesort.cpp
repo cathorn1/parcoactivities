@@ -70,6 +70,7 @@ void merge(int arr[], int l, int m, int r)
 void mergeSort(int arr[], int n, int nbthreads) {
 
     int p = omp_get_thread_num()+1;
+    std::cout << "p val: " << p << "\n";
     int begin = p*(n/nbthreads);
     int end = (p+1) * (n/nbthreads);
 
@@ -109,10 +110,10 @@ int main (int argc, char* argv[]) {
   int* arr = new int [n];
   generateMergeSortData (arr, n);
 
-//    for (int i =0; i < n; i++) {
-//        std::cout << arr[i] << " ";
-//    }
-//    std::cout << "\n";
+    for (int i =0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
 
 
     #if DEBUG
@@ -153,11 +154,11 @@ int main (int argc, char* argv[]) {
 //                        }
 //                    }
 
-//                    std::cout << "middle test\n";
-//                    for (int i = 0; i < n; i++) {
-//                        std::cout << arr[i] << " ";
-//                    }
-//                    std::cout << "\n";
+                    std::cout << "middle test\n";
+                    for (int i = 0; i < n; i++) {
+                        std::cout << arr[i] << " ";
+                    }
+                    std::cout << "\n";
 
                 },
                 [&](std::vector<int> &C) -> void {
