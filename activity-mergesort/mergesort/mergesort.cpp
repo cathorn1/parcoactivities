@@ -21,8 +21,8 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(int arr[], int l, int m, int r)
-{
+void merge(int arr[], int l, int m, int r) {
+    std::lock_guard<std::mutex> lck (mut);
     int i, j, k;
     int n1 = m - l + 1;
     int n2 =  r - m;
@@ -154,7 +154,7 @@ int main (int argc, char* argv[]) {
 
                                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                                std::lock_guard <std::mutex> lck(mut);
+                                //std::lock_guard <std::mutex> lck(mut);
                                 merge(std::ref(arr), left_start, mid, right_end);
                             }
                         }
