@@ -168,6 +168,7 @@ int main (int argc, char* argv[]) {
 
                                 //std::lock_guard <std::mutex> lck(mut);
                                 merge(std::ref(arr), temp, left_start, mid, right_end);
+                                #pragma omp barrier
                             }
                         }
                     }
