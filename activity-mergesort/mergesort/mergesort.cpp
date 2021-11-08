@@ -221,7 +221,7 @@ int main (int argc, char* argv[]) {
                             }
                         }
                     }
-
+#pragma omp barrier
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
 //                        std::cout << arr[i] << " ";
