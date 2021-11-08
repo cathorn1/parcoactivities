@@ -88,24 +88,24 @@ std::mutex mut;
 //    }
 //}
 
-void merge(int A[], int temp[], int from, int mid, int to)
+void merge(int arr[], int temp[], int from, int mid, int to)
 {
     int k = from, i = from, j = mid + 1;
 
     // loop till no elements are left in the left and right runs
     while (i <= mid && j <= to)
     {
-        if (A[i] < A[j]) {
-            temp[k++] = A[i++];
+        if (arr[i] < arr[j]) {
+            temp[k++] = arr[i++];
         }
         else {
-            temp[k++] = A[j++];
+            temp[k++] = arr[j++];
         }
     }
 
     // copy remaining elements
     while (i < (to-from) && i <= mid) {
-        temp[k++] = A[i++];
+        temp[k++] = arr[i++];
     }
 
     /* no need to copy the second half (since the remaining items
@@ -113,12 +113,12 @@ void merge(int A[], int temp[], int from, int mid, int to)
 
     // copy back to the original array to reflect sorted order
     for (int i = from; i <= to; i++) {
-        A[i] = temp[i];
+        arr[i] = temp[i];
     }
 }
 
 // Iteratively sort subarray `A[low…high]` using a temporary array
-void mergesort(int A[], int temp[], int low, int high)
+void mergesort(int arr[], int temp[], int low, int high)
 {
     // divide the array into blocks of size `m`
     // m = [1, 2, 4, 8, 16…]
@@ -134,7 +134,7 @@ void mergesort(int A[], int temp[], int low, int high)
             int mid = i + m - 1;
             int to = std::min(i + 2*m - 1, high);
 
-            merge(A, temp, from, mid, to);
+            merge(std::ref(arr), temp, from, mid, to);
         }
     }
 }
