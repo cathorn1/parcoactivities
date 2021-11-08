@@ -145,6 +145,7 @@ int main (int argc, char* argv[]) {
                         end += n%nbthreads;
                     }
 
+                    #pragma shared(arr)
                     for (int i = begin; i <= end; i++) {
 
                         int curr_size;
