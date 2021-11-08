@@ -137,7 +137,7 @@ int main (int argc, char* argv[]) {
                     int begin = p*(n/nbthreads);
                     int end = (p+1) * (n/nbthreads);
 
-                    if (p == nbthreads){
+                    if (p == nbthreads-1){
                         end += n%nbthreads;
                     }
                     //std::lock_guard<std::mutex> lk (mut);
