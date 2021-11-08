@@ -151,23 +151,24 @@ int main (int argc, char* argv[]) {
                         end += n%nbthreads;
                     }
 
-                    mergeSort(std::ref(arr), std::ref(temp), begin, end);
+                    //mergeSort(std::ref(arr), std::ref(temp), begin, end);
 
+                    for (int i = begin; i <= end; i++) {
+                        int curr_size;
+                        int left_start;
+                        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
 
-            //                    int curr_size;
-//                    int left_start;
-//                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
-//
-//                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-//
-//                            int mid = std::min(left_start + curr_size - 1, i - 1);
-//
-//                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-//
-//                            std::lock_guard<std::mutex> lck (mut);
-//                            merge(std::ref(arr), left_start, mid, right_end);
-//                        }
-//                    }
+                            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+
+                                int mid = std::min(left_start + curr_size - 1, i - 1);
+
+                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+
+                                //std::lock_guard <std::mutex> lck(mut);
+                                merge(std::ref(arr), temp, left_start, mid, right_end);
+                            }
+                        }
+                    }
 
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
