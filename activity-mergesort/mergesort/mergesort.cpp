@@ -238,9 +238,9 @@ int main (int argc, char* argv[]) {
 
                 });
 
-    std::cout << "temp test\n";
+    std::cout << "arr test\n";
     for (int i =0; i < n; i++) {
-        std::cout << temp[i] << " ";
+        std::cout << arr[i] << " ";
     }
     std::cout << "\n";
     // end timing
@@ -249,7 +249,7 @@ int main (int argc, char* argv[]) {
 
     // display time to cerr
     std::cerr<<elpased_seconds.count()<<std::endl;
-    checkMergeSortResult (temp, n);
+    checkMergeSortResult (arr, n);
 
   #if DEBUG
         for (int i=0; i<n; ++i)
