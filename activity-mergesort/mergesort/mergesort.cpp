@@ -65,13 +65,14 @@ void merge(int arr[], int temp[], int l, int m, int r) {
         j++;
         k++;
     }
+
     for(int k = 0; k < (r-l); k++){
         arr[k] = temp[k];
     }
 }
 
-void mergeSort(int arr[], int begin, int end) {
-    int* temp = new int[end-begin];
+void mergeSort(int arr[], int temp[], int begin, int end) {
+
 
     for (int i = begin; i <= end; i++) {
         int curr_size;
@@ -113,6 +114,8 @@ int main (int argc, char* argv[]) {
 //
     for (int i =0; i < n; i++) {
         std::cout << arr[i] << " ";
+        temp[i] = arr[i];
+        std::cout << temp[i] << " ";
     }
     std::cout << "\n";
 
@@ -146,7 +149,7 @@ int main (int argc, char* argv[]) {
                         end += n%nbthreads;
                     }
 
-                    mergeSort(std::ref(arr), begin, end);
+                    mergeSort(std::ref(arr), std::ref(temp), begin, end);
 
 
             //                    int curr_size;
