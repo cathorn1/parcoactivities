@@ -121,7 +121,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-    int count = 0;
+
         omp.parfor < std::vector < int >> (0, nbthreads, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
@@ -137,12 +137,12 @@ int main (int argc, char* argv[]) {
                     int begin = p*(n/nbthreads);
                     int end = (p+1) * (n/nbthreads);
 
-                    if (count+1 == nbthreads){
+                    if (p == nbthreads){
                         end += n%nbthreads;
                     }
                     //std::lock_guard<std::mutex> lk (mut);
                     mergeSort(std::ref(arr), begin, end);
-                    count++;
+
 
             //                    int curr_size;
 //                    int left_start;
