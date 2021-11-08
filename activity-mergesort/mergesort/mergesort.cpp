@@ -197,7 +197,7 @@ int main (int argc, char* argv[]) {
 
     // display time to cerr
     std::cerr<<elpased_seconds.count()<<std::endl;
-    checkMergeSortResult (arr, n);
+    checkMergeSortResult (temp, n);
 
   #if DEBUG
         for (int i=0; i<n; ++i)
