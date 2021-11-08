@@ -1,6 +1,0 @@
-starting time is Sat Nov 6 12:36:26 EDT 2021
-/var/spool/slurm/slurmd/job6796823/slurm_script: line 28: 717193 Killed                  ./mergesort $n $t > /dev/null 2> ${RESULTDIR}/mergesort_${n}_${t}
-/var/spool/slurm/slurmd/job6796823/slurm_script: line 28: 717220 Killed                  ./mergesort $n $t > /dev/null 2> ${RESULTDIR}/mergesort_${n}_${t}
-/var/spool/slurm/slurmd/job6796823/slurm_script: line 28: 717237 Killed                  ./mergesort $n $t > /dev/null 2> ${RESULTDIR}/mergesort_${n}_${t}
-ending time is Sat Nov 6 12:51:33 EDT 2021
-slurmstepd: error: Detected 3 oom-kill event(s) in StepId=6796823.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
