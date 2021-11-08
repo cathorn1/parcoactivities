@@ -73,7 +73,9 @@ void mergeSort(int arr[], int n, int nbthreads) {
     //std::cout << "p val: " << p << "\n";
     int begin = p*(n/nbthreads);
     int end = (p+1) * (n/nbthreads);
-
+    if (end % 2 != 0){
+        end += n%nbthreads;
+    }
     for (int i = begin; i <= end; i++) {
         int curr_size;
         int left_start;
