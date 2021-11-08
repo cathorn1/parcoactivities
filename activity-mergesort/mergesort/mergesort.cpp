@@ -41,12 +41,16 @@ void merge(int arr[], int l, int m, int r) {
     {
         if (L[i] <= R[j])
         {
+            mut.lock();
             arr[k] = L[i];
+            mut.unlock();
             i++;
         }
         else
         {
+            mut.lock();
             arr[k] = R[j];
+            mut.unlock();
             j++;
         }
         k++;
@@ -54,14 +58,18 @@ void merge(int arr[], int l, int m, int r) {
 
     while (i < n1)
     {
+        mut.lock();
         arr[k] = L[i];
+        mut.unlock();
         i++;
         k++;
     }
 
     while (j < n2)
     {
+        mut.lock();
         arr[k] = R[j];
+        mut.unlock();
         j++;
         k++;
     }
@@ -155,9 +163,9 @@ int main (int argc, char* argv[]) {
                                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
-                                mut.lock();
+
                                 merge(std::ref(arr), left_start, mid, right_end);
-                                mut.unlock();
+
                             }
                         }
                     }
