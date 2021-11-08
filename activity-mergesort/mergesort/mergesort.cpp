@@ -87,81 +87,83 @@ std::mutex mut;
 //        }
 //    }
 //}
-void merge(int * arr, int l, int mid, int r) {
-
-#if DEBUG
-    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
-#endif
-
-    // short circuits
-    if (l == r) return;
-    if (r-l == 1) {
-        if (arr[l] > arr[r]) {
-            int temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
-        }
-        return;
-    }
-
-    int i, j, k;
-    int n = mid - l;
-
-    // declare and init temp arrays
-    int *temp = new int[n];
-    for (i=0; i<n; ++i)
-        temp[i] = arr[l+i];
-
-    i = 0;    // temp left half
-    j = mid;  // right half
-    k = l;    // write to
-
-    // merge
-    while (i<n && j<=r) {
-        if (temp[i] <= arr[j] ) {
-            arr[k++] = temp[i++];
-        } else {
-            arr[k++] = arr[j++];
-        }
-    }
-
-    // exhaust temp
-    while (i<n) {
-        arr[k++] = temp[i++];
-    }
-
-    // de-allocate structs used
-    delete[] temp;
-
-}
-//void merge(int arr[], int temp[], int from, int mid, int to)
-//{
-//    int k = from, i = from, j = mid + 1;
+//void merge(int * arr, int l, int mid, int r) {
 //
-//    // loop till no elements are left in the left and right runs
-//    while (i <= mid && j <= to)
-//    {
-//        if (arr[i] < arr[j]) {
-//            temp[k++] = arr[i++];
+//#if DEBUG
+//    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
+//#endif
+//
+//    // short circuits
+//    if (l == r) return;
+//    if (r-l == 1) {
+//        if (arr[l] > arr[r]) {
+//            int temp = arr[l];
+//            arr[l] = arr[r];
+//            arr[r] = temp;
 //        }
-//        else {
-//            temp[k++] = arr[j++];
+//        return;
+//    }
+//
+//    int i, j, k;
+//    int n = mid - l;
+//
+//    // declare and init temp arrays
+//    int *temp = new int[n];
+//    for (i=0; i<n; ++i)
+//        temp[i] = arr[l+i];
+//
+//    i = 0;    // temp left half
+//    j = mid;  // right half
+//    k = l;    // write to
+//
+//    // merge
+//    while (i<n && j<=r) {
+//        if (temp[i] <= arr[j] ) {
+//            arr[k++] = temp[i++];
+//        } else {
+//            arr[k++] = arr[j++];
 //        }
 //    }
 //
-//    // copy remaining elements
-//    while (i < (to-from) && i <= mid) {
-//        temp[k++] = arr[i++];
+//    // exhaust temp
+//    while (i<n) {
+//        arr[k++] = temp[i++];
 //    }
 //
-//    /* no need to copy the second half (since the remaining items
-//       are already in their correct position in the temporary array) */
+//    // de-allocate structs used
+//    delete[] temp;
 //
-//    // copy back to the original array to reflect sorted order
-//    for (int i = from; i <= to; i++) {
-//        arr[i] = temp[i];
-//    }
 //}
+void merge(int arr[], int from, int mid, int to) {
+
+    int* temp =  new int[to-from];
+
+    int k = from, i = from, j = mid + 1;
+
+    // loop till no elements are left in the left and right runs
+    while (i <= mid && j <= to)
+    {
+        if (arr[i] < arr[j]) {
+            temp[k++] = arr[i++];
+        }
+        else {
+            temp[k++] = arr[j++];
+        }
+    }
+
+    // copy remaining elements
+    while (i < (to-from) && i <= mid) {
+        temp[k++] = arr[i++];
+    }
+
+    /* no need to copy the second half (since the remaining items
+       are already in their correct position in the temporary array) */
+
+    // copy back to the original array to reflect sorted order
+    for (int i = from; i <= to; i++) {
+        arr[i] = temp[i];
+    }
+}
 
 // Iteratively sort subarray `A[low…high]` using a temporary array
 void mergesort(int arr[], int low, int high)
