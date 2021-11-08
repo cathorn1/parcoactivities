@@ -140,7 +140,7 @@ int main (int argc, char* argv[]) {
                     if (p == nbthreads-1){
                         end += n%nbthreads;
                     }
-                    //std::lock_guard<std::mutex> lk (mut);
+                    std::lock_guard<std::mutex> lk (mut);
                     mergeSort(std::ref(arr), begin, end);
 
 
