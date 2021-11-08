@@ -142,12 +142,9 @@ int main (int argc, char* argv[]) {
                     if (p == nbthreads-1){
                         end += n%nbthreads;
                     }
-//                    std::lock_guard<std::mutex> lk (mut);
-//                    mergeSort(std::ref(arr), begin, end);
 
-                    for (int i = begin; i <= end; i++) {
-                        mergeSort(std::ref(arr), begin, end);
-                    }
+                    mergeSort(std::ref(arr), begin, end);
+
 
             //                    int curr_size;
 //                    int left_start;
