@@ -117,7 +117,7 @@ int main (int argc, char* argv[]) {
     for (int i =0; i < n; i++) {
 //        std::cout << arr[i] << " ";
         temp[i] = arr[i];
-        std::cout << temp[i] << " ";
+        //std::cout << temp[i] << " ";
     }
    // std::cout << "\n";
 
