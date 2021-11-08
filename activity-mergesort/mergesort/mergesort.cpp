@@ -134,9 +134,9 @@ std::mutex mut;
 //    delete[] temp;
 //
 //}
-void merge(int arr[], int from, int mid, int to) {
+void merge(int arr[], int temp[], int from, int mid, int to) {
 
-    int* temp =  new int[to-from];
+    //int* temp =  new int[to-from];
 
     int k = from, i = from, j = mid + 1;
 
@@ -166,7 +166,7 @@ void merge(int arr[], int from, int mid, int to) {
 }
 
 // Iteratively sort subarray `A[low…high]` using a temporary array
-void mergesort(int arr[], int low, int high)
+void mergesort(int arr[], int temp[], int low, int high)
 {
     // divide the array into blocks of size `m`
     // m = [1, 2, 4, 8, 16…]
@@ -182,7 +182,7 @@ void mergesort(int arr[], int low, int high)
             int mid = i + m - 1;
             int to = std::min(i + 2*m - 1, high);
 
-            merge(std::ref(arr), from, mid, to);
+            merge(std::ref(arr), temp, from, mid, to);
         }
     }
 }
@@ -244,7 +244,7 @@ int main (int argc, char* argv[]) {
 //                    mergeSort(std::ref(arr), begin, end);
 
                     for (int i = begin; i <= end; i++) {
-                        mergesort(std::ref(arr), begin, end);
+                        mergesort(std::ref(arr), std::ref(temp), begin, end);
 
                     }
 
