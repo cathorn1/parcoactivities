@@ -22,7 +22,7 @@ extern "C" {
 std::mutex mut;
 
 void merge(int arr[], int l, int m, int r) {
-    std::lock_guard<std::mutex> lck (mut);
+    //std::lock_guard<std::mutex> lck (mut);
     int i, j, k;
     int n1 = m - l + 1;
     int n2 =  r - m;
@@ -145,61 +145,19 @@ int main (int argc, char* argv[]) {
 
                     for (int i = begin; i <= end; i++) {
                         int curr_size;
-                        int l;
+                        int left_start;
                         for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
 
-                            for (l = 0; l < i - 1; l += 2 * curr_size) {
+                            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
 
-                                int m = std::min(l + curr_size - 1, i - 1);
+                                int mid = std::min(left_start + curr_size - 1, i - 1);
 
-                                int r = std::min(l + 2 * curr_size - 1, i - 1);
+                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
-                                //merge(std::ref(arr), left_start, mid, right_end);
-
-                                int i, j, k;
-                                int n1 = m - l + 1;
-                                int n2 =  r - m;
-
-                                int L[n1], R[n2];
-
-                                for (i = 0; i < n1; i++)
-                                    L[i] = arr[l + i];
-                                for (j = 0; j < n2; j++)
-                                    R[j] = arr[m + 1+ j];
-
-                                i = 0;
-                                j = 0;
-                                k = l;
-                                while (i < n1 && j < n2)
-                                {
-                                    if (L[i] <= R[j])
-                                    {
-                                        arr[k] = L[i];
-                                        i++;
-                                    }
-                                    else
-                                    {
-                                        arr[k] = R[j];
-                                        j++;
-                                    }
-                                    k++;
-                                }
-
-                                while (i < n1)
-                                {
-                                    arr[k] = L[i];
-                                    i++;
-                                    k++;
-                                }
-
-                                while (j < n2)
-                                {
-                                    arr[k] = R[j];
-                                    j++;
-                                    k++;
-                                }
-
+                                mut.lock();
+                                merge(std::ref(arr), left_start, mid, right_end);
+                                mut.unlock();
                             }
                         }
                     }
