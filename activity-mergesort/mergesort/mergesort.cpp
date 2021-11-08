@@ -30,9 +30,9 @@ void merge(int arr[], int temp[], int l, int m, int r) {
     int L[n1], R[n2];
 
     for (i = 0; i < n1; i++)
-        L[i] = temp[l + i];
+        L[i] = arr[l + i];
     for (j = 0; j < n2; j++)
-        R[j] = temp[m + 1+ j];
+        R[j] = arr[m + 1+ j];
 
     i = 0;
     j = 0;
@@ -41,12 +41,12 @@ void merge(int arr[], int temp[], int l, int m, int r) {
     {
         if (L[i] <= R[j])
         {
-            temp[k] = L[i];
+            arr[k] = L[i];
             i++;
         }
         else
         {
-            temp[k] = R[j];
+            arr[k] = R[j];
             j++;
         }
         k++;
@@ -54,21 +54,21 @@ void merge(int arr[], int temp[], int l, int m, int r) {
 
     while (i < n1)
     {
-        temp[k] = L[i];
+        arr[k] = L[i];
         i++;
         k++;
     }
 
     while (j < n2)
     {
-        temp[k] = R[j];
+        arr[k] = R[j];
         j++;
         k++;
     }
 
     for(int k = 0; k < (r-l)+1; k++){
         std::lock_guard<std::mutex> lck (mut);
-       arr[k] = temp[k];
+       temp[k] = arr[k];
 
     }
 }
@@ -114,11 +114,11 @@ int main (int argc, char* argv[]) {
   int* temp = new int[n];
   generateMergeSortData (arr, n);
 
-    for (int i =0; i < n; i++) {
+   // for (int i =0; i < n; i++) {
 //        std::cout << arr[i] << " ";
-        temp[i] = arr[i];
+       // temp[i] = arr[i];
         //std::cout << temp[i] << " ";
-    }
+//    }
    // std::cout << "\n";
 
 
@@ -183,11 +183,11 @@ int main (int argc, char* argv[]) {
 //                    arr[i] = C[i];
 //                }
 
-//                       std::cout << "test C\n";
-//                       for (int i =0; i < n; i++) {
-//                           std::cout << arr[i] << " ";
-//                       }
-//                       std::cout << "\n";
+                       std::cout << "temp test\n";
+                       for (int i =0; i < n; i++) {
+                           std::cout << temp[i] << " ";
+                       }
+                       std::cout << "\n";
                 });
 
 
