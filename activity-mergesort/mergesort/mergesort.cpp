@@ -23,6 +23,8 @@ std::mutex mut;
 
 void merge(int arr[], int l, int m, int r) {
     //std::lock_guard<std::mutex> lck (mut);
+    mut.lock();
+
     int i, j, k;
     int n1 = m - l + 1;
     int n2 =  r - m;
@@ -65,6 +67,8 @@ void merge(int arr[], int l, int m, int r) {
         j++;
         k++;
     }
+
+    mut.unlock();
 
 }
 
@@ -145,7 +149,7 @@ int main (int argc, char* argv[]) {
                         end += n%nbthreads;
                     }
 
-                    #pragma shared(arr)
+
                     for (int i = begin; i <= end; i++) {
 
                         int curr_size;
