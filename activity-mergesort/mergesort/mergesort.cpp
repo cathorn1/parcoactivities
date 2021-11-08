@@ -67,17 +67,8 @@ void merge(int arr[], int l, int m, int r)
     }
 }
 
-void mergeSort(int arr[], int n, int nbthreads) {
+void mergeSort(int arr[], int begin, int end) {
 
-    int p = omp_get_thread_num();
-    //std::cout << "p val: " << p << "\n";
-
-    int begin = p*(n/nbthreads);
-    int end = (p+1) * (n/nbthreads);
-
-    if ((n/nbthreads) % 2 != 0){
-        end += n%nbthreads;
-    }
 
     for (int i = begin; i <= end; i++) {
         int curr_size;
@@ -130,6 +121,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
+    int count = 0;
         omp.parfor < std::vector < int >> (0, nbthreads, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
@@ -139,10 +131,18 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
+                    int p = omp_get_thread_num();
+                    //std::cout << "p val: " << p << "\n";
 
+                    int begin = p*(n/nbthreads);
+                    int end = (p+1) * (n/nbthreads);
 
-                    mergeSort(std::ref(arr), n, nbthreads);
+                    if (count+1 == nbthreads){
+                        end += n%nbthreads;
+                    }
 
+                    mergeSort(std::ref(arr), begin, end);
+                    count++;
 
             //                    int curr_size;
 //                    int left_start;
