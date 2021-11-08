@@ -113,13 +113,13 @@ int main (int argc, char* argv[]) {
   int* arr = new int [n];
   int* temp = new int[n];
   generateMergeSortData (arr, n);
-//
+
     for (int i =0; i < n; i++) {
-        std::cout << arr[i] << " ";
-        temp[i] = arr[i];
+//        std::cout << arr[i] << " ";
+//        temp[i] = arr[i];
         std::cout << temp[i] << " ";
     }
-    std::cout << "\n";
+   // std::cout << "\n";
 
 
     #if DEBUG
