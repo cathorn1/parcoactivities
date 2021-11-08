@@ -81,7 +81,7 @@ void mergeSort(int arr[], int begin, int end) {
 
                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                //std::lock_guard <std::mutex> lck(mut);
+                std::lock_guard <std::mutex> lck(mut);
                 merge(std::ref(arr), left_start, mid, right_end);
             }
         }
@@ -147,7 +147,6 @@ int main (int argc, char* argv[]) {
 
                     for (int i = begin; i <= end; i++) {
                         mergeSort(std::ref(arr), begin, end);
-
                     }
 
             //                    int curr_size;
