@@ -21,51 +21,51 @@ extern "C" {
 
 std::mutex mut;
 
-//void merge(int arr[], int l, int m, int r) {
-//    //std::lock_guard<std::mutex> lck (mut);
-//    int i, j, k;
-//    int n1 = m - l + 1;
-//    int n2 =  r - m;
-//
-//    int L[n1], R[n2];
-//
-//    for (i = 0; i < n1; i++)
-//        L[i] = arr[l + i];
-//    for (j = 0; j < n2; j++)
-//        R[j] = arr[m + 1+ j];
-//
-//    i = 0;
-//    j = 0;
-//    k = l;
-//    while (i < n1 && j < n2)
-//    {
-//        if (L[i] <= R[j])
-//        {
-//            arr[k] = L[i];
-//            i++;
-//        }
-//        else
-//        {
-//            arr[k] = R[j];
-//            j++;
-//        }
-//        k++;
-//    }
-//
-//    while (i < n1)
-//    {
-//        arr[k] = L[i];
-//        i++;
-//        k++;
-//    }
-//
-//    while (j < n2)
-//    {
-//        arr[k] = R[j];
-//        j++;
-//        k++;
-//    }
-//}
+void merge(int arr[], int l, int m, int r) {
+    //std::lock_guard<std::mutex> lck (mut);
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 =  r - m;
+
+    int L[n1], R[n2];
+
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1+ j];
+
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= R[j])
+        {
+            arr[k] = L[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1)
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2)
+    {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
 //
 //void mergeSort(int arr[], int begin, int end) {
 //
@@ -88,37 +88,37 @@ std::mutex mut;
 //    }
 //}
 
-void merge(int arr[], int temp[], int from, int mid, int to)
-{
-    int k = from, i = from, j = mid + 1;
-
-    // loop till no elements are left in the left and right runs
-    while (i <= mid && j <= to)
-    {
-        if (arr[i] < arr[j]) {
-            temp[k++] = arr[i++];
-        }
-        else {
-            temp[k++] = arr[j++];
-        }
-    }
-
-    // copy remaining elements
-    while (i < (to-from) && i <= mid) {
-        temp[k++] = arr[i++];
-    }
-
-    /* no need to copy the second half (since the remaining items
-       are already in their correct position in the temporary array) */
-
-    // copy back to the original array to reflect sorted order
-    for (int i = from; i <= to; i++) {
-        arr[i] = temp[i];
-    }
-}
+//void merge(int arr[], int temp[], int from, int mid, int to)
+//{
+//    int k = from, i = from, j = mid + 1;
+//
+//    // loop till no elements are left in the left and right runs
+//    while (i <= mid && j <= to)
+//    {
+//        if (arr[i] < arr[j]) {
+//            temp[k++] = arr[i++];
+//        }
+//        else {
+//            temp[k++] = arr[j++];
+//        }
+//    }
+//
+//    // copy remaining elements
+//    while (i < (to-from) && i <= mid) {
+//        temp[k++] = arr[i++];
+//    }
+//
+//    /* no need to copy the second half (since the remaining items
+//       are already in their correct position in the temporary array) */
+//
+//    // copy back to the original array to reflect sorted order
+//    for (int i = from; i <= to; i++) {
+//        arr[i] = temp[i];
+//    }
+//}
 
 // Iteratively sort subarray `A[low…high]` using a temporary array
-void mergesort(int arr[], int temp[], int low, int high)
+void mergesort(int arr[], int low, int high)
 {
     // divide the array into blocks of size `m`
     // m = [1, 2, 4, 8, 16…]
@@ -134,7 +134,7 @@ void mergesort(int arr[], int temp[], int low, int high)
             int mid = i + m - 1;
             int to = std::min(i + 2*m - 1, high);
 
-            merge(std::ref(arr), temp, from, mid, to);
+            merge(std::ref(arr), from, mid, to);
         }
     }
 }
@@ -196,7 +196,7 @@ int main (int argc, char* argv[]) {
 //                    mergeSort(std::ref(arr), begin, end);
 
                     for (int i = begin; i <= end; i++) {
-                        mergesort(std::ref(arr), std::ref(temp), begin, end);
+                        mergesort(std::ref(arr), begin, end);
 
                     }
 
