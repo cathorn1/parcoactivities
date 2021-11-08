@@ -71,12 +71,14 @@ void mergeSort(int arr[], int n, int nbthreads) {
 
     int p = omp_get_thread_num();
     //std::cout << "p val: " << p << "\n";
+
     int begin = p*(n/nbthreads);
     int end = (p+1) * (n/nbthreads);
     if ((n/nbthreads) % 2 != 0){
         end += n%nbthreads;
     }
-    for (int i = begin; i <= end; i++) {
+
+    for (int i = begin; i <= end+1; i++) {
         int curr_size;
         int left_start;
         for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
