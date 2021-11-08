@@ -74,7 +74,7 @@ void mergeSort(int arr[], int n, int nbthreads) {
     int begin = p*(n/nbthreads);
     int end = (p+1) * (n/nbthreads);
 
-    for (int i = begin; i < end; i++) {
+    for (int i = begin; i <= end; i++) {
         int curr_size;
         int left_start;
         for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
