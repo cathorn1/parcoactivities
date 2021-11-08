@@ -21,7 +21,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(int arr[], int l, int m, int r) {
+void merge(int arr[], int temp[], int l, int m, int r) {
     //std::lock_guard<std::mutex> lck (mut);
     int i, j, k;
     int n1 = m - l + 1;
@@ -30,9 +30,9 @@ void merge(int arr[], int l, int m, int r) {
     int L[n1], R[n2];
 
     for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
+        L[i] = temp[l + i];
     for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1+ j];
+        R[j] = temp[m + 1+ j];
 
     i = 0;
     j = 0;
@@ -41,12 +41,12 @@ void merge(int arr[], int l, int m, int r) {
     {
         if (L[i] <= R[j])
         {
-            arr[k] = L[i];
+            temp[k] = L[i];
             i++;
         }
         else
         {
-            arr[k] = R[j];
+            temp[k] = R[j];
             j++;
         }
         k++;
@@ -54,21 +54,24 @@ void merge(int arr[], int l, int m, int r) {
 
     while (i < n1)
     {
-        arr[k] = L[i];
+        temp[k] = L[i];
         i++;
         k++;
     }
 
     while (j < n2)
     {
-        arr[k] = R[j];
+        temp[k] = R[j];
         j++;
         k++;
+    }
+    for(int k = 0; k < (r-l); k++){
+        arr[k] = temp[k];
     }
 }
 
 void mergeSort(int arr[], int begin, int end) {
-
+    int* temp = new int[end-begin];
 
     for (int i = begin; i <= end; i++) {
         int curr_size;
@@ -81,8 +84,8 @@ void mergeSort(int arr[], int begin, int end) {
 
                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                std::lock_guard <std::mutex> lck(mut);
-                merge(std::ref(arr), left_start, mid, right_end);
+                //std::lock_guard <std::mutex> lck(mut);
+                merge(std::ref(arr), temp, left_start, mid, right_end);
             }
         }
     }
