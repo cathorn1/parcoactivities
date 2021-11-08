@@ -67,7 +67,9 @@ void merge(int arr[], int temp[], int l, int m, int r) {
     }
 
     for(int k = 0; k < (r-l); k++){
-        arr[k] = temp[k];
+       mut.lock();
+       arr[k] = temp[k];
+       mut.unlock();
     }
 }
 
