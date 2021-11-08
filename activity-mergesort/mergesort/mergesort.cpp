@@ -21,7 +21,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(int arr[], int temp[], int l, int m, int r) {
+void merge(int arr[], int l, int m, int r) {
     //std::lock_guard<std::mutex> lck (mut);
     int i, j, k;
     int n1 = m - l + 1;
@@ -66,16 +66,9 @@ void merge(int arr[], int temp[], int l, int m, int r) {
         k++;
     }
 
-    mut.lock();
-    for(int k = 0; k < (r-l)+1; k++){
-        //std::lock_guard<std::mutex> lck (mut);
-       temp[k] = arr[k];
-
-    }
-    mut.unlock();
 }
 
-void mergeSort(int arr[], int temp[], int begin, int end) {
+void mergeSort(int arr[], int begin, int end) {
 
 
     for (int i = begin; i <= end; i++) {
@@ -91,7 +84,7 @@ void mergeSort(int arr[], int temp[], int begin, int end) {
                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                 //std::lock_guard <std::mutex> lck(mut);
-                merge(std::ref(arr), temp, left_start, mid, right_end);
+                merge(std::ref(arr), left_start, mid, right_end);
             }
         }
     }
@@ -145,8 +138,6 @@ int main (int argc, char* argv[]) {
                 [&](int x, std::vector<int> &C) -> void {
 
                     int p = omp_get_thread_num();
-                    //std::cout << "p val: " << p << "\n";
-
                     int begin = p*(n/nbthreads);
                     int end = (p+1) * (n/nbthreads);
 
@@ -167,8 +158,8 @@ int main (int argc, char* argv[]) {
                                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
-                                merge(std::ref(arr), temp, left_start, mid, right_end);
-                                #pragma omp barrier
+                                merge(std::ref(arr), left_start, mid, right_end);
+
                             }
                         }
                     }
@@ -190,9 +181,9 @@ int main (int argc, char* argv[]) {
 
                 });
 
-    std::cout << "temp test\n";
+    std::cout << "arr test\n";
     for (int i =0; i < n; i++) {
-        std::cout << temp[i] << " ";
+        std::cout << arr[i] << " ";
     }
     std::cout << "\n";
     // end timing
@@ -201,7 +192,7 @@ int main (int argc, char* argv[]) {
 
     // display time to cerr
     std::cerr<<elpased_seconds.count()<<std::endl;
-    checkMergeSortResult (temp, n);
+    checkMergeSortResult (arr, n);
 
   #if DEBUG
         for (int i=0; i<n; ++i)
