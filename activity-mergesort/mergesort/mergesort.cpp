@@ -111,10 +111,10 @@ int main (int argc, char* argv[]) {
   int* temp = new int[n];
   generateMergeSortData (arr, n);
 //
-//    for (int i =0; i < n; i++) {
-//        std::cout << arr[i] << " ";
-//    }
-//    std::cout << "\n";
+    for (int i =0; i < n; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
 
 
     #if DEBUG
@@ -164,11 +164,11 @@ int main (int argc, char* argv[]) {
 //                        }
 //                    }
 
-//                    std::cout << "middle test\n";
-//                    for (int i = 0; i < n; i++) {
-//                        std::cout << arr[i] << " ";
-//                    }
-//                    std::cout << "\n";
+                    std::cout << "middle test\n";
+                    for (int i = 0; i < n; i++) {
+                        std::cout << arr[i] << " ";
+                    }
+                    std::cout << "\n";
 
                 },
                 [&](std::vector<int> &C) -> void {
