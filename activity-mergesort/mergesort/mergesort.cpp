@@ -69,7 +69,7 @@ void merge(int arr[], int l, int m, int r)
 
 void mergeSort(int arr[], int n, int nbthreads) {
 
-    int p = omp_get_thread_num()+1;
+    int p = omp_get_thread_num();
     std::cout << "p val: " << p << "\n";
     int begin = p*(n/nbthreads);
     int end = (p+1) * (n/nbthreads);
