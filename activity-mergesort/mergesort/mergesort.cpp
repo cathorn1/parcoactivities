@@ -77,6 +77,7 @@ void mergeSort(int arr[], int temp[], int begin, int end) {
 
 
     for (int i = begin; i <= end; i++) {
+
         int curr_size;
         int left_start;
         for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
@@ -91,6 +92,8 @@ void mergeSort(int arr[], int temp[], int begin, int end) {
                 merge(std::ref(arr), temp, left_start, mid, right_end);
             }
         }
+
+
     }
 }
 
@@ -111,7 +114,7 @@ int main (int argc, char* argv[]) {
 
   // get arr data
   int* arr = new int [n];
-  int* temp = new int[n];
+
   generateMergeSortData (arr, n);
 
    // for (int i =0; i < n; i++) {
@@ -120,7 +123,7 @@ int main (int argc, char* argv[]) {
         //std::cout << temp[i] << " ";
 //    }
    // std::cout << "\n";
-
+    int* temp = new int [n];
 
     #if DEBUG
         for (int i=0; i<n; ++i)
@@ -139,7 +142,7 @@ int main (int argc, char* argv[]) {
 //                    C.push_back(arr[i]);
 //                }
                 },
-                [&](int i, std::vector<int> &C) -> void {
+                [&](int x, std::vector<int> &C) -> void {
 
                     int p = omp_get_thread_num();
                     //std::cout << "p val: " << p << "\n";
@@ -153,19 +156,68 @@ int main (int argc, char* argv[]) {
 
                     //mergeSort(std::ref(arr), std::ref(temp), begin, end);
 
-                    for (int i = begin; i <= end; i++) {
+                    for (int w = begin; w <= end; w++) {
                         int curr_size;
-                        int left_start;
-                        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+                        int l;
+                        for (curr_size = 1; curr_size <= w - 1; curr_size = 2 * curr_size) {
 
-                            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+                            for (l = 0; l < w - 1; l += 2 * curr_size) {
 
-                                int mid = std::min(left_start + curr_size - 1, i - 1);
+                                int m = std::min(l + curr_size - 1, w - 1);
 
-                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+                                int r = std::min(l + 2 * curr_size - 1, w - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
-                                merge(std::ref(arr), temp, left_start, mid, right_end);
+                                //merge(std::ref(arr), temp, left_start, mid, right_end);
+
+                                int i, j, k;
+                                int n1 = m - l + 1;
+                                int n2 =  r - m;
+
+                                int L[n1], R[n2];
+
+                                for (i = 0; i < n1; i++)
+                                    L[i] = arr[l + i];
+                                for (j = 0; j < n2; j++)
+                                    R[j] = arr[m + 1+ j];
+
+                                i = 0;
+                                j = 0;
+                                k = l;
+                                while (i < n1 && j < n2)
+                                {
+                                    if (L[i] <= R[j])
+                                    {
+                                        arr[k] = L[i];
+                                        i++;
+                                    }
+                                    else
+                                    {
+                                        arr[k] = R[j];
+                                        j++;
+                                    }
+                                    k++;
+                                }
+
+                                while (i < n1)
+                                {
+                                    arr[k] = L[i];
+                                    i++;
+                                    k++;
+                                }
+
+                                while (j < n2)
+                                {
+                                    arr[k] = R[j];
+                                    j++;
+                                    k++;
+                                }
+
+                                for(int k = 0; k < (r-l)+1; k++){
+                                    mut.lock();
+                                    temp[k] = arr[k];
+                                    mut.unlock();
+                                }
                             }
                         }
                     }
@@ -183,14 +235,14 @@ int main (int argc, char* argv[]) {
 //                    arr[i] = C[i];
 //                }
 
-                       std::cout << "temp test\n";
-                       for (int i =0; i < n; i++) {
-                           std::cout << temp[i] << " ";
-                       }
-                       std::cout << "\n";
+
                 });
 
-
+    std::cout << "temp test\n";
+    for (int i =0; i < n; i++) {
+        std::cout << temp[i] << " ";
+    }
+    std::cout << "\n";
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
