@@ -61,7 +61,7 @@ int main (int argc, char* argv[]) {
     //int s = 0;
     //int offset = 0;
 
-    //arr[n-1] =0;
+    arr[n-1] =0;
 
     //int chunk = pow(2,nbthreads +1);
 
@@ -73,15 +73,6 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int k, std::vector<int> &C) -> void {
 
-                      //prefix[k] = arr[k];
-//                      if (k >= pow(2, i)){
-//                          int t = pow(2, i);
-//                          prefix[k] = arr[(k-t)] + arr[k];
-//                      }
-//                      else{
-//                          prefix[k] = arr[k];
-//                      }
-
                     int indA = k + pow(2, i) - 1;
                     int indB = k +  pow(2, (i+1)) - 1;
                     int temp = arr[indA];
@@ -89,15 +80,6 @@ int main (int argc, char* argv[]) {
                     arr[indB] = temp + arr[indB];
                 },
                 [&](std::vector<int> &C) -> void {
-
-//                    for (int i = 0; i < n; i++)
-//                        prefix[i] += offset;
-
-//                    std::cout << "\nprint arr" << std::endl;
-//                    for (int i = 0; i < n + 1; ++i) {
-//                        std::cout << arr[i] << " ";
-//                    }
-
 
                 });
    }
