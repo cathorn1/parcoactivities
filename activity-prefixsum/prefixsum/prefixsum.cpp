@@ -65,7 +65,7 @@ int main (int argc, char* argv[]) {
 
     //int chunk = pow(2,nbthreads +1);
 
-    for (int i = 1; i < log2(n); i++) {
+    for (int i = 1; i <= log2(n); i++) {
 
         omp.parfor<std::vector<int>>(0, n-1, 1,
                 [&](std::vector<int> &C) -> void {
