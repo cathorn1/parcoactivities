@@ -131,44 +131,29 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-
-        omp.parfor < std::vector < int >> (0, nbthreads, 1,
+omp.parfor < std::vector < int >> (0, n+1, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
 //                    C.push_back(arr[i]);
 //                }
                 },
-                [&](int x, std::vector<int> &C) -> void {
+                [&](int i, std::vector<int> &C) -> void {
 
-                    int p = omp_get_thread_num();
-                    int begin = p*(n/nbthreads);
-                    int end = (p+1) * (n/nbthreads);
+                    int curr_size;
+                    int left_start;
+                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
 
-                    if (p == nbthreads-1){
-                        end += n%nbthreads;
-                    }
+                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
 
+                            int mid = std::min(left_start + curr_size - 1, i - 1);
 
-                    for (int i = begin; i <= end; i++) {
+                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                        int curr_size;
-                        int left_start;
-                        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
-
-                            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-
-                                int mid = std::min(left_start + curr_size - 1, i - 1);
-
-                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-
-                                //std::lock_guard <std::mutex> lck(mut);
-                                merge(std::ref(arr), left_start, mid, right_end);
-
-                            }
+                            std::lock_guard<std::mutex> lck (mut);
+                            merge(std::ref(arr), left_start, mid, right_end);
                         }
                     }
-
 
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
@@ -183,8 +168,13 @@ int main (int argc, char* argv[]) {
 //                    arr[i] = C[i];
 //                }
 
-
+//                       std::cout << "test C\n";
+//                       for (int i =0; i < n; i++) {
+//                           std::cout << arr[i] << " ";
+//                       }
+//                       std::cout << "\n";
                 });
+
 
 //    std::cout << "arr test\n";
 //    for (int i =0; i < n; i++) {
@@ -252,4 +242,63 @@ int main (int argc, char* argv[]) {
 ////                           std::cout << arr[i] << " ";
 ////                       }
 ////                       std::cout << "\n";
+//                });
+
+
+
+////// lATEST
+
+
+//        omp.parfor < std::vector < int >> (0, nbthreads, 1,
+//                [&](std::vector<int> &C) -> void {
+////                for(int i = 0; i < n; i++){
+////                    std::cout << "p1\n";
+////                    C.push_back(arr[i]);
+////                }
+//                },
+//                [&](int x, std::vector<int> &C) -> void {
+//
+//                    int p = omp_get_thread_num();
+//                    int begin = p*(n/nbthreads);
+//                    int end = (p+1) * (n/nbthreads);
+//
+//                    if (p == nbthreads-1){
+//                        end += n%nbthreads;
+//                    }
+//
+//
+//                    for (int i = begin; i <= end; i++) {
+//
+//                        int curr_size;
+//                        int left_start;
+//                        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+//
+//                            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+//
+//                                int mid = std::min(left_start + curr_size - 1, i - 1);
+//
+//                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+//
+//                                //std::lock_guard <std::mutex> lck(mut);
+//                                merge(std::ref(arr), left_start, mid, right_end);
+//
+//                            }
+//                        }
+//                    }
+//
+//
+////                    std::cout << "middle test\n";
+////                    for (int i = 0; i < n; i++) {
+////                        std::cout << arr[i] << " ";
+////                    }
+////                    std::cout << "\n";
+//
+//                },
+//                [&](std::vector<int> &C) -> void {
+////                for(int i = 0; i < n; i++){
+////                    //std::cout << "p3\n";
+////                    arr[i] = C[i];
+////                }
+//
+//
 //                });
