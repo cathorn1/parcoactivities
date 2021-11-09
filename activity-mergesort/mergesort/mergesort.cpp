@@ -13,15 +13,15 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  void generateMergeSortData (long* arr, size_t n);
-  void checkMergeSortResult (long* arr, size_t n);
+  void generateMergeSortData (int* arr, size_t n);
+  void checkMergeSortResult (int* arr, size_t n);
 #ifdef __cplusplus
 }
 #endif
 
 std::mutex mut;
 
-void merge(long arr[], long l, long m, long r) {
+void merge(int arr[], int l, int m, int r) {
     //std::lock_guard<std::mutex> lck (mut);
     mut.lock();
 
@@ -110,7 +110,7 @@ int main (int argc, char* argv[]) {
   int chunkRemain = n%nbthreads;
 
   // get arr data
-  long* arr = new long [n];
+  int* arr = new int [n];
 
   generateMergeSortData (arr, n);
 
@@ -158,9 +158,9 @@ int main (int argc, char* argv[]) {
 
                             for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
 
-                                long mid = std::min(left_start + curr_size - 1, i - 1);
+                                int mid = std::min(left_start + curr_size - 1, i - 1);
 
-                                long right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
                                 merge(std::ref(arr), left_start, mid, right_end);
