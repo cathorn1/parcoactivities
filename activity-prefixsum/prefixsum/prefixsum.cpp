@@ -102,7 +102,7 @@ int main (int argc, char* argv[]) {
                 });
    }
 
-    for (int i = (log(n)-1); i >= 0 ; i--) {
+    for (int i = (log(n)-1); i > 0 ; i--) {
 
         omp.parfor<std::vector<int>>(0, n-1, pow(2, i+1),
                 [&](std::vector<int> &C) -> void {
@@ -121,9 +121,6 @@ int main (int argc, char* argv[]) {
 
                 });
     }
-
-
-
 
 
     std::cout << "\nprint arr" << std::endl;
