@@ -40,19 +40,19 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
     //sequential
-    int* pre = new int [n+1];
-    pre[0] = 0;
-    std::cout << "print arr" << std::endl;
-    for (int i=0; i<n; ++i) {
-        std::cout << arr[i] << " ";
-    }
-    for (int i=0; i<n; ++i) {
-        pre[i+1] = pre[i] + arr[i];
-    }
-    std::cout << "\nprint sequential pre test" << std::endl;
-    for (int i=0; i<n+1; ++i) {
-        std::cout << pre[i] << " ";
-    }
+//    int* pre = new int [n+1];
+//    pre[0] = 0;
+//    std::cout << "print arr" << std::endl;
+//    for (int i=0; i<n; ++i) {
+//        std::cout << arr[i] << " ";
+//    }
+//    for (int i=0; i<n; ++i) {
+//        pre[i+1] = pre[i] + arr[i];
+//    }
+//    std::cout << "\nprint sequential pre test" << std::endl;
+//    for (int i=0; i<n+1; ++i) {
+//        std::cout << pre[i] << " ";
+//    }
 
     int* prefix = new int [n+1];
 
@@ -112,12 +112,11 @@ int main (int argc, char* argv[]) {
             prefix[i+1] = arr[i];
     }
 
-    std::cout << "\nprint prefix" << std::endl;
-    for (int i = 0; i < n + 1; ++i) {
-        std::cout << prefix[i] << " ";
-    }
-
-    std::cout<<std::endl;
+//    std::cout << "\nprint prefix" << std::endl;
+//    for (int i = 0; i < n + 1; ++i) {
+//        std::cout << prefix[i] << " ";
+//    }
+//    std::cout<<std::endl;
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
