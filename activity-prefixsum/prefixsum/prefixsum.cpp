@@ -98,11 +98,14 @@ int main (int argc, char* argv[]) {
                     });
         }
     } else{
-        for (int i=0; i<n; ++i) {
-            int sum = arr[i] + arr[i-1];
-            arr[i+1] = sum;
+        int c = 0;
+        int sum = 0;
+        while(c < n){
+            sum += arr[c];
+            arr[c] = sum;
+            c++;
         }
-    }
+      }
 
     std::cout << "\nprint arr" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
