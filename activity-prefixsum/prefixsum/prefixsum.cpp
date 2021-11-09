@@ -97,6 +97,11 @@ int main (int argc, char* argv[]) {
 
                     });
         }
+
+        for (int i = 0; i < n; i++) {
+            prefix[i+1] = arr[i];
+        }
+
     } else{
         ////FIGURE OUT HOW TO MANAGE JOBS WITH N<1000
         int c = 1;
@@ -105,18 +110,12 @@ int main (int argc, char* argv[]) {
             sum = arr[c-1] + arr[c];
             arr[c] = sum;
             c++;
+
+        }
+        for (int i = 0; i < n; i++){
+            prefix[i+1] = arr[i];
         }
       }
-
-    if(n< 1000){
-        for (int i = 0; i < n; i++){
-                prefix[i+1] = arr[i];
-        }
-    } else{
-        for (int i = 0; i <= n; i++) {
-            prefix[i] = arr[i];
-        }
-    }
 
     std::cout << "\nprint prefix" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
