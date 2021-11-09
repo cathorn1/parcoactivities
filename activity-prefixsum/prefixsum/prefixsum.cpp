@@ -99,11 +99,11 @@ int main (int argc, char* argv[]) {
         }
     } else{
         ////FIGURE OUT HOW TO MANAGE JOBS WITH N<1000
-        int c = 0;
+        int c = 1;
         int sum = 0;
         while(c < n){
-            sum += arr[c];
-            arr[c+1] = sum;
+            sum = arr[c-1] + arr[c];
+            arr[c] = sum;
             c++;
         }
       }
