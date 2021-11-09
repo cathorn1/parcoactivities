@@ -114,7 +114,7 @@ int main (int argc, char* argv[]) {
         }
     } else{
         for (int i = 1; i < n; i++) {
-            prefix[i] = arr[i];
+            prefix[i-1] = arr[i];
         }
     }
 
