@@ -98,7 +98,7 @@ int main (int argc, char* argv[]) {
                     });
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i <=n; i++) {
             prefix[i] = arr[i];
         }
 
@@ -110,8 +110,8 @@ int main (int argc, char* argv[]) {
             sum = arr[c-1] + arr[c];
             arr[c] = sum;
             c++;
-
         }
+
         for (int i = 0; i < n; i++){
             prefix[i+1] = arr[i];
         }
