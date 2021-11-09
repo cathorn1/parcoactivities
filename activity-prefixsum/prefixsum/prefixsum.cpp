@@ -79,7 +79,7 @@ int main (int argc, char* argv[]) {
                           prefix[k+1] = arr[(k-t)] + arr[k];
                       }
                       else{
-                          prefix[k+1] = arr[k];
+                          prefix[k] = arr[k];
                       }
 
 
