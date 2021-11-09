@@ -59,45 +59,50 @@ int main (int argc, char* argv[]) {
     prefix[0] = 0;
 
     //int chunk = pow(2,nbthreads +1);
+    if (n > 1000) {
+        for (int i = 0; i <= (log10(n) - 1); i++) {
 
-    for (int i = 0; i <= (log10(n)-1); i++) {
+            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
+                    [&](std::vector<int> &C) -> void {
 
-        omp.parfor<std::vector<int>>(0, n-1, pow(2, i+1),
-                [&](std::vector<int> &C) -> void {
+                    },
+                    [&](int k, std::vector<int> &C) -> void {
 
-                },
-                [&](int k, std::vector<int> &C) -> void {
+                        int indA = k + pow(2, i) - 1;
+                        int indB = k + pow(2, (i + 1)) - 1;
+                        int temp = arr[indA];
+                        //arr[indA] = arr[indB];
+                        arr[indB] = temp + arr[indB];
+                    },
+                    [&](std::vector<int> &C) -> void {
 
-                    int indA = k + pow(2, i) - 1;
-                    int indB = k +  pow(2, (i+1)) - 1;
-                    int temp = arr[indA];
-                    //arr[indA] = arr[indB];
-                    arr[indB] = temp + arr[indB];
-                },
-                [&](std::vector<int> &C) -> void {
+                    });
+        }
 
-                });
-   }
+        for (int i = (log10(n) - 1); i >= 0; i--) {
 
-    for (int i = (log10(n)-1); i >= 0 ; i--) {
+            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
+                    [&](std::vector<int> &C) -> void {
 
-        omp.parfor<std::vector<int>>(0, n-1, pow(2, i+1),
-                [&](std::vector<int> &C) -> void {
+                    },
+                    [&](int k, std::vector<int> &C) -> void {
 
-                },
-                [&](int k, std::vector<int> &C) -> void {
+                        int indA = k + pow(2, i) - 1;
+                        int indB = k + pow(2, (i + 1)) - 1;
+                        int temp = arr[indA];
+                        arr[indA] = arr[indB];
+                        arr[indB] = temp + arr[indB];
+                    },
+                    [&](std::vector<int> &C) -> void {
 
-                    int indA = k + pow(2, i) - 1;
-                    int indB = k +  pow(2, (i+1)) - 1;
-                    int temp = arr[indA];
-                    arr[indA] = arr[indB];
-                    arr[indB] = temp + arr[indB];
-                },
-                [&](std::vector<int> &C) -> void {
-
-                });
+                    });
+        }
+    } else{
+        for (int i=0; i<n; ++i) {
+            int sum = arr[i] + arr[i-1];
+            arr[i+1] = sum;
+        }
     }
-
 
     std::cout << "\nprint arr" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
