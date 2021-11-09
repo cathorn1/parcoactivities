@@ -186,11 +186,11 @@ int main (int argc, char* argv[]) {
 
                 });
 
-    std::cout << "arr test\n";
-    for (int i =0; i < n; i++) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << "\n";
+//    std::cout << "arr test\n";
+//    for (int i =0; i < n; i++) {
+//        std::cout << arr[i] << " ";
+//    }
+//    std::cout << "\n";
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;

@@ -65,35 +65,45 @@ int main (int argc, char* argv[]) {
 
     int chunk = pow(2,nbthreads +1);
 
-    for (int k = log(n)-1; k >= 0; k--) {
+    for (int k = 0; k < log(n)-1; k++) {
 
-        omp.parfor<std::vector<int>>(0, n-1, chunk,
+        omp.parfor<std::vector<int>>(0, n-1, 1,
                 [&](std::vector<int> &C) -> void {
 
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                    std::cout << "int k: " << k << "\n";
-                    int indA = i + pow(2, nbthreads) - 1;
-                    int indB = i +  pow(2, (nbthreads+1)) - 1;
-                    int temp = arr[indA];
-                    arr[indA] = arr[indB];
-                    arr[indB] = temp + arr[indB];
+                      prefix[i] = arr[i];
+                      if (i >= pow(2, i)){
+                          int t = pow(2, i);
+                          prefix[i] += arr[i-t];
+                      }
+
+
+//                    std::cout << "int k: " << k << "\n";
+//                    int indA = i + pow(2, nbthreads) - 1;
+//                    int indB = i +  pow(2, (nbthreads+1)) - 1;
+//                    int temp = arr[indA];
+//                    arr[indA] = arr[indB];
+//                    arr[indB] = temp + arr[indB];
                 },
                 [&](std::vector<int> &C) -> void {
 
-                    for (int i = 0; i < n; i++)
-                        prefix[i] += offset;
+//                    for (int i = 0; i < n; i++)
+//                        prefix[i] += offset;
 
-                    std::cout << "\nprint arr" << std::endl;
-                    for (int i = 0; i < n + 1; ++i) {
-                        std::cout << arr[i] << " ";
-                    }
+//                    std::cout << "\nprint arr" << std::endl;
+//                    for (int i = 0; i < n + 1; ++i) {
+//                        std::cout << arr[i] << " ";
+//                    }
 //                    std::cout << "\nprint prefix" << std::endl;
 //                    for (int i = 0; i < n + 1; ++i) {
 //                        std::cout << prefix[i] << " ";
 //                    }
                 });
+        for (int j=0;j<=n-1;j++){
+            arr[j] = prefix[j];
+        }
    }
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
