@@ -99,7 +99,9 @@ int main (int argc, char* argv[]) {
                     std::cout << "\nprint prefix" << std::endl;
                     for (int i = 0; i < n + 1; ++i) {
                         std::cout << prefix[i] << " ";
+                        std::cout<<std::endl;
                     }
+
                 });
         for (int j=0;j<=n-1;j++){
             arr[j] = prefix[j];
