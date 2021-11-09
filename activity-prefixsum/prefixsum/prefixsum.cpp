@@ -58,25 +58,28 @@ int main (int argc, char* argv[]) {
     int *suma = new int[nbthreads+1]; // partial results
 
     prefix[0] = 0;
-    int s = 0;
-    int offset = 0;
+    //int s = 0;
+    //int offset = 0;
 
-    arr[n-1] =0;
+    //arr[n-1] =0;
 
-    int chunk = pow(2,nbthreads +1);
+    //int chunk = pow(2,nbthreads +1);
 
-    for (int k = 0; k < log(n)-1; k++) {
+    for (int i = 1; i < log2(n)-1; i++) {
 
         omp.parfor<std::vector<int>>(0, n-1, 1,
                 [&](std::vector<int> &C) -> void {
 
                 },
-                [&](int i, std::vector<int> &C) -> void {
+                [&](int k, std::vector<int> &C) -> void {
 
-                      prefix[i] = arr[i];
-                      if (i >= pow(2, i)){
+                     prefix[k] = arr[k];
+                      if (k >= pow(2, i)){
                           int t = pow(2, i);
-                          prefix[i] += arr[i-t];
+                          prefix[k] = arr[(k-t)] + arr[k];
+                      }
+                      else{
+                          arr[k] = arr[k];
                       }
 
 
