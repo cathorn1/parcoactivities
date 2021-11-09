@@ -113,8 +113,9 @@ int main (int argc, char* argv[]) {
                 prefix[i+1] = arr[i];
         }
     } else{
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             prefix[i] = arr[i];
+        }
     }
 
     std::cout << "\nprint prefix" << std::endl;
