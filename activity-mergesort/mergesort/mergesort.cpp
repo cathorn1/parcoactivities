@@ -137,7 +137,7 @@ void mergeSort(int * arr, int begin, int end) {
 
                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
-                std::lock_guard <std::mutex> lck(mut);
+                //std::lock_guard <std::mutex> lck(mut);
                 merge(std::ref(arr), left_start, mid+1, right_end);
             }
         }
@@ -176,28 +176,29 @@ int main (int argc, char* argv[]) {
             std::cout<<arr[i]<<" ";
     std::cout<<std::endl;
     #endif
-
+    int end_p =0;
+    int begin_p =0;
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
 omp.parfor < std::vector < int >> (0, nbthreads, 1,
                 [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
-//                    std::cout << "p1\n";
-//                    C.push_back(arr[i]);
+//                    for(int i = 0; i < n; i++){
+//                        //std::cout << "p1\n";
+//                        C.push_back(arr[i]);
 //                }
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
                     int p = omp_get_thread_num();
-                    int begin = p*(n/nbthreads);
-                    int end = (p+1) * (n/nbthreads);
+                    begin_p = p*(n/nbthreads);
+                    end_p = (p+1) * (n/nbthreads);
 
                     if (p == nbthreads-1){
-                        end += n%nbthreads;
+                        end_p += n%nbthreads;
                     }
 
-                    mergeSort(std::ref(arr), begin, end);
+
 
 //                    int curr_size;
 //                    int left_start;
@@ -222,7 +223,9 @@ omp.parfor < std::vector < int >> (0, nbthreads, 1,
 
                 },
                 [&](std::vector<int> &C) -> void {
-//                for(int i = 0; i < n; i++){
+
+                    mergeSort(std::ref(arr), begin_p, end_p);
+    //                for(int i = 0; i < n; i++){
 //                    //std::cout << "p3\n";
 //                    arr[i] = C[i];
 //                }
