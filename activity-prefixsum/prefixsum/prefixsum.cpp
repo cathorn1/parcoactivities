@@ -119,7 +119,7 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elapsed_seconds.count()<<std::endl;
   
-  checkPrefixSumResult(prefix, n);
+  checkPrefixSumResult(pre, n);
 
   delete[] arr;
 
