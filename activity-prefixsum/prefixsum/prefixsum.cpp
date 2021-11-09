@@ -65,7 +65,7 @@ int main (int argc, char* argv[]) {
 
     //int chunk = pow(2,nbthreads +1);
 
-    for (int i = 0; i <= (log(n)-1); i++) {
+    for (int i = 0; i < (log(n)-1); i++) {
 
         omp.parfor<std::vector<int>>(0, n-1, pow(2, i+1),
                 [&](std::vector<int> &C) -> void {
@@ -82,8 +82,8 @@ int main (int argc, char* argv[]) {
 //                          prefix[k] = arr[k];
 //                      }
 
-                    int indA = k + pow(2, nbthreads) - 1;
-                    int indB = k +  pow(2, (nbthreads+1)) - 1;
+                    int indA = k + pow(2, i) - 1;
+                    int indB = k +  pow(2, (i+1)) - 1;
                     int temp = arr[indA];
                     //arr[indA] = arr[indB];
                     arr[indB] = temp + arr[indB];
@@ -111,8 +111,8 @@ int main (int argc, char* argv[]) {
                 [&](int k, std::vector<int> &C) -> void {
 
 
-                    int indA = k + pow(2, nbthreads) - 1;
-                    int indB = k +  pow(2, (nbthreads+1)) - 1;
+                    int indA = k + pow(2, i) - 1;
+                    int indB = k +  pow(2, (i+1)) - 1;
                     int temp = arr[indA];
                     arr[indA] = arr[indB];
                     arr[indB] = temp + arr[indB];
