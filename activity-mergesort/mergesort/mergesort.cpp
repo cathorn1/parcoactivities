@@ -21,7 +21,7 @@ extern "C" {
 
 std::mutex mut;
 
-void merge(long arr[], int l, int m, int r) {
+void merge(long arr[], long l, long m, long r) {
     //std::lock_guard<std::mutex> lck (mut);
     mut.lock();
 
@@ -72,27 +72,27 @@ void merge(long arr[], int l, int m, int r) {
 
 }
 
-void mergeSort(long arr[], int begin, int end) {
-
-
-    for (int i = begin; i <= end; i++) {
-
-        int curr_size;
-        int left_start;
-        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
-
-            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-
-                int mid = std::min(left_start + curr_size - 1, i - 1);
-
-                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-
-                //std::lock_guard <std::mutex> lck(mut);
-                merge(std::ref(arr), left_start, mid, right_end);
-            }
-        }
-    }
-}
+//void mergeSort(long arr[], int begin, int end) {
+//
+//
+//    for (int i = begin; i <= end; i++) {
+//
+//        int curr_size;
+//        int left_start;
+//        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+//
+//            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+//
+//                int mid = std::min(left_start + curr_size - 1, i - 1);
+//
+//                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+//
+//                //std::lock_guard <std::mutex> lck(mut);
+//                merge(std::ref(arr), left_start, mid, right_end);
+//            }
+//        }
+//    }
+//}
 
 
 int main (int argc, char* argv[]) {
@@ -158,9 +158,9 @@ int main (int argc, char* argv[]) {
 
                             for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
 
-                                int mid = std::min(left_start + curr_size - 1, i - 1);
+                                long mid = std::min(left_start + curr_size - 1, i - 1);
 
-                                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+                                long right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                                 //std::lock_guard <std::mutex> lck(mut);
                                 merge(std::ref(arr), left_start, mid, right_end);
