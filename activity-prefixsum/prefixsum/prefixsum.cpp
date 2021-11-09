@@ -112,9 +112,9 @@ int main (int argc, char* argv[]) {
             prefix[i+1] = arr[i];
     }
 
-    std::cout << "\nprint arr" << std::endl;
+    std::cout << "\nprint prefix" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
-        std::cout << arr[i] << " ";
+        std::cout << prefix[i] << " ";
     }
 
     std::cout<<std::endl;
@@ -125,7 +125,7 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elapsed_seconds.count()<<std::endl;
   
-  checkPrefixSumResult(arr, n);
+  checkPrefixSumResult(prefix, n);
 
   delete[] arr;
 
