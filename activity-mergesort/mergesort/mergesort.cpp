@@ -138,7 +138,7 @@ void mergeSort(int * arr, int begin, int end) {
                 int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
 
                 std::lock_guard <std::mutex> lck(mut);
-                merge(std::ref(arr), left_start, mid, right_end);
+                merge(std::ref(arr), left_start, mid+1, right_end);
             }
         }
     }
@@ -180,7 +180,7 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-omp.parfor < std::vector < int >> (0, n+1, 1,
+omp.parfor < std::vector < int >> (0, nbthreads, 1,
                 [&](std::vector<int> &C) -> void {
 //                for(int i = 0; i < n; i++){
 //                    std::cout << "p1\n";
@@ -189,7 +189,15 @@ omp.parfor < std::vector < int >> (0, n+1, 1,
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                        mergeSort(std::ref(arr), 0, n);
+                    int p = omp_get_thread_num();
+                    int begin = p*(n/nbthreads);
+                    int end = (p+1) * (n/nbthreads);
+
+                    if (p == nbthreads-1){
+                        end += n%nbthreads;
+                    }
+
+                    mergeSort(std::ref(arr), begin, end);
 
 //                    int curr_size;
 //                    int left_start;
