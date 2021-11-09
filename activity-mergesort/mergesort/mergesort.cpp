@@ -74,75 +74,116 @@ std::mutex mut;
 
 
 
-void merge(int * arr, int l, int mid, int r) {
+//void merge(int * arr, int l, int mid, int r) {
+//
+//#if DEBUG
+//    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
+//#endif
+//
+//    // short circuits
+//    if (l == r) return;
+//    if (r-l == 1) {
+//        if (arr[l] > arr[r]) {
+//            int temp = arr[l];
+//            arr[l] = arr[r];
+//            arr[r] = temp;
+//        }
+//        return;
+//    }
+//
+//    int i, j, k;
+//    int n = mid - l;
+//
+//    // declare and init temp arrays
+//    int *temp = new int[n];
+//    for (i=0; i<n; ++i)
+//        temp[i] = arr[l+i];
+//
+//    i = 0;    // temp left half
+//    j = mid;  // right half
+//    k = l;    // write to
+//
+//    // merge
+//    while (i<n && j<=r) {
+//        if (temp[i] <= arr[j] ) {
+//            arr[k++] = temp[i++];
+//        } else {
+//            arr[k++] = arr[j++];
+//        }
+//    }
+//
+//    // exhaust temp
+//    while (i<n) {
+//        arr[k++] = temp[i++];
+//    }
+//
+//    // de-allocate structs used
+//    delete[] temp;
+//
+//}
+//
+//void mergeSort(int * arr, int begin, int end) {
+//
+//
+//    for (int i = begin; i <= end; i++) {
+//
+//        int curr_size;
+//        int left_start;
+//        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+//
+//            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+//
+//                int mid = std::min(left_start + curr_size - 1, i - 1);
+//
+//                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+//
+//                //std::lock_guard <std::mutex> lck(mut);
+//                merge(std::ref(arr), left_start, mid+1, right_end);
+//            }
+//        }
+//    }
+//}
 
-#if DEBUG
-    std::cout<<l<<" "<<mid<<" "<<r<<std::endl;
-#endif
 
-    // short circuits
-    if (l == r) return;
-    if (r-l == 1) {
-        if (arr[l] > arr[r]) {
-            int temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
-        }
-        return;
-    }
+void mergeSortAux(int *X, int n, int *tmp) {
+    int i = 0;
+    int j = n/2;
+    int ti = 0;
 
-    int i, j, k;
-    int n = mid - l;
-
-    // declare and init temp arrays
-    int *temp = new int[n];
-    for (i=0; i<n; ++i)
-        temp[i] = arr[l+i];
-
-    i = 0;    // temp left half
-    j = mid;  // right half
-    k = l;    // write to
-
-    // merge
-    while (i<n && j<=r) {
-        if (temp[i] <= arr[j] ) {
-            arr[k++] = temp[i++];
+    while (i<n/2 && j<n) {
+        if (X[i] < X[j]) {
+            tmp[ti] = X[i];
+            ti++; i++;
         } else {
-            arr[k++] = arr[j++];
+            tmp[ti] = X[j];
+            ti++; j++;
         }
     }
-
-    // exhaust temp
-    while (i<n) {
-        arr[k++] = temp[i++];
+    while (i<n/2) { /* finish up lower half */
+        tmp[ti] = X[i];
+        ti++; i++;
     }
-
-    // de-allocate structs used
-    delete[] temp;
-
+    while (j<n) { /* finish up upper half */
+        tmp[ti] = X[j];
+        ti++; j++;
+    }
+    memcpy(X, tmp, n*sizeof(int));
 }
 
-void mergeSort(int * arr, int begin, int end) {
+void mergeSort(int *X, int n, int *tmp)
+{
+    if (n < 2) return;
 
+#pragma omp task shared(X)
+    mergeSort(X, n/2, tmp);
 
-    for (int i = begin; i <= end; i++) {
+#pragma omp task shared(X)
+    mergeSort(X+(n/2), n-(n/2), tmp + n/2);
 
-        int curr_size;
-        int left_start;
-        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
-
-            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-
-                int mid = std::min(left_start + curr_size - 1, i - 1);
-
-                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-
-                //std::lock_guard <std::mutex> lck(mut);
-                merge(std::ref(arr), left_start, mid+1, right_end);
-            }
-        }
-    }
+#pragma omp taskwait
+    mergeSortAux(X, n, tmp);
 }
+
 
 int main (int argc, char* argv[]) {
   
@@ -160,7 +201,7 @@ int main (int argc, char* argv[]) {
 
   // get arr data
   int* arr = new int [n];
-
+  int* temp = new int[n];
   generateMergeSortData (arr, n);
 
    // for (int i =0; i < n; i++) {
@@ -181,61 +222,67 @@ int main (int argc, char* argv[]) {
     // begin timing
     std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 
-omp.parfor < std::vector < int >> (0, nbthreads, 1,
-                [&](std::vector<int> &C) -> void {
-//                    for(int i = 0; i < n; i++){
-//                        //std::cout << "p1\n";
-//                        C.push_back(arr[i]);
-//                }
-                },
-                [&](int i, std::vector<int> &C) -> void {
+    omp.parfor < std::vector < int >> (0, 1, 1,
+                    [&](std::vector<int> &C) -> void {
+    //                    for(int i = 0; i < n; i++){
+    //                        //std::cout << "p1\n";
+    //                        C.push_back(arr[i]);
+    //                }
+                    },
+                    [&](int i, std::vector<int> &C) -> void {
 
-                    int p = omp_get_thread_num();
-                    begin_p = p*(n/nbthreads);
-                    end_p = (p+1) * (n/nbthreads);
-
-                    if (p == nbthreads-1){
-                        end_p += n%nbthreads;
-                    }
+                        #pragma omp parallel
+                        {
+                        #pragma omp single
+                            mergeSort(std::ref(arr),n, std::ref(temp));
+                        }
 
 
-
-//                    int curr_size;
-//                    int left_start;
-//                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
+//                        int p = omp_get_thread_num();
+//                        begin_p = p*(n/nbthreads);
+//                        end_p = (p+1) * (n/nbthreads);
 //
-//                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-//
-//                            int mid = std::min(left_start + curr_size - 1, i - 1);
-//
-//                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-//
-//                            std::lock_guard<std::mutex> lck (mut);
-//                            merge(std::ref(arr), left_start, mid+1, right_end);
+//                        if (p == nbthreads-1){
+//                            end_p += n%nbthreads;
 //                        }
-//                    }
 
-//                    std::cout << "middle test\n";
-//                    for (int i = 0; i < n; i++) {
-//                        std::cout << arr[i] << " ";
-//                    }
-//                    std::cout << "\n";
 
-                },
-                [&](std::vector<int> &C) -> void {
+    //                    int curr_size;
+    //                    int left_start;
+    //                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
+    //
+    //                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+    //
+    //                            int mid = std::min(left_start + curr_size - 1, i - 1);
+    //
+    //                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+    //
+    //                            std::lock_guard<std::mutex> lck (mut);
+    //                            merge(std::ref(arr), left_start, mid+1, right_end);
+    //                        }
+    //                    }
 
-                    mergeSort(std::ref(arr), begin_p, end_p);
-    //                for(int i = 0; i < n; i++){
-//                    //std::cout << "p3\n";
-//                    arr[i] = C[i];
-//                }
+    //                    std::cout << "middle test\n";
+    //                    for (int i = 0; i < n; i++) {
+    //                        std::cout << arr[i] << " ";
+    //                    }
+    //                    std::cout << "\n";
 
-//                       std::cout << "test C\n";
-//                       for (int i =0; i < n; i++) {
-//                           std::cout << arr[i] << " ";
-//                       }
-//                       std::cout << "\n";
-                });
+                    },
+                    [&](std::vector<int> &C) -> void {
+
+                       // mergeSort(std::ref(arr), begin_p, end_p);
+        //                for(int i = 0; i < n; i++){
+    //                    //std::cout << "p3\n";
+    //                    arr[i] = C[i];
+    //                }
+
+    //                       std::cout << "test C\n";
+    //                       for (int i =0; i < n; i++) {
+    //                           std::cout << arr[i] << " ";
+    //                       }
+    //                       std::cout << "\n";
+                    });
 
 
 //    std::cout << "arr test\n";
