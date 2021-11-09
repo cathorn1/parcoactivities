@@ -101,7 +101,7 @@ int main (int argc, char* argv[]) {
         for (int i = 0; i <=n; i++) {
             prefix[i] = arr[i];
         }
-        if ((n%2)==0 && prefix[n] != 0) {
+        if ((n-1)%2 ==0 && prefix[n] != 0) {
             std::swap(prefix[n - 1], prefix[n]);
         }
     } else{
