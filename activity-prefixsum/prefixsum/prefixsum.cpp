@@ -82,8 +82,8 @@ int main (int argc, char* argv[]) {
 //                          prefix[k] = arr[k];
 //                      }
 
-                    int indA = i + pow(2, nbthreads) - 1;
-                    int indB = i +  pow(2, (nbthreads+1)) - 1;
+                    int indA = k + pow(2, nbthreads) - 1;
+                    int indB = k +  pow(2, (nbthreads+1)) - 1;
                     int temp = arr[indA];
                     //arr[indA] = arr[indB];
                     arr[indB] = temp + arr[indB];
@@ -111,8 +111,8 @@ int main (int argc, char* argv[]) {
                 [&](int k, std::vector<int> &C) -> void {
 
 
-                    int indA = i + pow(2, nbthreads) - 1;
-                    int indB = i +  pow(2, (nbthreads+1)) - 1;
+                    int indA = k + pow(2, nbthreads) - 1;
+                    int indB = k +  pow(2, (nbthreads+1)) - 1;
                     int temp = arr[indA];
                     arr[indA] = arr[indB];
                     arr[indB] = temp + arr[indB];
