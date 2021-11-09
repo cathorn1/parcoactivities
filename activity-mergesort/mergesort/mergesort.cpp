@@ -72,27 +72,7 @@ std::mutex mut;
 //
 //}
 
-//void mergeSort(long arr[], int begin, int end) {
-//
-//
-//    for (int i = begin; i <= end; i++) {
-//
-//        int curr_size;
-//        int left_start;
-//        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
-//
-//            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-//
-//                int mid = std::min(left_start + curr_size - 1, i - 1);
-//
-//                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-//
-//                //std::lock_guard <std::mutex> lck(mut);
-//                merge(std::ref(arr), left_start, mid, right_end);
-//            }
-//        }
-//    }
-//}
+
 
 void merge(int * arr, int l, int mid, int r) {
 
@@ -142,6 +122,28 @@ void merge(int * arr, int l, int mid, int r) {
 
 }
 
+void mergeSort(int * arr, int begin, int end) {
+
+
+    for (int i = begin; i <= end; i++) {
+
+        int curr_size;
+        int left_start;
+        for (curr_size = 1; curr_size <= i - 1; curr_size = 2 * curr_size) {
+
+            for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+
+                int mid = std::min(left_start + curr_size - 1, i - 1);
+
+                int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+
+                std::lock_guard <std::mutex> lck(mut);
+                merge(std::ref(arr), left_start, mid, right_end);
+            }
+        }
+    }
+}
+
 int main (int argc, char* argv[]) {
   
   if (argc < 3) { std::cerr<<"Usage: "<<argv[0]<<" <n> <nbthreads>"<<std::endl;
@@ -187,20 +189,22 @@ omp.parfor < std::vector < int >> (0, n+1, 1,
                 },
                 [&](int i, std::vector<int> &C) -> void {
 
-                    int curr_size;
-                    int left_start;
-                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
+                        mergeSort(std::ref(arr), 0, n);
 
-                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
-
-                            int mid = std::min(left_start + curr_size - 1, i - 1);
-
-                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
-
-                            std::lock_guard<std::mutex> lck (mut);
-                            merge(std::ref(arr), left_start, mid+1, right_end);
-                        }
-                    }
+//                    int curr_size;
+//                    int left_start;
+//                    for (curr_size=1; curr_size<=i-1; curr_size = 2*curr_size) {
+//
+//                        for (left_start = 0; left_start < i - 1; left_start += 2 * curr_size) {
+//
+//                            int mid = std::min(left_start + curr_size - 1, i - 1);
+//
+//                            int right_end = std::min(left_start + 2 * curr_size - 1, i - 1);
+//
+//                            std::lock_guard<std::mutex> lck (mut);
+//                            merge(std::ref(arr), left_start, mid+1, right_end);
+//                        }
+//                    }
 
 //                    std::cout << "middle test\n";
 //                    for (int i = 0; i < n; i++) {
