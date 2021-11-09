@@ -55,13 +55,8 @@ int main (int argc, char* argv[]) {
     }
 
     int* prefix = new int [n+1];
-    //int *suma = new int[nbthreads+1]; // partial results
 
     prefix[0] = 0;
-    //int s = 0;
-    //int offset = 0;
-
-    //arr[n-1] =0;
 
     //int chunk = pow(2,nbthreads +1);
 
@@ -117,7 +112,7 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elapsed_seconds.count()<<std::endl;
   
-  checkPrefixSumResult(arr, n);
+  checkPrefixSumResult(pre, n);
 
   delete[] arr;
 
