@@ -61,7 +61,7 @@ int main (int argc, char* argv[]) {
     //int s = 0;
     //int offset = 0;
 
-    arr[n-1] =0;
+    //arr[n-1] =0;
 
     //int chunk = pow(2,nbthreads +1);
 
