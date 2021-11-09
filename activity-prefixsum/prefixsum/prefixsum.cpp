@@ -79,7 +79,7 @@ int main (int argc, char* argv[]) {
                           prefix[k+1] = arr[(k-t)] + arr[k];
                       }
                       else{
-                          prefix[k] = arr[k];
+                          prefix[k+1] = arr[k];
                       }
 
 
@@ -99,16 +99,17 @@ int main (int argc, char* argv[]) {
 //                    for (int i = 0; i < n + 1; ++i) {
 //                        std::cout << arr[i] << " ";
 //                    }
-                    std::cout << "\nprint prefix" << std::endl;
-                    for (int i = 0; i < n + 1; ++i) {
-                        std::cout << prefix[i] << " ";
-                    }
+
 
                 });
 //        for (int j=0;j<=n-1;j++){
 //            arr[j] = prefix[j];
         //}
    }
+    std::cout << "\nprint prefix" << std::endl;
+    for (int i = 0; i < n + 1; ++i) {
+        std::cout << prefix[i] << " ";
+    }
 
     std::cout<<std::endl;
 
