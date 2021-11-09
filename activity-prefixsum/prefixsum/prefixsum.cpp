@@ -101,7 +101,7 @@ int main (int argc, char* argv[]) {
         for (int i = 0; i <=n; i++) {
             prefix[i] = arr[i];
         }
-
+        std::swap(prefix[n-1], prefix[n-2]);
     } else{
         ////FIGURE OUT HOW TO MANAGE JOBS WITH N<1000
         int c = 1;
