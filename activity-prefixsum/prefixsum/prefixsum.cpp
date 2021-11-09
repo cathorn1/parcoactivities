@@ -73,10 +73,10 @@ int main (int argc, char* argv[]) {
                 },
                 [&](int k, std::vector<int> &C) -> void {
 
-                     prefix[k] = arr[k];
+                     //prefix[k] = arr[k];
                       if (k >= pow(2, i)){
                           int t = pow(2, i);
-                          prefix[k] = arr[(k-t)] + arr[k];
+                          arr[k] = arr[(k-t)] + arr[k];
                       }
                       else{
                           arr[k] = arr[k];
