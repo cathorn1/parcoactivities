@@ -108,7 +108,7 @@ int main (int argc, char* argv[]) {
                 });
 //        for (int j=0;j<=n-1;j++){
 //            arr[j] = prefix[j];
-        }
+        //}
    }
 
     std::cout<<std::endl;
