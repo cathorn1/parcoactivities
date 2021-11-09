@@ -99,7 +99,7 @@ int main (int argc, char* argv[]) {
                     std::cout << "\nprint prefix" << std::endl;
                     for (int i = 0; i < n + 1; ++i) {
                         std::cout << prefix[i] << " ";
-                        std::cout<<std::endl;
+
                     }
 
                 });
@@ -107,6 +107,9 @@ int main (int argc, char* argv[]) {
             arr[j] = prefix[j];
         }
    }
+
+    std::cout<<std::endl;
+
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
     std::chrono::duration<double> elapsed_seconds = end-start;
