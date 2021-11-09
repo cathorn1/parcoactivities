@@ -99,10 +99,10 @@ int main (int argc, char* argv[]) {
                     for (int i = 0; i < n + 1; ++i) {
                         std::cout << arr[i] << " ";
                     }
-//                    std::cout << "\nprint prefix" << std::endl;
-//                    for (int i = 0; i < n + 1; ++i) {
-//                        std::cout << prefix[i] << " ";
-//                    }
+                    std::cout << "\nprint prefix" << std::endl;
+                    for (int i = 0; i < n + 1; ++i) {
+                        std::cout << prefix[i] << " ";
+                    }
 
                 });
 //        for (int j=0;j<=n-1;j++){
@@ -118,7 +118,7 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elapsed_seconds.count()<<std::endl;
   
-  checkPrefixSumResult(arr, n);
+  checkPrefixSumResult(prefix, n);
 
   delete[] arr;
 
