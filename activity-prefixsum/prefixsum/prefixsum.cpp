@@ -76,10 +76,10 @@ int main (int argc, char* argv[]) {
                      //prefix[k] = arr[k];
                       if (k >= pow(2, i)){
                           int t = pow(2, i);
-                          arr[k] = arr[(k-t)] + arr[k];
+                          prefix[k] = arr[(k-t)] + arr[k];
                       }
                       else{
-                          arr[k] = arr[k];
+                          prefix[k] = arr[k];
                       }
 
 
