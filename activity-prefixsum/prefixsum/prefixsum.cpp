@@ -123,6 +123,11 @@ int main (int argc, char* argv[]) {
         std::cout << prefix[i] << " ";
     }
     std::cout<<std::endl;
+    std::cout << "\nprint arr" << std::endl;
+    for (int i = 0; i < n + 1; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout<<std::endl;
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
 
