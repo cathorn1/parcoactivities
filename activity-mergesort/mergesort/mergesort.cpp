@@ -23,7 +23,7 @@ std::mutex mut;
 
 void merge(int arr[], int l, int m, int r) {
     //std::lock_guard<std::mutex> lck (mut);
-    mut.lock();
+    //mut.lock();
 
     int i, j, k;
     int n1 = m - l + 1;
@@ -68,7 +68,7 @@ void merge(int arr[], int l, int m, int r) {
         k++;
     }
 
-    mut.unlock();
+    //mut.unlock();
 
 }
 
