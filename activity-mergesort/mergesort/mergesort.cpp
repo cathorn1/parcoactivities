@@ -8,6 +8,7 @@
 #include <chrono>
 #include <mutex>
 #include <omp.h>
+#include <cstring>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
