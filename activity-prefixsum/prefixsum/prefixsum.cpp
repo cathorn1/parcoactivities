@@ -99,7 +99,7 @@ int main (int argc, char* argv[]) {
         }
 
         for (int i = 0; i < n; i++) {
-            prefix[i+1] = arr[i];
+            prefix[i] = arr[i];
         }
 
     } else{
