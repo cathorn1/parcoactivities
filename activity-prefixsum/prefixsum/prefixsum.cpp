@@ -103,7 +103,7 @@ int main (int argc, char* argv[]) {
                 });
     }
 
-arr[n-1] = 0;
+
     std::cout << "\nprint arr" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
         std::cout << arr[i] << " ";
