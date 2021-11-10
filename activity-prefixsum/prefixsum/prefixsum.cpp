@@ -148,7 +148,7 @@ int main (int argc, char* argv[]) {
 
     std::cerr<<elapsed_seconds.count()<<std::endl;
   
-  checkPrefixSumResult(arr, n);
+  checkPrefixSumResult(prefix, n);
 
   delete[] arr;
 
