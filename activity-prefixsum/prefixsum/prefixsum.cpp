@@ -75,11 +75,15 @@ int main (int argc, char* argv[]) {
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
-                                mut.lock();
+
+                                //mut.lock();
+                                std::lock_guard<std::mutex> lck(mut);
+
                                 int temp = arr[indA];
                                 //arr[indA] = arr[indB];
                                 arr[indB] = temp + arr[indB];
-                                mut.unlock();
+
+                                //mut.unlock();
                             }
                         }
 
@@ -90,11 +94,15 @@ int main (int argc, char* argv[]) {
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
-                                mut.lock();
+
+                                //mut.lock();
+                                std::lock_guard<std::mutex> lck(mut);
+
                                 int temp = arr[indA];
                                 arr[indA] = arr[indB];
                                 arr[indB] = temp + arr[indB];
-                                mut.unlock();
+
+                                //mut.unlock();
                             }
                         }
                     },
