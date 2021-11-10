@@ -9,6 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <math.h>
+#include <mutex>
 #include "omploop.hpp"
 
 #ifdef __cplusplus
@@ -32,6 +33,7 @@ int main (int argc, char* argv[]) {
   int nbthreads = atoi(argv[2]);
   int * arr = new int [n];
   OmpLoop omp;
+  std::mutex mut;
   omp.setNbThread(nbthreads);
 
 
@@ -73,21 +75,26 @@ int main (int argc, char* argv[]) {
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
+                                mut.lock();
                                 int temp = arr[indA];
                                 //arr[indA] = arr[indB];
                                 arr[indB] = temp + arr[indB];
+                                mut.unlock();
                             }
                         }
-#pragma omp barrier
+
+                        #pragma omp barrier
                         for (int d = (log10(n) - 1); d >= 0; d--) {
 
 
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
+                                mut.lock();
                                 int temp = arr[indA];
                                 arr[indA] = arr[indB];
                                 arr[indB] = temp + arr[indB];
+                                mut.unlock();
                             }
                         }
                     },
