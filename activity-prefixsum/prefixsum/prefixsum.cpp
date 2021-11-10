@@ -69,7 +69,7 @@ int main (int argc, char* argv[]) {
 
                         for (int d = 0; d <= (log10(n) - 1); d++) {
 
-                            #pragma omp parallel
+
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
@@ -78,10 +78,10 @@ int main (int argc, char* argv[]) {
                                 arr[indB] = temp + arr[indB];
                             }
                         }
-
+#pragma omp barrier
                         for (int d = (log10(n) - 1); d >= 0; d--) {
 
-                            #pragma omp parallel
+
                             for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
                                 int indA = i + pow(2, d) - 1;
                                 int indB = i + pow(2, (d + 1)) - 1;
