@@ -61,7 +61,7 @@ int main (int argc, char* argv[]) {
     prefix[0] = 0;
 
     //int chunk = pow(2,nbthreads +1);
-   if (n > 100) {
+   if (n > 1000) {
 
             omp.parfor < std::vector < int >> (0, 1, 1,
                     [&](std::vector<int> &C) -> void {
@@ -114,9 +114,9 @@ int main (int argc, char* argv[]) {
         for (int i = 0; i <=n; i++) {
             prefix[i] = arr[i];
         }
-//        if ((n-1)%2 ==0) {
-//            std::swap(prefix[n - 1], prefix[n]);
-//        }
+        if ((n-1)%2 ==0) {
+            std::swap(prefix[n - 1], prefix[n]);
+        }
     } else {
 
        int c = 1;
