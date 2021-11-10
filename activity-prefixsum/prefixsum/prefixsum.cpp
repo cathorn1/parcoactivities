@@ -60,43 +60,42 @@ int main (int argc, char* argv[]) {
 
     //int chunk = pow(2,nbthreads +1);
     if (n > 1000) {
-        for (int i = 0; i <= (log10(n) - 1); i++) {
 
-            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
+
+            omp.parfor < std::vector < int >> (0, 1, 1,
                     [&](std::vector<int> &C) -> void {
 
                     },
-                    [&](int k, std::vector<int> &C) -> void {
+                    [&](int x, std::vector<int> &C) -> void {
 
-                        int indA = k + pow(2, i) - 1;
-                        int indB = k + pow(2, (i + 1)) - 1;
-                        int temp = arr[indA];
-                        //arr[indA] = arr[indB];
-                        arr[indB] = temp + arr[indB];
+                        for (int d = 0; d <= (log10(n) - 1); d++) {
+
+                            #pragma omp parallel
+                            for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
+                                int indA = i + pow(2, d) - 1;
+                                int indB = i + pow(2, (d + 1)) - 1;
+                                int temp = arr[indA];
+                                //arr[indA] = arr[indB];
+                                arr[indB] = temp + arr[indB];
+                            }
+                        }
+
+                        for (int d = (log10(n) - 1); d >= 0; d--) {
+
+                            #pragma omp parallel
+                            for(int i = 0; i <=n-1; i+=pow(2, d + 1)) {
+                                int indA = i + pow(2, d) - 1;
+                                int indB = i + pow(2, (d + 1)) - 1;
+                                int temp = arr[indA];
+                                arr[indA] = arr[indB];
+                                arr[indB] = temp + arr[indB];
+                            }
+                        }
                     },
                     [&](std::vector<int> &C) -> void {
 
                     });
-        }
 
-        for (int i = (log10(n) - 1); i >= 0; i--) {
-
-            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
-                    [&](std::vector<int> &C) -> void {
-
-                    },
-                    [&](int k, std::vector<int> &C) -> void {
-
-                        int indA = k + pow(2, i) - 1;
-                        int indB = k + pow(2, (i + 1)) - 1;
-                        int temp = arr[indA];
-                        arr[indA] = arr[indB];
-                        arr[indB] = temp + arr[indB];
-                    },
-                    [&](std::vector<int> &C) -> void {
-
-                    });
-        }
 
         for (int i = 0; i <=n; i++) {
             prefix[i] = arr[i];
@@ -105,7 +104,7 @@ int main (int argc, char* argv[]) {
             std::swap(prefix[n - 1], prefix[n]);
         }
     } else{
-        ////FIGURE OUT HOW TO MANAGE JOBS WITH N<1000
+
         int c = 1;
         int sum = 0;
         while(c < n){
@@ -142,4 +141,65 @@ int main (int argc, char* argv[]) {
 
   return 0;
 }
+
+
+//if (n > 1000) {
+//        for (int i = 0; i <= (log10(n) - 1); i++) {
+//
+//            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
+//                    [&](std::vector<int> &C) -> void {
+//
+//                    },
+//                    [&](int k, std::vector<int> &C) -> void {
+//
+//                        int indA = k + pow(2, i) - 1;
+//                        int indB = k + pow(2, (i + 1)) - 1;
+//                        int temp = arr[indA];
+//                        //arr[indA] = arr[indB];
+//                        arr[indB] = temp + arr[indB];
+//                    },
+//                    [&](std::vector<int> &C) -> void {
+//
+//                    });
+//        }
+//
+//        for (int i = (log10(n) - 1); i >= 0; i--) {
+//
+//            omp.parfor < std::vector < int >> (0, n - 1, pow(2, i + 1),
+//                    [&](std::vector<int> &C) -> void {
+//
+//                    },
+//                    [&](int k, std::vector<int> &C) -> void {
+//
+//                        int indA = k + pow(2, i) - 1;
+//                        int indB = k + pow(2, (i + 1)) - 1;
+//                        int temp = arr[indA];
+//                        arr[indA] = arr[indB];
+//                        arr[indB] = temp + arr[indB];
+//                    },
+//                    [&](std::vector<int> &C) -> void {
+//
+//                    });
+//        }
+//
+//        for (int i = 0; i <=n; i++) {
+//            prefix[i] = arr[i];
+//        }
+//        if ((n-1)%2 ==0) {
+//            std::swap(prefix[n - 1], prefix[n]);
+//        }
+//    } else{
+//
+//        int c = 1;
+//        int sum = 0;
+//        while(c < n){
+//            sum = arr[c-1] + arr[c];
+//            arr[c] = sum;
+//            c++;
+//        }
+//
+//        for (int i = 0; i < n; i++){
+//            prefix[i+1] = arr[i];
+//        }
+//      }
 
