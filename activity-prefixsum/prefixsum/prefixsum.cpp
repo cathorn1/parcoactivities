@@ -87,7 +87,7 @@ int main (int argc, char* argv[]) {
                             }
                         }
 
-                        #pragma omp barrier
+
                         for (int d = (log10(n) - 1); d >= 0; d--) {
 
 
