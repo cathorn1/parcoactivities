@@ -59,8 +59,7 @@ int main (int argc, char* argv[]) {
     prefix[0] = 0;
 
     //int chunk = pow(2,nbthreads +1);
-    if (n > 1000) {
-
+   // if (n > 1000) {
 
             omp.parfor < std::vector < int >> (0, 1, 1,
                     [&](std::vector<int> &C) -> void {
@@ -97,26 +96,28 @@ int main (int argc, char* argv[]) {
                     });
 
 
-        for (int i = 0; i <=n; i++) {
-            prefix[i] = arr[i];
-        }
-        if ((n-1)%2 ==0) {
-            std::swap(prefix[n - 1], prefix[n]);
-        }
-    } else{
+//        for (int i = 0; i <=n; i++) {
+//            prefix[i] = arr[i];
+//        }
+//        if ((n-1)%2 ==0) {
+//            std::swap(prefix[n - 1], prefix[n]);
+//        }
+//    } else{
+//
+//        int c = 1;
+//        int sum = 0;
+//        while(c < n){
+//            sum = arr[c-1] + arr[c];
+//            arr[c] = sum;
+//            c++;
+//        }
 
-        int c = 1;
-        int sum = 0;
-        while(c < n){
-            sum = arr[c-1] + arr[c];
-            arr[c] = sum;
-            c++;
-        }
 
-        for (int i = 0; i < n; i++){
-            prefix[i+1] = arr[i];
-        }
-      }
+
+
+    for (int i = 0; i < n; i++){
+        prefix[i+1] = arr[i];
+    }
 
     std::cout << "\nprint prefix" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
