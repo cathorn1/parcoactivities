@@ -77,7 +77,7 @@ int main (int argc, char* argv[]) {
                                 int indB = i + pow(2, (d + 1)) - 1;
 
                                 //mut.lock();
-                                std::lock_guard<std::mutex> lck(mut);
+                                //std::lock_guard<std::mutex> lck(mut);
 
                                 int temp = arr[indA];
                                 //arr[indA] = arr[indB];
@@ -96,7 +96,7 @@ int main (int argc, char* argv[]) {
                                 int indB = i + pow(2, (d + 1)) - 1;
 
                                 //mut.lock();
-                                std::lock_guard<std::mutex> lck(mut);
+                                //std::lock_guard<std::mutex> lck(mut);
 
                                 int temp = arr[indA];
                                 arr[indA] = arr[indB];
@@ -131,6 +131,7 @@ int main (int argc, char* argv[]) {
            prefix[i + 1] = arr[i];
        }
    }
+
     std::cout << "\nprint prefix" << std::endl;
     for (int i = 0; i < n + 1; ++i) {
         std::cout << prefix[i] << " ";
