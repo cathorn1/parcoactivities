@@ -89,7 +89,7 @@ int main (int argc, char* argv[]) {
 
     if(rank != 0) {
         //send integral to rank 0
-        MPI_Send(&integral, 1, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD);
+        MPI_Send(&integral, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
     else {
         if(size == 1){
@@ -99,7 +99,7 @@ int main (int argc, char* argv[]) {
             for (int i = 1; i < size; i++) {
                 //receive integralp from i
                 //integral += integralp
-                double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 result += integp;
             }
         }
