@@ -30,20 +30,20 @@ double integrateNum (int func, int points, double lower, double upper, int inten
                 itgr_output += ((upper - lower) / points) * f1(x, intensity);
            // }
         } else if (func == 2) {
-            for (int i = 0; i <= (points - 1); i++) {
+            //for (int i = 0; i <= (points - 1); i++) {
                 x = ((lower + (i + .5)) * ((upper - lower) / points));
                 itgr_output += ((upper - lower) / points) * f2(x, intensity);
-            }
+            //}
         } else if (func == 3) {
-            for (int i = 0; i <= (points - 1); i++) {
+          //  for (int i = 0; i <= (points - 1); i++) {
                 x = ((lower + (i + .5)) * ((upper - lower) / points));
                 itgr_output += ((upper - lower) / points) * f3(x, intensity);
-            }
+           // }
         } else if (func == 4) {
-            for (int i = 0; i <= (points - 1); i++) {
+           // for (int i = 0; i <= (points - 1); i++) {
                 x = ((lower + (i + .5)) * ((upper - lower) / points));
                 itgr_output += ((upper - lower) / points) * f4(x, intensity);
-            }
+           // }
         }
     }
     double res = ((upper - lower) / points) * itgr_output;
