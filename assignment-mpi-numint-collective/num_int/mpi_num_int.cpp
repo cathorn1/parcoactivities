@@ -108,9 +108,10 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
-    std::cout << result <<std::endl;
-    std::cerr<<elpased_seconds.count()<<std::endl;
-
+    if (rank == 0) {
+        std::cout << result << std::endl;
+        std::cerr << elpased_seconds.count() << std::endl;
+    }
     MPI_Finalize();
 
 
