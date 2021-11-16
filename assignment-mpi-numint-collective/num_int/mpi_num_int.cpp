@@ -83,6 +83,8 @@ int main (int argc, char* argv[]) {
 
     integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
+    MPI_Barrier(MPI_COMM_WORLD);
+
     if(rank != 0) {
         //send integral to rank 0
         MPI_Send(&integral, 1, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD);
@@ -95,7 +97,6 @@ int main (int argc, char* argv[]) {
             result += integp;
         }
     }
-
 
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
