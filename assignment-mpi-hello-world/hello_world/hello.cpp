@@ -17,7 +17,7 @@ int main(int argc, char*argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     std::cout << "I am proccess " << rank << " out of " << size
-    << ". I am process #" << getpid << "running on machine: " << name << std::endl;
+    << ". I am process #" << getpid() << " running on machine: " << name << std::endl;
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
