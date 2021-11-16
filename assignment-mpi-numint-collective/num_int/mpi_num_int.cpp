@@ -47,7 +47,7 @@ double integrateNum (int func, int points, double lower, double upper, int inten
         }
     }
     double res = ((upper - lower) / points) * itgr_output;
-    return res;
+    return itgr_output;
 }
 
 int main (int argc, char* argv[]) {
