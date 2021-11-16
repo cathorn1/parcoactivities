@@ -80,6 +80,7 @@ int main (int argc, char* argv[]) {
     int end = (rank+1)*(points/size);
     double integral;
 
+    MPI_Bcast();
 
     integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
@@ -90,11 +91,16 @@ int main (int argc, char* argv[]) {
         MPI_Send(&integral, 1, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD);
     }
     else {
-        for (int i = 1; i < size; i++){
-            //receive integralp from i
-            //integral += integralp
-            double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            result += integp;
+        if(size == 1){
+            result = intergral;
+        }
+        else {
+            for (int i = 1; i < size; i++) {
+                //receive integralp from i
+                //integral += integralp
+                double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                result += integp;
+            }
         }
     }
 
