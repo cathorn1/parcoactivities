@@ -17,13 +17,11 @@ int main(int argc, char*argv[]) {
     std::cout << "I am proccess " << rank << " out of " << size
     << ". I am running on machine: " << getpid() << std::endl;
 
-
-
-    MPI_Finalize();
-
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
 
     // display time to cerr
     std::cerr<<elpased_seconds.count()<<std::endl;
+
+    MPI_Finalize();
 }
