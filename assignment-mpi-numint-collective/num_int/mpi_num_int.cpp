@@ -63,7 +63,7 @@ int main (int argc, char* argv[]) {
     int points = atoi(argv[4]);
     int intensity = atoi(argv[5]);
 
-    std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
+    std::chrono::time_point<std::chrono::system_clock> time_start = std::chrono::system_clock::now();
 
     int size;
     int rank;
@@ -75,10 +75,11 @@ int main (int argc, char* argv[]) {
 
     //MPI process should take N/P iterations of the loop
     // and accumulate on rank 0
+    double result;
     int begin = rank*(points/size);
     int end = (rank+1)*(points/size);
     double * integral;
-    integral = integrateNum(func, point, lower, upper, intensity, begin, end);
+    integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
     if(rank != 0) {
         //send integral to rank 0
@@ -88,13 +89,13 @@ int main (int argc, char* argv[]) {
         for (int i = 1; i < size; i++){
             //receive integralp from i
             //integral += integralp
-            MPI_receive(integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD);
+            result += MPI_receive(integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD);
         }
     }
 
 
-    std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elpased_seconds = end-start;
+    std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
     // display time to cerr
     std::cerr<<elpased_seconds.count()<<std::endl;
