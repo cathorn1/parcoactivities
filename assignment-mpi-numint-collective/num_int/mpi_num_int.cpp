@@ -91,7 +91,8 @@ int main (int argc, char* argv[]) {
         for (int i = 1; i < size; i++){
             //receive integralp from i
             //integral += integralp
-            result += MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            result += integp;
         }
     }
 
@@ -99,9 +100,8 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
-    // display time to cerr
-    std::cerr<<elpased_seconds.count()<<std::endl;
     std::cout << result <<std::endl;
+    std::cerr<<elpased_seconds.count()<<std::endl;
 
     MPI_Finalize();
 
