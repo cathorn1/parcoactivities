@@ -25,10 +25,10 @@ double integrateNum (int func, int points, double lower, double upper, int inten
     for (int i = begin; i < end; i++) {
 
         if (func == 1) {
-            for (int i = 0; i <= (points - 1); i++) {
+            //for (int i = 0; i <= (points - 1); i++) {
                 x = ((lower + (i + .5)) * ((upper - lower) / points));
                 itgr_output += ((upper - lower) / points) * f1(x, intensity);
-            }
+           // }
         } else if (func == 2) {
             for (int i = 0; i <= (points - 1); i++) {
                 x = ((lower + (i + .5)) * ((upper - lower) / points));
@@ -47,7 +47,7 @@ double integrateNum (int func, int points, double lower, double upper, int inten
         }
     }
     double res = ((upper - lower) / points) * itgr_output;
-    return res;
+    return itgr_output;
 }
 
 int main (int argc, char* argv[]) {
