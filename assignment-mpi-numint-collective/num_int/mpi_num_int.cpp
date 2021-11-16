@@ -80,7 +80,7 @@ int main (int argc, char* argv[]) {
     int end = (rank+1)*(points/size);
     double integral;
 
-    MPI_Bcast();
+    //MPI_Bcast();
 
     integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
@@ -92,7 +92,7 @@ int main (int argc, char* argv[]) {
     }
     else {
         if(size == 1){
-            result = intergral;
+            result = integral;
         }
         else {
             for (int i = 1; i < size; i++) {
