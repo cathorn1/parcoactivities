@@ -89,7 +89,7 @@ int main (int argc, char* argv[]) {
         for (int i = 1; i < size; i++){
             //receive integralp from i
             //integral += integralp
-            result += MPI_Recv(integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD);
+            result += MPI_Recv(integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
     }
 
