@@ -10,14 +10,14 @@ int main(int argc, char*argv[]) {
 
     int size;
     int rank;
-    char hostname[64];
-    int name = gethostname(hostname, 64);
 
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int pid = getpid();
+    char hostname[64];
+    int name = gethostname(hostname, 64);
 
-    std::cout << "I am proccess " << rank << " out of " << size
-    << ". I am process #" << getpid() << " running on machine: " << name << std::endl;
+    printf("I am process %d out of %d. I am process #%d running on machine %s\n", rank, size, pid, hostname);
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = end-start;
