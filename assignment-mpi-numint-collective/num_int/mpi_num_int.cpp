@@ -78,18 +78,20 @@ int main (int argc, char* argv[]) {
     double result;
     int begin = rank*(points/size);
     int end = (rank+1)*(points/size);
-    double * integral;
-    *integral = integrateNum(func, points, lower, upper, intensity, begin, end);
+    double integral;
+
+
+    integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
     if(rank != 0) {
         //send integral to rank 0
-        MPI_Send(integral, 1, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD);
+        MPI_Send(&integral, 1, MPI_DOUBLE, 0, MPI_ANY_TAG, MPI_COMM_WORLD);
     }
     else {
         for (int i = 1; i < size; i++){
             //receive integralp from i
             //integral += integralp
-            result += MPI_Recv(integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            result += MPI_Recv(&integral, 1, MPI_DOUBLE, i, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
     }
 
