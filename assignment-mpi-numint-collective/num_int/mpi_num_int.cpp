@@ -85,7 +85,7 @@ int main (int argc, char* argv[]) {
 
     integral = integrateNum(func, points, lower, upper, intensity, begin, end);
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    //MPI_Barrier(MPI_COMM_WORLD);
 
     if(rank != 0) {
         //send integral to rank 0
