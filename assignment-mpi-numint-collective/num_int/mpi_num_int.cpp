@@ -17,7 +17,7 @@ float f4(float x, int intensity);
 }
 #endif
 
-double integrateNum (int func, int points, double lower, double upper, int intensity, int begin, int end) {
+double integrateNum (int func, int points, double lower, double upper, int intensity) {
 
     double itgr_output = 0.0;
     double x = 0.0;
