@@ -21,6 +21,7 @@ double integrateNum (int func, int points, double lower, double upper, int inten
 
     double itgr_output = 0.0;
     double x = 0.0;
+    double integral = 0.0;
 
     int begin = rank*(points/size);
     int end = ((rank+1)*(points/size));
@@ -52,7 +53,27 @@ double integrateNum (int func, int points, double lower, double upper, int inten
            // }
         }
     }
-    double res = ((upper - lower) / points) * itgr_output;
+
+    if(rank != 0) {
+        //send integral to rank 0
+        MPI_Send(&itgr_output, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+    }
+    else {
+//        if(size == 1){
+//            result = itgr_output;
+//        }
+//        else {
+            for (int i = 1; i < size; i++) {
+                //receive integralp from i
+                //integral += integralp
+                double integp;
+                integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                itgr_output += integp;
+            }
+//        }
+    }
+
+//    double res = ((upper - lower) / points) * itgr_output;
     return itgr_output;
 }
 
@@ -89,31 +110,9 @@ int main (int argc, char* argv[]) {
 
     //MPI_Bcast();
 
-    integral = integrateNum(func, points, lower, upper, intensity, rank, size);
+    result = integrateNum(func, points, lower, upper, intensity, rank, size);
 
     //MPI_Barrier(MPI_COMM_WORLD);
-
-    if(rank != 0) {
-        //send integral to rank 0
-        MPI_Send(&integral, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-    }
-    else {
-        if(size == 1){
-            result = integral;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                //receive integralp from i
-                //integral += integralp
-                double integp;
-                integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                result += integp;
-            }
-            if(rank == 0){
-                result += integral;
-            }
-        }
-    }
 
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
