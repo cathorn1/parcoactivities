@@ -22,7 +22,7 @@ double integrateNum (int func, int points, double lower, double upper, int inten
     double itgr_output = 0.0;
     double x = 0.0;
 
-    for (int i = begin; i < end; i++) {
+    for (int i = begin; i <= end; i++) {
 
         if (func == 1) {
             //for (int i = 0; i <= (points - 1); i++) {
@@ -109,10 +109,10 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
-    //if (rank == 0) {
+    if (rank == 0) {
         std::cout << result << std::endl;
         std::cerr << elpased_seconds.count() << std::endl;
-    //}
+    }
     MPI_Finalize();
 
 
