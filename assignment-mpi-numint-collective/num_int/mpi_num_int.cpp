@@ -22,7 +22,7 @@ double integrateNum (int func, int points, double lower, double upper, int inten
     double itgr_output = 0.0;
     double x = 0.0;
 
-    for (int i = begin; i <= end; i++) {
+    for (int i = begin; i < end; i++) {
 
         if (func == 1) {
             //for (int i = 0; i <= (points - 1); i++) {
@@ -78,7 +78,7 @@ int main (int argc, char* argv[]) {
     // and accumulate on rank 0
     double result;
     int begin = rank*(points/size);
-    int end = (rank+1)*(points/size);
+    int end = ((rank+1)*(points/size)) - 1;
     double integral;
 
     //MPI_Bcast();
