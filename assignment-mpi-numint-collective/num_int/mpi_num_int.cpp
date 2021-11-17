@@ -109,8 +109,9 @@ int main (int argc, char* argv[]) {
                 integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 result += integp;
             }
-            result += integral;
+
         }
+        result += integral;
     }
 
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
