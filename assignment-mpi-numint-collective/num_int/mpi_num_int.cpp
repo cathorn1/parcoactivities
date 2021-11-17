@@ -78,7 +78,7 @@ int main (int argc, char* argv[]) {
     // and accumulate on rank 0
     double result;
     int begin = rank*(points/size);
-    int end = ((rank+1)*(points/size)) - 1;
+    int end = ((rank+1)*(points/size));
     double integral;
 
     //MPI_Bcast();
