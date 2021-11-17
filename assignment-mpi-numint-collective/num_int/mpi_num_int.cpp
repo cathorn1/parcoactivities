@@ -80,30 +80,28 @@ int main (int argc, char* argv[]) {
     double integral;
 
     for (int i = begin; i < end; i++) {
+
         integral = integrateNum(func, points, lower, upper, intensity);
-    }
 
-    //MPI_Barrier(MPI_COMM_WORLD);
+        //MPI_Barrier(MPI_COMM_WORLD);
 
-    if(rank != 0) {
-        //send integral to rank 0
-        MPI_Send(&integral, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-    }
-    else {
-        if(size == 1){
-            result = integral;
-        }
-        else {
-            for (int i = 1; i < size; i++) {
-                //receive integralp from i
-                //integral += integralp
-                double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                result += integp;
+        if (rank != 0) {
+            //send integral to rank 0
+            MPI_Send(&integral, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        } else {
+            if (size == 1) {
+                result = integral;
+            } else {
+                for (int i = 1; i < size; i++) {
+                    //receive integralp from i
+                    //integral += integralp
+                    double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                    result += integp;
+                }
+                result += integral;
             }
-            result += integral;
         }
     }
-
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
