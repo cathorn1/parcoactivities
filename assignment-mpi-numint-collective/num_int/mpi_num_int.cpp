@@ -24,7 +24,9 @@ double integrateNum (int func, int points, double lower, double upper, int inten
 
     int begin = rank*(points/size);
     int end = ((rank+1)*(points/size));
-
+    if (end + (points/size) > points){
+        end += points%size;
+    }
 
     for (int i = begin; i < end; i++) {
 
