@@ -103,14 +103,10 @@ int main (int argc, char* argv[]) {
 
     //MPI process should take N/P iterations of the loop
     // and accumulate on rank 0
-    double result;
-//    int begin = rank*(points/size);
-//    int end = ((rank+1)*(points/size));
-    double integral;
+    double global_res;
+    double local_res = integrateNum(func, points, lower, upper, intensity, rank, size);
 
-    //MPI_Bcast();
-
-    result = integrateNum(func, points, lower, upper, intensity, rank, size);
+    MPI_Reduce(&local_res, &global_res, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
     //MPI_Barrier(MPI_COMM_WORLD);
 
@@ -118,7 +114,7 @@ int main (int argc, char* argv[]) {
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
 //    if (rank == 0) {
-        std::cout << result << std::endl;
+        std::cout << global_res << std::endl;
         std::cerr << elpased_seconds.count() << std::endl;
 //    }
     MPI_Finalize();
