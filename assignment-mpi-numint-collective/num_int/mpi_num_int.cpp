@@ -102,10 +102,12 @@ int main (int argc, char* argv[]) {
             result = integral;
         }
         else {
+            double integp;
             for (int i = 1; i < size; i++) {
                 //receive integralp from i
                 //integral += integralp
-                double integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+                integp += MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 result += integp;
             }
             result += integral;
