@@ -56,24 +56,17 @@ double integrateNum (int func, int points, double lower, double upper, int inten
 
     if(rank != 0) {
         //send integral to rank 0
-        MPI_Send(&itgr_output, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&itgr_output, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
     else {
-//        if(size == 1){
-//            result = itgr_output;
-//        }
-//        else {
             for (int i = 1; i < size; i++) {
-                //receive integralp from i
-                //integral += integralp
                 double integp;
-                integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                integp = MPI_Gather(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 itgr_output += integp;
             }
-//        }
+
     }
 
-//    double res = ((upper - lower) / points) * itgr_output;
     return itgr_output;
 }
 
@@ -99,16 +92,10 @@ int main (int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    //int chunk = points/size;
-
-    //MPI process should take N/P iterations of the loop
-    // and accumulate on rank 0
     double global_res;
     double local_res = integrateNum(func, points, lower, upper, intensity, rank, size);
 
     MPI_Reduce(&local_res, &global_res, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-
-    //MPI_Barrier(MPI_COMM_WORLD);
 
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
