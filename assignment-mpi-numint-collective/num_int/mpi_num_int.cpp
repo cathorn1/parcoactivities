@@ -54,18 +54,18 @@ double integrateNum (int func, int points, double lower, double upper, int inten
         }
     }
 
-    if(rank != 0) {
-        //send integral to rank 0
-        MPI_Bcast(&itgr_output, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
-    }
-    else {
-            for (int i = 1; i < size; i++) {
-                double integp;
-                integp = MPI_Gather(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                itgr_output += integp;
-            }
-
-    }
+//    if(rank != 0) {
+//        //send integral to rank 0
+//        MPI_Send(&itgr_output, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+//    }
+//    else {
+//            for (int i = 1; i < size; i++) {
+//                double integp;
+//                integp = MPI_Recv(&integral, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+//                itgr_output += integp;
+//            }
+//
+//    }
 
     return itgr_output;
 }
@@ -79,8 +79,8 @@ int main (int argc, char* argv[]) {
     MPI_Init (&argc, &argv);
 
     int func = atoi(argv[1]);
-    double lower = atof(argv[2]);
-    double upper = atof(argv[3]);
+    int lower = atoi(argv[2]);
+    int upper = atoi(argv[3]);
     int points = atoi(argv[4]);
     int intensity = atoi(argv[5]);
 
@@ -88,9 +88,27 @@ int main (int argc, char* argv[]) {
 
     int size;
     int rank;
+    int* data = new int[7];
 
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    data[0] = func;
+    data[1] = lower;
+    data[2] = upper;
+    data[3] = points;
+    data[4] = intensity;
+    data[5] = size;
+    data[6] = rank;
+//    int chunk = points/size;
+
+//    int begin = rank*(points/size);
+//    int end = ((rank+1)*(points/size));
+//    if (rank + 1 == size){
+//        end += points%size;
+//    }
+
+    MPI_Bcast(data, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     double global_res;
     double local_res = integrateNum(func, points, lower, upper, intensity, rank, size);
