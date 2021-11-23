@@ -108,7 +108,7 @@ int main (int argc, char* argv[]) {
 //        end += points%size;
 //    }
 
-    MPI_Bcast(data, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+//    MPI_Bcast(data, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     double global_res;
     double local_res = integrateNum(data[0], data[3], data[1],
