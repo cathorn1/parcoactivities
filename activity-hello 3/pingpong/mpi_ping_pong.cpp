@@ -20,12 +20,12 @@ int main (int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    printf("value: %d", value);
 
-//    if (rank == 0) {
-//        MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
-//        printf("pid 1: %d", pid);
-//    }
+
+    if (rank == 0) {
+        MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        printf("pid 1: %d", pid);
+    }
 //    else if (rank == 1) {
 ////        MPI_Status s;
 //        MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
