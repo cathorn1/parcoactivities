@@ -24,20 +24,20 @@ int main (int argc, char* argv[]) {
 
     if (rank == 0) {
         MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
-        printf("pid 1: %d", pid);
+//        printf("pid 1: %d", pid);
     }
     else if (rank == 1) {
 //        MPI_Status s;
         MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         value += 2;
         MPI_Send(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
-        printf("pid 2: %d", pid);
+//        printf("pid 2: %d", pid);
     }
 
     if (rank == 0) {
         MPI_Recv(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("%d", value);
-        printf("pid 3: %d", pid);
+        std::cout << value << std::endl;
+//        printf("pid 3: %d", pid);
     }
 //    else if (rank == 1) {
 //        MPI_Status s;
