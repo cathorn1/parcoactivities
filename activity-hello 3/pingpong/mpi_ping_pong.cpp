@@ -18,21 +18,22 @@ int main (int argc, char* argv[]) {
     int rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Status s;
-    
+
+
     if (rank == 0) {
         MPI_Send(&value, 1, MPI_INT, 1, 123, MPI_COMM_WORLD);
     }
     else if (rank == 1) {
+
         MPI_Recv(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD, &s);
         value += 2;
         MPI_Send(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD);
     }
 
-    if (rank == 0) {
-        MPI_Recv(&value, 1, MPI_INT, 1, 123, MPI_COMM_WORLD, &s);
-        printf("%d", value);
-    }
+//    if (rank == 0) {
+//        MPI_Recv(&value, 1, MPI_INT, 1, 123, MPI_COMM_WORLD, &s);
+//        printf("%d", value);
+//    }
 //    else if (rank == 1) {
 //        MPI_Status s;
 //        MPI_Recv(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD, &s);
