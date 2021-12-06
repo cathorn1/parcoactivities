@@ -26,19 +26,19 @@ int main (int argc, char* argv[]) {
         MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
         printf("pid 1: %d", pid);
     }
-//    else if (rank == 1) {
-////        MPI_Status s;
-//        MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-//        value += 2;
-//        MPI_Send(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
-//        printf("pid 2: %d", pid);
-//    }
-//
-//    if (rank == 0) {
-//        MPI_Recv(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-//        printf("%d", value);
-//        printf("pid 3: %d", pid);
-//    }
+    else if (rank == 1) {
+//        MPI_Status s;
+        MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        value += 2;
+        MPI_Send(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+        printf("pid 2: %d", pid);
+    }
+
+    if (rank == 0) {
+        MPI_Recv(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("%d", value);
+        printf("pid 3: %d", pid);
+    }
 //    else if (rank == 1) {
 //        MPI_Status s;
 //        MPI_Recv(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD, &s);
@@ -47,8 +47,8 @@ int main (int argc, char* argv[]) {
     std::chrono::time_point<std::chrono::system_clock> time_end = std::chrono::system_clock::now();
     std::chrono::duration<double> elpased_seconds = time_end - time_start;
 
-    std::cout << value << std::endl;
-    std::cerr << elpased_seconds.count() << std::endl;
+//    std::cout << value << std::endl;
+//    std::cerr << elpased_seconds.count() << std::endl;
 
     MPI_Finalize();
 
