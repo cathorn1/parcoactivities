@@ -18,19 +18,24 @@ int main (int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
+    printf("pid 0: %d", getpid());
+
     if (rank == 0) {
         MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        printf("pid 1: %d", getpid());
     }
     else if (rank == 1) {
 //        MPI_Status s;
         MPI_Recv(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         value += 2;
         MPI_Send(&value, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+        printf("pid 2: %d", getpid());
     }
 
     if (rank == 0) {
-        MPI_Recv(&value, 1, MPI_INT, 1, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         printf("%d", value);
+        printf("pid 3: %d", getpid());
     }
 //    else if (rank == 1) {
 //        MPI_Status s;
