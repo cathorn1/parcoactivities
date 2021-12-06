@@ -12,7 +12,7 @@ int main (int argc, char* argv[]) {
 
     std::chrono::time_point<std::chrono::system_clock> time_start = std::chrono::system_clock::now();
 
-    int value = atoi(argv[0]);
+    int value = atoi(argv[1]);
     int size;
     int rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
