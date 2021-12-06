@@ -16,7 +16,7 @@ int main (int argc, char* argv[]) {
     int value = atoi(argv[0]);
     int size;
     int rank;
-
+    MPI_Status s;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
@@ -24,7 +24,6 @@ int main (int argc, char* argv[]) {
         MPI_Send(&value, 1, MPI_INT, 1, 123, MPI_COMM_WORLD);
     }
     else if (rank == 1) {
-        MPI_Status s;
         MPI_Recv(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD, &s);
         value += 2;
         MPI_Send(&value, 1, MPI_INT, 0, 123, MPI_COMM_WORLD);
