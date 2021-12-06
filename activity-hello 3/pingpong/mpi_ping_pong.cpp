@@ -20,7 +20,7 @@ int main (int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    printf("pid 0: %d", pid);
+    printf("value: %d", value);
 
     if (rank == 0) {
         MPI_Send(&value, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
